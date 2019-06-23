@@ -1,0 +1,22 @@
+{
+  "name": "game",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel -p 8081 --hmr-port 8082 src/index.html",
+    "build": "parcel build src/index.html",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1",
+    "parcel-bundler": "^1.12.3"
+  },
+  "dependencies": {
+    "common": "file:../common",
+    "l1": "^0.5.28",
+    "pixi.js": "^5.0.4",
+    "ramda": "^0.26.1",
+    "rkv-signaling": "0.0.3"
+  }
+}
