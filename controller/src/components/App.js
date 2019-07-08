@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import Notifications from 'react-notify-toast'
 import MediaQuery from 'react-responsive'
 import { Event, Channel } from 'common'
@@ -22,11 +22,6 @@ const AppState = {
   GAME: 'game',
 }
 
-const errorState = message => ({
-  appState: AppState.LOCKER_ROOM,
-  error: message,
-})
-
 const getGameCodeFromUrl = () => getUrlParams(window.location.search).code
 const writeGameCodeToUrl = gameCode => {
   window.history.pushState({ gameCode }, '', `?code=${gameCode}`)
@@ -35,31 +30,29 @@ const writeGameCodeToUrl = gameCode => {
 const eventState = ({ event, payload }) => {
   switch (event) {
     case Event.YOU_JOINED:
-      return { appState: AppState.GAME }
+      return AppState.GAME
     default:
       return null
   }
 }
 
-class App extends Component {
-  state = {
-    appState: AppState.LOCKER_ROOM,
-    error: '',
-    gameCode: '',
-    sendReliable: () => {},
-  }
+const App = props => {
+  const [appState, setAppState] = useState(AppState.LOCKER_ROOM)
+  const [gameCode, setGameCode] = useState('')
+  const [error, setError] = useState('')
 
-  componentDidMount = () => {
-    this.alertIfNoRtc()
+  useEffect(() => {
+    alertIfNoRtc()
     const codeFromUrl = getGameCodeFromUrl()
-    const gameCode = codeFromUrl || getLastGameCode()
-    this.setState({ gameCode })
-    if (codeFromUrl) {
-      this.join(gameCode)
-    }
-  }
+    const code = codeFromUrl || getLastGameCode()
+    setGameCode(code)
 
-  onData = message => {
+    if (codeFromUrl) {
+      join(code)
+    }
+  }, [])
+
+  const onData = message => {
     const state = eventState(message)
 
     if (!state) {
@@ -67,28 +60,29 @@ class App extends Component {
       return
     }
 
-    this.setState(state)
+    setAppState(state)
   }
 
-  onJoinClick = () => {
+  const onJoinClick = () => {
     navigator.vibrate(1) // To trigger accept dialog in firefox
-    const { gameCode } = this.state
-    this.join(gameCode)
+    join(gameCode)
   }
 
-  join = gameCode => {
-    this.setState({ appState: AppState.GAME_CONNECTING, error: '' })
-    setLastGameCode(gameCode)
-    setTimeout(this.checkConnectionTimeout, TIMEOUT_SECONDS * 1000)
-    writeGameCodeToUrl(gameCode)
-    this.connectToGame(gameCode)
+  const join = code => {
+    setAppState(AppState.GAME_CONNECTING)
+    setError('')
+    setLastGameCode(code)
+    setTimeout(checkConnectionTimeout, TIMEOUT_SECONDS * 1000)
+    writeGameCodeToUrl(code)
+    connectToGame(code)
   }
 
-  displayError = message => {
-    this.setState(errorState(message))
+  const displayError = message => {
+    setAppState(AppState.LOCKER_ROOM)
+    setError(message)
   }
 
-  alertIfNoRtc = () => {
+  const alertIfNoRtc = () => {
     if (typeof RTCPeerConnection === 'undefined') {
       const message =
         'Unfortunately the game cannot be played in this browser.' +
@@ -99,64 +93,59 @@ class App extends Component {
     }
   }
 
-  gameCodeChange = ({ target: { value } }) =>
-    this.setState({
-      gameCode: value.substr(0, 4).toUpperCase(),
-    })
+  const gameCodeChange = ({ target: { value } }) => {
+    setGameCode(value.substr(0, 4).toUpperCase())
+  }
 
-  checkConnectionTimeout = () => {
-    if (this.state.appState === AppState.GAME_CONNECTING) {
-      this.displayError('Connection failed, joining Wi-Fi may help')
+  const checkConnectionTimeout = () => {
+    if (appState === AppState.GAME_CONNECTING) {
+      displayError('Connection failed, joining Wi-Fi may help')
     }
   }
 
-  connectToGame(gameCode) {
+  const connectToGame = code => {
     const onClose = () => {
-      this.displayError('Connection failed')
+      displayError('Connection failed')
     }
 
     signaling
       .runInitiator({
         channelConfigs,
         onClose,
-        onData: this.onData,
-        receiverId: gameCode,
+        onData: onData,
+        receiverId: code,
         wsAddress: WS_ADDRESS,
       })
       .then(send => {
-        this.setState({
-          sendReliable: send(Channel.RELIABLE),
-        })
+        send(Channel.RELIABLE, 'Connected')
       })
       .catch(error => {
         const message = {
-          NOT_FOUND: `Game with code ${gameCode} not found`,
+          NOT_FOUND: `Game with code ${code} not found`,
         }[error.cause]
 
         if (message) {
-          this.displayError(message)
+          displayError(message)
         } else {
           logError(error)
         }
       })
   }
 
-  clearError = () => {
-    this.setState({ error: '' })
+  const clearError = () => {
+    setError('')
   }
 
-  appStateComponent = () => {
-    const { appState, error, gameCode } = this.state
-
+  const appStateComponent = () => {
     switch (appState) {
       case AppState.LOCKER_ROOM:
         return (
           <LockerRoom
-            clearError={this.clearError}
+            clearError={clearError}
             error={error}
-            gameCodeChange={this.gameCodeChange}
+            gameCodeChange={gameCodeChange}
             gameCode={gameCode}
-            onJoinClick={this.onJoinClick}
+            onJoinClick={onJoinClick}
           />
         )
       case AppState.GAME_CONNECTING:
@@ -168,19 +157,15 @@ class App extends Component {
     }
   }
 
-  render() {
-    return (
-      <div>
-        <Notifications />
-        <MediaQuery orientation="portrait">
-          <TurnPhone />
-        </MediaQuery>
-        <MediaQuery orientation="landscape">
-          {this.appStateComponent()}
-        </MediaQuery>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Notifications />
+      <MediaQuery orientation="portrait">
+        <TurnPhone />
+      </MediaQuery>
+      <MediaQuery orientation="landscape">{appStateComponent()}</MediaQuery>
+    </div>
+  )
 }
 
 export default App
