@@ -27,7 +27,7 @@ l1.init(app, {
   logging: false,
 })
 
-app.loader.add('assets/spritesheet.json')
+app.loader.add('spritesheet/spritesheet.json')
 
 export const onPlayerJoin = ({
   id,
@@ -57,6 +57,9 @@ document.fonts.load('10pt "patchy-robots"')
             onInitiatorLeave: console.log,
           })
         })
+
+        const sprite = new PIXI.Sprite(l1.getTexture('powerup/powerup-ghost'))
+        app.stage.addChild(sprite)
     })
   })
   .catch(() => {
