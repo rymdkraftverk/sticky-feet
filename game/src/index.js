@@ -41,6 +41,8 @@ export const onPlayerJoin = ({
   })
 }
 
+// Experimental API's are not supported by typescript
+// @ts-ignore
 document.fonts.load('10pt "patchy-robots"')
   .then(() => {
     app.loader.load(() => {

@@ -6,11 +6,13 @@
   "scripts": {
     "start": "parcel -p 8081 --hmr-port 8082 src/index.html",
     "build": "parcel build src/index.html",
+    "checkjs": "tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js",
     "lint": "eslint ."
   },
   "devDependencies": {
     "http-server": "^0.11.1",
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "common": "file:../common",
