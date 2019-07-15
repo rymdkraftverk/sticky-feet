@@ -32,8 +32,10 @@ l1.init(app, {
 
 const engine = Matter.Engine.create()
 const boxA = Matter.Bodies.rectangle(100, 100, 80, 80)
+const floor = Matter.Bodies.rectangle(0, 500, 1500, 100, { isStatic: true })
+
 // engine.world.gravity.y = 1
-Matter.World.add(engine.world, [boxA])
+Matter.World.add(engine.world, [boxA, floor])
 
 app.ticker.add(() => {
   Matter.Engine.update(engine)
