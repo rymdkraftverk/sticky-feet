@@ -41,6 +41,9 @@ const App = props => {
   const [appState, setAppState] = useState(AppState.LOCKER_ROOM)
   const [gameCode, setGameCode] = useState('')
   const [error, setError] = useState('')
+  const [sendReliable, setSendReliable] = useState({
+    f: () => {}, // Hack to be able to put a function in state
+  })
 
   useEffect(() => {
     alertIfNoRtc()
@@ -118,7 +121,9 @@ const App = props => {
         wsAddress: WS_ADDRESS,
       })
       .then(send => {
-        send(Channel.RELIABLE, 'Connected')
+        setSendReliable({
+          f: send(Channel.RELIABLE),
+        })
       })
       .catch(error => {
         const message = {
@@ -152,7 +157,7 @@ const App = props => {
       case AppState.GAME_CONNECTING:
         return <LockerRoomLoader />
       case AppState.GAME:
-        return <GamePlaying />
+        return <GamePlaying send={sendReliable.f} />
       default:
         return null
     }

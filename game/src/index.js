@@ -8,7 +8,7 @@ import http from './http'
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
 const VERSION = process.env.VERSION || 'N/A'
 
-const { error, log } = console
+const { error, log, warn } = console
 
 log(`Version: ${VERSION}`)
 
@@ -39,12 +39,30 @@ app.ticker.add(() => {
 
 app.loader.add('spritesheet/spritesheet.json')
 
+const jump = (id) => {
+  log(`Player ${id} jumps!`)
+}
+
+const onPlayerData = id => (message) => {
+  const { event } = message
+
+  switch (event) {
+    case Event.JUMP:
+      jump(id)
+      break
+    default:
+      warn(`Unhandled event for message: ${message}`)
+  }
+}
+
 const onPlayerJoin = ({
   id,
-  // setOnData,
+  setOnData,
   send,
   // close,
 }) => {
+  setOnData(onPlayerData(id))
+
   send(Channel.RELIABLE, {
     event: Event.YOU_JOINED,
     payload: { id },
