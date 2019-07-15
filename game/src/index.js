@@ -16,7 +16,9 @@ const app = new PIXI.Application({
   width: 1280,
   height: 720,
   antialias: true,
-  clearBeforeRender: false,
+  // TODO: Enable when possible (background image exists)
+  // clearBeforeRender: false,
+  backgroundColor: 0x000077,
 })
 
 document
