@@ -4,6 +4,6 @@ loading.setAttribute('id', 'loading')
 document.getElementById('game')
   .appendChild(loading)
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
   loading.remove()
 })
