@@ -8,6 +8,7 @@ import signaling from 'rkv-signaling'
 import channelConfigs from '../channelConfigs'
 import LockerRoom from './LockerRoom'
 import LockerRoomLoader from './LockerRoomLoader'
+import GamePlaying from './GamePlaying'
 import { getLastGameCode, setLastGameCode } from '../util/sessionStorage'
 import TurnPhone from './TurnPhone'
 
@@ -151,7 +152,7 @@ const App = props => {
       case AppState.GAME_CONNECTING:
         return <LockerRoomLoader />
       case AppState.GAME:
-        return <div>GAME!</div>
+        return <GamePlaying />
       default:
         return null
     }
