@@ -77,6 +77,8 @@ workflows:
     jobs:
       - setup
       - build_game:
+          requires:
+              - setup
           filters:
             branches:
               only: master
