@@ -45,6 +45,18 @@ app.loader.add('spritesheet/spritesheet.json')
 
 const jump = (id) => {
   log(`Player ${id} jumps!`)
+
+  Matter.Body.applyForce(
+    boxA,
+    {
+      x: boxA.position.x,
+      y: boxA.position.y,
+    },
+    {
+      x: 0,
+      y: -0.2,
+    },
+  )
 }
 
 const onPlayerData = id => (message) => {
