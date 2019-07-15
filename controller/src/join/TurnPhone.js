@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 import Div100vh from 'react-div-100vh'
-import turnPhoneGifPath from '../images/turnPhone.gif'
-import turnPhoneSoundPath from '../sounds/key.mp3'
+import turnPhoneGifPath from './turnPhone.gif'
+import turnPhoneSoundPath from './key.mp3'
 
 const turnPhoneSound = new Audio(turnPhoneSoundPath)
 

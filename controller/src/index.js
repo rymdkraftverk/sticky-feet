@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createGlobalStyle } from 'styled-components/macro'
-import Boundary from './components/Boundary'
-import App from './components/App'
+import Boundary from './Boundary'
+import App from './App'
 
 const VERSION = process.env.REACT_APP_VERSION || 'N/A'
 const { log } = console
