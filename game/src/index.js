@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 import signaling from 'rkv-signaling'
-import { Event, Channel } from 'common'
+import { Event, Channel } from '../../common'
 import http from './http'
 
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
