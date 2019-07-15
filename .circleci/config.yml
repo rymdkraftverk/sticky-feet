@@ -48,7 +48,7 @@ jobs:
           working_directory: game
       - persist_to_workspace:
           paths:
-            - game/public
+            - game/dist
           root: .
   deploy_game_itch:
     docker:
@@ -59,7 +59,7 @@ jobs:
           at: .
       - run:
           name: Upload to itch.io
-          command: butler push game/public rymdkraftverk/fight:web
+          command: butler push game/dist rymdkraftverk/fight:web
   tag:
     docker:
       - image: rymdkraftverk/ci:latest
