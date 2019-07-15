@@ -19,7 +19,6 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "common": "file:../common",
     "l1": "^0.5.28",
     "matter-js": "^0.14.2",
     "pixi.js": "^5.0.4",
