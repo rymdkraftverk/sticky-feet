@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
+import * as Matter from 'matter-js'
 import http from './http'
 import signaling from 'rkv-signaling'
 import { Event, Channel } from 'common'
@@ -12,8 +13,8 @@ const { error, log, warn } = console
 log(`Version: ${VERSION}`)
 
 const app = new PIXI.Application({
-  width:             100,
-  height:            100,
+  width:             1280,
+  height:            720,
   antialias:         true,
   clearBeforeRender: false,
 })
@@ -25,6 +26,15 @@ document
 l1.init(app, {
   debug:   false,
   logging: false,
+})
+
+const engine = Matter.Engine.create();
+const boxA = Matter.Bodies.rectangle(100, 100, 80, 80);
+// engine.world.gravity.y = 1
+Matter.World.add(engine.world, [boxA]);
+
+app.ticker.add(() => {
+  Matter.Engine.update(engine)
 })
 
 app.loader.add('spritesheet/spritesheet.json')
@@ -60,6 +70,11 @@ document.fonts.load('10pt "patchy-robots"')
 
         const sprite = new PIXI.Sprite(l1.getTexture('powerup/powerup-ghost'))
         app.stage.addChild(sprite)
+        l1.addBehavior({ onUpdate: () => {
+          sprite.position.x = boxA.position.x
+          sprite.position.y = boxA.position.y
+        }})
+
     })
   })
   .catch(() => {
