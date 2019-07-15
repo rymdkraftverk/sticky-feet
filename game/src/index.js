@@ -47,7 +47,7 @@ const onPlayerData = id => (message) => {
   const { event } = message
 
   switch (event) {
-    case Event.JUMP:
+    case Event.ToGame.JUMP:
       jump(id)
       break
     default:
@@ -64,7 +64,7 @@ const onPlayerJoin = ({
   setOnData(onPlayerData(id))
 
   send(Channel.RELIABLE, {
-    event: Event.YOU_JOINED,
+    event: Event.FromGame.YOU_JOINED,
     payload: { id },
   })
 }

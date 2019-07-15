@@ -3,6 +3,10 @@ export const Channel = {
 }
 
 export const Event = {
-  JUMP:       'jump',
-  YOU_JOINED: 'you.joined',
+  FromGame: {
+    YOU_JOINED: 'you.joined',
+  },
+  ToGame: {
+    JUMP: 'jump',
+  }
 }

@@ -1,8 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Event } from 'common'
 
 const GamePlaying = ({ send }) => {
-  return <div onMouseDown={() => send({ event: 'jump' })}>Game Playing!</div>
+  return (
+    <div onMouseDown={() => send({ event: Event.ToGame.JUMP })}>
+      Game Playing!
+    </div>
+  )
 }
 
 GamePlaying.propTypes = {

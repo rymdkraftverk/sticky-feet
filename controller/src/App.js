@@ -30,7 +30,7 @@ const writeGameCodeToUrl = gameCode => {
 
 const eventState = ({ event, payload }) => {
   switch (event) {
-    case Event.YOU_JOINED:
+    case Event.FromGame.YOU_JOINED:
       return AppState.GAME
     default:
       return null
