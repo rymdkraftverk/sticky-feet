@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel -p 8081 --hmr-port 8082 src/index.html",
-    "build": "parcel build src/index.html",
+    "build": "rm -r dist && parcel build src/index.html --public-url ./",
     "checkjs": "tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js",
     "lint": "eslint ."
   },
