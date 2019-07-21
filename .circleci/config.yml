@@ -60,18 +60,6 @@ jobs:
       - run:
           name: Upload to itch.io
           command: butler push game/dist rymdkraftverk/fight:web
-  tag:
-    docker:
-      - image: rymdkraftverk/ci:latest
-    working_directory: ~/fight
-    steps:
-      - attach_workspace:
-          at: .
-      - add_ssh_keys
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run: |
-          git tag `cat version`
-          git push --tags
 workflows:
   default:
     jobs:
@@ -85,6 +73,3 @@ workflows:
       - deploy_game_itch:
           requires:
             - build_game
-      - tag:
-          requires:
-            - deploy_game_itch
