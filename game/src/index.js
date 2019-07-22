@@ -8,13 +8,18 @@ import http from './http'
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
 const VERSION = process.env.VERSION || 'N/A'
 
+const DEBUG_MATTER = false
+
 const { error, log, warn } = console
 
 log(`Version: ${VERSION}`)
 
+const GAME_WIDTH = 1280
+const GAME_HEIGHT = 720
+
 const app = new PIXI.Application({
-  width: 1280,
-  height: 720,
+  width: GAME_WIDTH,
+  height: GAME_HEIGHT,
   antialias: true,
   // TODO: Enable when possible (background image exists)
   // clearBeforeRender: false,
@@ -33,6 +38,19 @@ l1.init(app, {
 const engine = Matter.Engine.create()
 const boxA = Matter.Bodies.rectangle(100, 100, 80, 80)
 const floor = Matter.Bodies.rectangle(0, 500, 1500, 100, { isStatic: true })
+
+
+if (DEBUG_MATTER) {
+  const renderer = Matter.Render.create({
+    element: document.getElementById('matter'),
+    engine,
+    options: {
+      width: GAME_WIDTH,
+      height: GAME_HEIGHT,
+    },
+  })
+  Matter.Render.run(renderer)
+}
 
 // engine.world.gravity.y = 1
 Matter.World.add(engine.world, [boxA, floor])
