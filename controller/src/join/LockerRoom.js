@@ -5,6 +5,7 @@ import styled from 'styled-components/macro'
 import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
 import Div100vh from 'react-div-100vh'
 import ScrollLock from '../util/ScrollLock'
+import Button from './Button'
 
 const PLACEHOLDER = 'Code'
 
@@ -33,7 +34,7 @@ const GameCodeInput = styled.input`
   caret-color: #4085af;
   color: #4085af;
 `
-const GameJoinButton = styled.button`
+const GameJoinButton = styled(Button)`
   color: #4085af;
   opacity: ${({ disabled }) => (disabled ? '0.2' : '1')};
 `
