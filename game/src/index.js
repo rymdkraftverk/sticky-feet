@@ -3,9 +3,14 @@ import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 import signaling from 'rkv-signaling'
 import { Event, Channel } from '../../common'
+import { GAME_HEIGHT, GAME_WIDTH } from '/constant'
 import http from './http'
+import stage from './stage'
 
-const DEBUG_MATTER = true
+// Hack to make Matter.Bodies.fromVertices work
+window.decomp = require('poly-decomp')
+
+const DEBUG_MATTER = false
 
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
 const VERSION = process.env.VERSION || 'N/A'
@@ -13,9 +18,6 @@ const VERSION = process.env.VERSION || 'N/A'
 const { error, log, warn } = console
 
 log(`Version: ${VERSION}`)
-
-const GAME_WIDTH = 1280
-const GAME_HEIGHT = 720
 
 const app = new PIXI.Application({
   width: GAME_WIDTH,
@@ -36,11 +38,10 @@ l1.init(app, {
 })
 
 const engine = Matter.Engine.create()
-const boxA = Matter.Bodies.rectangle(100, 100, 80, 80)
-const floor = Matter.Bodies.rectangle(0, 500, 1500, 100, { isStatic: true })
+const boxA = Matter.Bodies.rectangle(700, 400, 80, 80)
 
 // engine.world.gravity.y = 1
-Matter.World.add(engine.world, [boxA, floor])
+Matter.World.add(engine.world, [boxA])
 
 app.ticker.add(() => {
   Matter.Engine.update(engine)
@@ -116,6 +117,8 @@ document.fonts.load('10pt "patchy-robots"')
           sprite.position.y = boxA.position.y
         },
       })
+
+      stage({ world: engine.world })
     })
   })
   .catch(() => {
