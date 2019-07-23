@@ -8,5 +8,7 @@ export const Event = {
   },
   ToGame: {
     JUMP: 'jump',
+    DRAG: 'drag',
+    DRAG_END: 'drag.end',
   }
 }

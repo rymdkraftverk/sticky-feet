@@ -40,6 +40,13 @@ l1.init(app, {
 const engine = Matter.Engine.create()
 const boxA = Matter.Bodies.rectangle(700, 400, 80, 80)
 
+// Arrow rendering directional command
+let arrow
+const arrowPosition = {
+  x: 500,
+  y: 300,
+}
+
 // engine.world.gravity.y = 1
 Matter.World.add(engine.world, [boxA])
 
@@ -65,12 +72,28 @@ const jump = (id) => {
   )
 }
 
+const vectorTip = ({ x: originX, y: originY }, angle, distance) => ({
+  x: originX + distance * Math.cos(angle),
+  y: originY + distance * Math.sin(angle),
+})
+
 const onPlayerData = id => (message) => {
-  const { event } = message
+  const { event, payload } = message
 
   switch (event) {
     case Event.ToGame.JUMP:
       jump(id)
+      break
+    case Event.ToGame.DRAG:
+      arrow.rotation = payload.angle
+      arrow.position = vectorTip(
+        arrowPosition,
+        payload.angle,
+        payload.distance,
+      )
+      break
+    case Event.ToGame.DRAG_END:
+      arrow.position = arrowPosition
       break
     default:
       warn(`Unhandled event for message: ${message}`)
@@ -117,6 +140,11 @@ document.fonts.load('10pt "patchy-robots"')
           sprite.position.y = boxA.position.y
         },
       })
+
+      arrow = new PIXI.Sprite(l1.getTexture('arrow/arrow-green'))
+      arrow.position = arrowPosition
+      arrow.anchor.set(0.5)
+      app.stage.addChild(arrow)
 
       stage({ world: engine.world })
     })
