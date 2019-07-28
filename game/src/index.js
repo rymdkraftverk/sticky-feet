@@ -54,6 +54,7 @@ app.ticker.add(() => {
   Matter.Engine.update(engine)
 })
 
+app.loader.add('spritesheet/lizard.json')
 app.loader.add('spritesheet/spritesheet.json')
 
 const jump = (id) => {
@@ -131,13 +132,15 @@ document.fonts.load('10pt "patchy-robots"')
             onInitiatorLeave: log,
           })
         })
-
-      const sprite = new PIXI.Sprite(l1.getTexture('powerup/powerup-ghost'))
-      app.stage.addChild(sprite)
+      const lizard = new PIXI.AnimatedSprite(['lizard-0', 'lizard-12'].map(l1.getTexture))
+      lizard.scale.set(3)
+      lizard.animationSpeed = 0.02
+      lizard.play()
+      app.stage.addChild(lizard)
       l1.addBehavior({
         onUpdate: () => {
-          sprite.position.x = boxA.position.x
-          sprite.position.y = boxA.position.y
+          lizard.position.x = boxA.position.x
+          lizard.position.y = boxA.position.y
         },
       })
 
