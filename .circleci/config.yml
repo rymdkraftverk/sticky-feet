@@ -63,13 +63,13 @@ jobs:
 workflows:
   default:
     jobs:
-      - setup
-      - build_game:
-          requires:
-              - setup
+      - setup:
           filters:
             branches:
               only: master
+      - build_game:
+          requires:
+              - setup
       - deploy_game_itch:
           requires:
             - build_game
