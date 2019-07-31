@@ -6,6 +6,8 @@ import { Event, Channel } from '../../common'
 import { GAME_HEIGHT, GAME_WIDTH } from '/constant'
 import http from './http'
 import stage from './stage'
+import createPlayer from './createPlayer'
+import playerRepository from './repository/player'
 
 // Hack to make Matter.Bodies.fromVertices work
 window.decomp = require('poly-decomp')
@@ -38,7 +40,6 @@ l1.init(app, {
 })
 
 const engine = Matter.Engine.create()
-const boxA = Matter.Bodies.rectangle(700, 400, 80, 80)
 
 // Arrow rendering directional command
 let arrow
@@ -48,8 +49,6 @@ const arrowPosition = {
 }
 
 // engine.world.gravity.y = 1
-Matter.World.add(engine.world, [boxA])
-
 app.ticker.add(() => {
   Matter.Engine.update(engine)
 })
@@ -58,13 +57,13 @@ app.loader.add('spritesheet/lizard.json')
 app.loader.add('spritesheet/spritesheet.json')
 
 const jump = (id) => {
-  log(`Player ${id} jumps!`)
+  const { body } = playerRepository.find(id)
 
   Matter.Body.applyForce(
-    boxA,
+    body,
     {
-      x: boxA.position.x,
-      y: boxA.position.y,
+      x: body.position.x,
+      y: body.position.y,
     },
     {
       x: 0,
@@ -109,6 +108,12 @@ const onPlayerJoin = ({
 }) => {
   setOnData(onPlayerData(id))
 
+  createPlayer(
+    app.stage,
+    engine.world,
+    id,
+  )
+
   send(Channel.RELIABLE, {
     event: Event.FromGame.YOU_JOINED,
     payload: { id },
@@ -132,17 +137,12 @@ document.fonts.load('10pt "patchy-robots"')
             onInitiatorLeave: log,
           })
         })
-      const lizard = new PIXI.AnimatedSprite(['lizard-0', 'lizard-12'].map(l1.getTexture))
-      lizard.scale.set(3)
-      lizard.animationSpeed = 0.02
-      lizard.play()
-      app.stage.addChild(lizard)
-      l1.addBehavior({
-        onUpdate: () => {
-          lizard.position.x = boxA.position.x
-          lizard.position.y = boxA.position.y
-        },
-      })
+
+      createPlayer(
+        app.stage,
+        engine.world,
+        'BOT',
+      )
 
       arrow = new PIXI.Sprite(l1.getTexture('arrow/arrow-green'))
       arrow.position = arrowPosition
