@@ -63,7 +63,7 @@ const GamePlaying = ({ send }) => {
       )}
       onTouchEnd={sendDragEnd}
     >
-      <JumpButton onMouseDown={sendJump}>
+      <JumpButton onTouchStart={sendJump}>
         Jump
       </JumpButton>
     </Container>
