@@ -56,7 +56,7 @@ app.ticker.add(() => {
   Matter.Engine.update(engine)
 })
 
-app.loader.add('spritesheet/lizard.json')
+app.loader.add('spritesheet/fight.json')
 app.loader.add('spritesheet/spritesheet.json')
 
 const jump = (id) => {
@@ -152,7 +152,7 @@ document.fonts.load('10pt "patchy-robots"')
       arrow.anchor.set(0.5)
       app.stage.addChild(arrow)
 
-      stage({ world: engine.world })
+      stage({ world: engine.world, app })
     })
   })
   .catch(() => {

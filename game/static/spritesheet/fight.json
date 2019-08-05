@@ -1,8 +1,16 @@
 {"frames": {
 
+"dome-0.png":
+{
+	"frame": {"x":1,"y":1,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
 "lizard-0.png":
 {
-	"frame": {"x":1,"y":1,"w":11,"h":15},
+	"frame": {"x":65,"y":197,"w":11,"h":15},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
@@ -10,7 +18,7 @@
 },
 "lizard-1.png":
 {
-	"frame": {"x":18,"y":1,"w":11,"h":15},
+	"frame": {"x":95,"y":163,"w":11,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
@@ -18,31 +26,31 @@
 },
 "lizard-2.png":
 {
-	"frame": {"x":1,"y":27,"w":11,"h":15},
-	"rotated": true,
+	"frame": {"x":95,"y":180,"w":11,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
 	"sourceSize": {"w":17,"h":17}
 },
 "lizard-3.png":
 {
-	"frame": {"x":1,"y":40,"w":11,"h":15},
-	"rotated": true,
+	"frame": {"x":97,"y":197,"w":11,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
 	"sourceSize": {"w":17,"h":17}
 },
 "lizard-4.png":
 {
-	"frame": {"x":1,"y":53,"w":11,"h":15},
-	"rotated": true,
+	"frame": {"x":97,"y":214,"w":11,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
 	"sourceSize": {"w":17,"h":17}
 },
 "lizard-5.png":
 {
-	"frame": {"x":1,"y":66,"w":11,"h":15},
+	"frame": {"x":108,"y":161,"w":11,"h":15},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
@@ -50,15 +58,15 @@
 },
 "lizard-6.png":
 {
-	"frame": {"x":1,"y":79,"w":11,"h":15},
-	"rotated": true,
+	"frame": {"x":108,"y":174,"w":11,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
 	"sourceSize": {"w":17,"h":17}
 },
 "lizard-7.png":
 {
-	"frame": {"x":1,"y":92,"w":11,"h":15},
+	"frame": {"x":110,"y":191,"w":11,"h":15},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
@@ -66,7 +74,7 @@
 },
 "lizard-8.png":
 {
-	"frame": {"x":1,"y":105,"w":11,"h":15},
+	"frame": {"x":110,"y":204,"w":11,"h":15},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
@@ -74,7 +82,7 @@
 },
 "lizard-9.png":
 {
-	"frame": {"x":1,"y":118,"w":11,"h":15},
+	"frame": {"x":110,"y":217,"w":11,"h":15},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
@@ -82,7 +90,7 @@
 },
 "lizard-10.png":
 {
-	"frame": {"x":1,"y":14,"w":11,"h":15},
+	"frame": {"x":98,"y":148,"w":11,"h":15},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
@@ -90,7 +98,7 @@
 },
 "lizard-11.png":
 {
-	"frame": {"x":18,"y":18,"w":11,"h":15},
+	"frame": {"x":111,"y":131,"w":11,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":15},
@@ -98,23 +106,23 @@
 },
 "lizard-12.png":
 {
-	"frame": {"x":18,"y":35,"w":13,"h":15},
-	"rotated": false,
+	"frame": {"x":1,"y":216,"w":13,"h":15},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
 	"sourceSize": {"w":17,"h":17}
 },
 "lizard-13.png":
 {
-	"frame": {"x":18,"y":52,"w":13,"h":15},
-	"rotated": false,
+	"frame": {"x":18,"y":216,"w":13,"h":15},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
 	"sourceSize": {"w":17,"h":17}
 },
 "lizard-14.png":
 {
-	"frame": {"x":18,"y":69,"w":13,"h":15},
+	"frame": {"x":65,"y":163,"w":13,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
@@ -122,7 +130,7 @@
 },
 "lizard-15.png":
 {
-	"frame": {"x":18,"y":86,"w":13,"h":15},
+	"frame": {"x":65,"y":180,"w":13,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
@@ -130,7 +138,7 @@
 },
 "lizard-16.png":
 {
-	"frame": {"x":18,"y":103,"w":13,"h":15},
+	"frame": {"x":67,"y":210,"w":13,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
@@ -138,7 +146,7 @@
 },
 "lizard-17.png":
 {
-	"frame": {"x":18,"y":120,"w":13,"h":15},
+	"frame": {"x":80,"y":163,"w":13,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
@@ -146,15 +154,15 @@
 },
 "lizard-18.png":
 {
-	"frame": {"x":1,"y":131,"w":13,"h":15},
-	"rotated": true,
+	"frame": {"x":80,"y":180,"w":13,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
 	"sourceSize": {"w":17,"h":17}
 },
 "lizard-19.png":
 {
-	"frame": {"x":18,"y":137,"w":13,"h":15},
+	"frame": {"x":81,"y":131,"w":13,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
@@ -162,7 +170,7 @@
 },
 "lizard-20.png":
 {
-	"frame": {"x":1,"y":146,"w":13,"h":15},
+	"frame": {"x":81,"y":148,"w":13,"h":15},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
@@ -170,7 +178,7 @@
 },
 "lizard-21.png":
 {
-	"frame": {"x":18,"y":154,"w":13,"h":15},
+	"frame": {"x":96,"y":131,"w":13,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
@@ -178,15 +186,15 @@
 },
 "lizard-22.png":
 {
-	"frame": {"x":1,"y":161,"w":13,"h":15},
-	"rotated": true,
+	"frame": {"x":82,"y":197,"w":13,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
 	"sourceSize": {"w":17,"h":17}
 },
 "lizard-23.png":
 {
-	"frame": {"x":18,"y":171,"w":13,"h":15},
+	"frame": {"x":82,"y":214,"w":13,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":15},
@@ -194,7 +202,7 @@
 },
 "lizard-24.png":
 {
-	"frame": {"x":1,"y":176,"w":14,"h":14},
+	"frame": {"x":33,"y":165,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -202,7 +210,7 @@
 },
 "lizard-25.png":
 {
-	"frame": {"x":17,"y":188,"w":14,"h":14},
+	"frame": {"x":33,"y":181,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -210,7 +218,7 @@
 },
 "lizard-26.png":
 {
-	"frame": {"x":1,"y":192,"w":14,"h":14},
+	"frame": {"x":33,"y":197,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -218,7 +226,7 @@
 },
 "lizard-27.png":
 {
-	"frame": {"x":17,"y":204,"w":14,"h":14},
+	"frame": {"x":35,"y":213,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -226,7 +234,7 @@
 },
 "lizard-28.png":
 {
-	"frame": {"x":1,"y":208,"w":14,"h":14},
+	"frame": {"x":49,"y":131,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -234,7 +242,7 @@
 },
 "lizard-29.png":
 {
-	"frame": {"x":17,"y":220,"w":14,"h":14},
+	"frame": {"x":49,"y":147,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -242,7 +250,7 @@
 },
 "lizard-30.png":
 {
-	"frame": {"x":1,"y":224,"w":14,"h":14},
+	"frame": {"x":49,"y":163,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -250,7 +258,7 @@
 },
 "lizard-31.png":
 {
-	"frame": {"x":17,"y":236,"w":14,"h":14},
+	"frame": {"x":49,"y":179,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -258,7 +266,7 @@
 },
 "lizard-32.png":
 {
-	"frame": {"x":1,"y":240,"w":14,"h":14},
+	"frame": {"x":49,"y":195,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -266,7 +274,7 @@
 },
 "lizard-33.png":
 {
-	"frame": {"x":17,"y":252,"w":14,"h":14},
+	"frame": {"x":51,"y":211,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -274,7 +282,7 @@
 },
 "lizard-34.png":
 {
-	"frame": {"x":1,"y":256,"w":14,"h":14},
+	"frame": {"x":65,"y":131,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -282,7 +290,7 @@
 },
 "lizard-35.png":
 {
-	"frame": {"x":17,"y":268,"w":14,"h":14},
+	"frame": {"x":65,"y":147,"w":14,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":14,"h":14},
@@ -290,7 +298,7 @@
 },
 "lizard-36.png":
 {
-	"frame": {"x":1,"y":272,"w":14,"h":15},
+	"frame": {"x":1,"y":131,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -298,7 +306,7 @@
 },
 "lizard-37.png":
 {
-	"frame": {"x":17,"y":284,"w":14,"h":15},
+	"frame": {"x":1,"y":148,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -306,7 +314,7 @@
 },
 "lizard-38.png":
 {
-	"frame": {"x":1,"y":289,"w":14,"h":15},
+	"frame": {"x":1,"y":165,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -314,7 +322,7 @@
 },
 "lizard-39.png":
 {
-	"frame": {"x":17,"y":301,"w":14,"h":15},
+	"frame": {"x":1,"y":182,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -322,7 +330,7 @@
 },
 "lizard-40.png":
 {
-	"frame": {"x":1,"y":306,"w":14,"h":15},
+	"frame": {"x":1,"y":199,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -330,7 +338,7 @@
 },
 "lizard-41.png":
 {
-	"frame": {"x":17,"y":318,"w":14,"h":15},
+	"frame": {"x":17,"y":131,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -338,7 +346,7 @@
 },
 "lizard-42.png":
 {
-	"frame": {"x":1,"y":323,"w":14,"h":15},
+	"frame": {"x":17,"y":148,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -346,7 +354,7 @@
 },
 "lizard-43.png":
 {
-	"frame": {"x":17,"y":335,"w":14,"h":15},
+	"frame": {"x":17,"y":165,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -354,7 +362,7 @@
 },
 "lizard-44.png":
 {
-	"frame": {"x":1,"y":340,"w":14,"h":15},
+	"frame": {"x":17,"y":182,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -362,7 +370,7 @@
 },
 "lizard-45.png":
 {
-	"frame": {"x":17,"y":352,"w":14,"h":15},
+	"frame": {"x":17,"y":199,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -370,7 +378,7 @@
 },
 "lizard-46.png":
 {
-	"frame": {"x":1,"y":357,"w":14,"h":15},
+	"frame": {"x":33,"y":131,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -378,7 +386,7 @@
 },
 "lizard-47.png":
 {
-	"frame": {"x":17,"y":369,"w":14,"h":15},
+	"frame": {"x":33,"y":148,"w":14,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":15},
@@ -387,10 +395,10 @@
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
-	"image": "lizard.png",
+	"image": "fight.png",
 	"format": "RGBA8888",
-	"size": {"w":32,"h":385},
+	"size": {"w":130,"h":230},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:04e23117bd9daab80bc02934dbd04d3d:37fb345f99a4dcd4ea07c416723bb7c9:3d60b3d24c8a6c98f2f50be7cc542ed6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ba951262d519a0c354a207bfdec22b22:7736adf726a538d7fb6cdfa0f184dd37:694785372939a6ca5bdb81b6f1a3fb71$"
 }
 }

@@ -1,7 +1,8 @@
+import * as PIXI from 'pixi.js'
+import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 import * as R from 'ramda'
 import { GAME_WIDTH, GAME_HEIGHT } from '/constant'
-
 
 const getCircleVertices = ({ center, radius, steps }) => R.range(0, steps + 1).map((step) => {
   const angle = -1 * step * (2 * Math.PI / steps) - 0.5 * Math.PI
@@ -10,7 +11,7 @@ const getCircleVertices = ({ center, radius, steps }) => R.range(0, steps + 1).m
   return { x, y }
 })
 
-const createDome = ({ world }) => {
+const createDome = ({ world, app }) => {
   const vertices = [
     { x: GAME_WIDTH - (GAME_HEIGHT / 2) + 1, y: 1 },
     { x: GAME_WIDTH, y: 1 },
@@ -40,9 +41,15 @@ const createDome = ({ world }) => {
     { isStatic: true },
   )
   Matter.World.add(world, [dome])
+
+  const domeSprite = new PIXI.Sprite(l1.getTexture('dome-0'))
+  domeSprite.scale.set(5.65)
+  domeSprite.x = 360
+  domeSprite.y = 10
+  app.stage.addChild(domeSprite)
 }
 
 
-export default ({ world }) => {
-  createDome({ world })
+export default ({ world, app }) => {
+  createDome({ world, app })
 }

@@ -8,7 +8,7 @@
     "build": "rm -rf dist && parcel build src/index.html --public-url ./",
     "checkjs": "tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js",
     "lint": "eslint .",
-    "sheet": "muncher --input src/asset --output static/spritesheet/lizard"
+    "sheet": "muncher --input src/asset --output static/spritesheet/fight"
   },
   "devDependencies": {
     "eslint": "^5.3.0",
