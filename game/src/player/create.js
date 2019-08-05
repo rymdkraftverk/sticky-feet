@@ -30,13 +30,14 @@ const createSpriteAnimation = (colorName) => {
   )
 }
 
-const createBody = () => Matter.Bodies.rectangle(700, 400, 80, 80)
+const createBody = () => Matter.Bodies.circle(700, 400, 15, 15)
 
 const createSprite = (colorName) => {
   const sprite = new PIXI.AnimatedSprite(
     createSpriteAnimation(colorName),
   )
-  sprite.scale.set(3)
+  sprite.scale.set(2)
+  sprite.anchor.set(0.5)
   sprite.animationSpeed = 0.02
   sprite.play()
   return sprite
@@ -53,6 +54,10 @@ export default (pixiStage, matterEngine, id) => {
     sprite,
     body,
   }
+
+  l1.repeat(() => {
+    Matter.Body.setVelocity(body, { x: 1, y: 0 })
+  })
 
   addEntity(
     pixiStage,

@@ -44,7 +44,7 @@ const createDome = ({ world, app }) => {
 
   const domeSprite = new PIXI.Sprite(l1.getTexture('dome-0'))
   domeSprite.scale.set(5.65)
-  domeSprite.x = 360
+  domeSprite.x = 340
   domeSprite.y = 10
   app.stage.addChild(domeSprite)
 }
