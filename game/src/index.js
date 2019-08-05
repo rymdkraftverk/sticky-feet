@@ -171,7 +171,17 @@ if (DEBUG_MATTER) {
   Matter.Render.run(matterRenderer)
 }
 
+const start = () => {
+  app.ticker.start()
+}
+
+const stop = () => {
+  app.ticker.stop()
+}
+
 window.debug = {
   ...window.debug,
+  start,
+  stop,
   // Add console commands here
 }
