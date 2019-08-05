@@ -51,7 +51,9 @@ const arrowPosition = {
   y: 300,
 }
 
-// engine.world.gravity.y = 1
+// Remove default gravity
+engine.world.gravity.y = 0
+
 app.ticker.add(() => {
   Matter.Engine.update(engine)
 })

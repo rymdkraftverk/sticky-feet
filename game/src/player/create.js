@@ -8,6 +8,12 @@ import playerRepository from './repository'
 import addEntity from '../addEntity'
 import { Colors } from '../../../common'
 
+import {
+  GAME_HEIGHT,
+  DOME_X,
+  DOME_Y,
+} from '../constant'
+
 const COLOR_COUNT = 12
 
 const INDEX_COLOR_MAPPING = R.mergeAll(
@@ -31,7 +37,12 @@ const createSpriteAnimation = (colorName) => {
   )
 }
 
-const createBody = () => Matter.Bodies.circle(700, 400, 15, 15)
+const createBody = () => Matter.Bodies.circle(
+  (DOME_X - GAME_HEIGHT / 2) + 20,
+  400,
+  15,
+  { friction: 0 },
+)
 
 const createSprite = (colorName) => {
   const sprite = new PIXI.AnimatedSprite(
@@ -57,7 +68,37 @@ export default (pixiStage, matterEngine, id) => {
   }
 
   l1.repeat(() => {
-    Matter.Body.setVelocity(body, { x: 1, y: 0 })
+    const normalize = (v) => {
+      const length = Math.sqrt((v.x ** 2) + (v.y ** 2))
+
+      return {
+        x: v.x / length,
+        y: v.y / length,
+      }
+    }
+
+    const rotate = (angle, v) => ({
+      x: v.x * Math.cos(angle) - v.y * Math.sin(angle),
+      y: v.x * Math.sin(angle) + v.y * Math.cos(angle),
+    })
+
+    const foo = {
+      x: body.position.x - DOME_X,
+      y: body.position.y - DOME_Y,
+    }
+
+    const velocityDirection = rotate(-Math.PI / 2.1, normalize(foo))
+
+    // TODO: Decide how to handle this gravity
+    // const FORCE_FACTOR = 200
+
+    // const force = {
+    //   x: normalize(foo).x / FORCE_FACTOR,
+    //   y: normalize(foo).y / FORCE_FACTOR,
+    // }
+
+    Matter.Body.setVelocity(body, { x: velocityDirection.x * 2, y: velocityDirection.y * 2 })
+    // Matter.Body.applyForce(body, { x: 0, y: 0 }, force)
   })
 
   addEntity(
