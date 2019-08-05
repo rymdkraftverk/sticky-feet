@@ -6,12 +6,10 @@ export default (pixiStage, matterEngine, { sprite, body }) => {
   Matter.World.add(matterEngine, [body])
 
   // Sync the movement of sprite and physical body
-  l1.addBehavior({
-    onUpdate: () => {
-      /* eslint-disable no-param-reassign */
-      sprite.position.x = body.position.x
-      sprite.position.y = body.position.y
-      /* eslint-enable no-param-reassign */
-    },
+  l1.repeat(() => {
+    /* eslint-disable no-param-reassign */
+    sprite.position.x = body.position.x
+    sprite.position.y = body.position.y
+    /* eslint-enable no-param-reassign */
   })
 }

@@ -20,7 +20,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "l1": "^0.5.28",
+    "l1": "^0.6.0-0",
     "matter-js": "^0.14.2",
     "pixi.js": "^5.0.4",
     "poly-decomp": "^0.3.0",
