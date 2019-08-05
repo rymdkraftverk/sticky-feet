@@ -5,7 +5,7 @@ import * as Matter from 'matter-js'
 
 import state from '../state'
 import playerRepository from './repository'
-import addEntity from '../addEntity'
+import * as entity from '../entity'
 import { Colors } from '../../../common'
 
 import {
@@ -101,7 +101,7 @@ export default (pixiStage, matterWorld, id) => {
     // Matter.Body.applyForce(body, { x: 0, y: 0 }, force)
   })
 
-  addEntity(
+  entity.add(
     pixiStage,
     matterWorld,
     player,

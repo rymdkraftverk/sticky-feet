@@ -1,8 +1,17 @@
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
+
 import { DOME_X, DOME_Y } from './constant'
 
-export default (pixiStage, matterWorld, { id, sprite, body }) => {
+const syncBehaviorId = entityId => `sync_${entityId}`
+
+export const remove = (matterWorld, { id, sprite, body }) => {
+  l1.remove(syncBehaviorId(id))
+  sprite.destroy()
+  Matter.World.remove(matterWorld, body)
+}
+
+export const add = (pixiStage, matterWorld, { id, sprite, body }) => {
   pixiStage.addChild(sprite)
   Matter.World.add(matterWorld, [body])
 
@@ -16,5 +25,5 @@ export default (pixiStage, matterWorld, { id, sprite, body }) => {
     /* eslint-enable no-param-reassign */
   })
 
-  behavior.id = `sync_${id}`
+  behavior.id = syncBehaviorId(id)
 }
