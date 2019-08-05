@@ -1,5 +1,5 @@
 import state from '../../src/state'
-import repo from '../../src/repository/player'
+import repo from '../../src/player/repository'
 
 const PLAYERS = [
   {

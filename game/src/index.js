@@ -6,8 +6,8 @@ import { Event, Channel } from '../../common'
 import { GAME_HEIGHT, GAME_WIDTH } from '/constant'
 import http from './http'
 import stage from './stage'
-import createPlayer from './createPlayer'
-import playerRepository from './repository/player'
+import createPlayer from './player/create'
+import playerRepository from './player/repository'
 
 // Hack to make Matter.Bodies.fromVertices work
 window.decomp = require('poly-decomp')

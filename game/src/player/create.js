@@ -3,9 +3,9 @@ import * as l1 from 'l1'
 import * as PIXI from 'pixi.js'
 import * as Matter from 'matter-js'
 
-import state from './state'
-import playerRepository from './repository/player'
-import addEntity from './addEntity'
+import state from '../state'
+import playerRepository from './repository'
+import addEntity from '../addEntity'
 
 const COLOR_COUNT = 12
 
