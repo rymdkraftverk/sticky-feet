@@ -7,6 +7,7 @@ import { GAME_HEIGHT, GAME_WIDTH } from '/constant'
 import http from './http'
 import stage from './stage'
 import createPlayer from './player/create'
+import removePlayer from './player/remove'
 import playerRepository from './player/repository'
 
 // Hack to make Matter.Bodies.fromVertices work
@@ -133,6 +134,13 @@ const onPlayerJoin = ({
   })
 }
 
+const onPlayerLeave = (id) => {
+  removePlayer(
+    engine.world,
+    id,
+  )
+}
+
 
 // Experimental API's are not supported by typescript
 // @ts-ignore
@@ -147,7 +155,7 @@ document.fonts.load('10pt "patchy-robots"')
             wsAddress: WS_ADDRESS,
             receiverId: gameCode,
             onInitiatorJoin: onPlayerJoin,
-            onInitiatorLeave: log,
+            onInitiatorLeave: onPlayerLeave,
           })
         })
 

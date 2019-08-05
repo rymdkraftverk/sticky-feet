@@ -7,7 +7,7 @@ export default (pixiStage, matterWorld, { id, sprite, body }) => {
   Matter.World.add(matterWorld, [body])
 
   // Sync the movement of sprite and physical body
-  l1.repeat(() => {
+  const behavior = l1.repeat(() => {
     /* eslint-disable no-param-reassign */
     sprite.position.x = body.position.x
     sprite.position.y = body.position.y
@@ -15,4 +15,6 @@ export default (pixiStage, matterWorld, { id, sprite, body }) => {
     sprite.rotation = -Math.atan(body.position.y - DOME_Y / body.position.x - DOME_X) - Math.PI / 2
     /* eslint-enable no-param-reassign */
   })
+
+  behavior.id = `sync_${id}`
 }

@@ -32,8 +32,15 @@ const add = players => R.pipe(
   R.tap(write),
 )
 
+// [Player] -> String -> [Player]
+const remove = R.curry((players, id) => R.pipe(
+  R.reject(R.propEq('id', id)),
+  R.tap(write),
+)(players))
+
 export default R.map(deferStateApplication, {
   add,
   count,
   find,
+  remove,
 })

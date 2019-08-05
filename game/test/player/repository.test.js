@@ -41,3 +41,13 @@ test('add', () => {
       color: 'yellow',
     }))
 })
+
+test('remove', () => {
+  repo.remove('bar')
+
+  expect(state.players)
+    .toEqual([{
+      id: 'foo',
+      color: 'blue',
+    }])
+})
