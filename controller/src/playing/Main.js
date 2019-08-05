@@ -47,6 +47,10 @@ const GamePlaying = ({ send }) => {
     send({ event: Event.ToGame.DRAG_END })
   }
 
+  const sendJump = () => {
+    send({ event: Event.ToGame.JUMP })
+  }
+
   return (
     <Container
       onTouchStart={R.pipe(
@@ -59,7 +63,7 @@ const GamePlaying = ({ send }) => {
       )}
       onTouchEnd={sendDragEnd}
     >
-      <JumpButton onMouseDown={() => send({ event: Event.ToGame.JUMP })}>
+      <JumpButton onMouseDown={sendJump}>
         Jump
       </JumpButton>
     </Container>
