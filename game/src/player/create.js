@@ -6,15 +6,16 @@ import * as Matter from 'matter-js'
 import state from '../state'
 import playerRepository from './repository'
 import addEntity from '../addEntity'
+import { Colors } from '../../../common'
 
 const COLOR_COUNT = 12
 
-const INDEX_COLOR_MAPPING = {
-  red: 0,
-  orange: 1,
-  yellow: 2,
-  green: 3,
-}
+const INDEX_COLOR_MAPPING = R.mergeAll(
+  R.addIndex(R.map)(
+    (x, i) => ({ [x.name]: i }),
+    Colors,
+  ),
+)
 
 const FRONT_COLLAPSED = 2
 const FRONT_STRETCHED = 3

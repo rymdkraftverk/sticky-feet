@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 import signaling from 'rkv-signaling'
-import { Event, Channel } from '../../common'
+import { Event, Colors, Channel } from '../../common'
 import { GAME_HEIGHT, GAME_WIDTH } from '/constant'
 import http from './http'
 import stage from './stage'
@@ -103,12 +103,20 @@ const onPlayerData = id => (message) => {
   }
 }
 
+const morePlayersAllowed = () => playerRepository.count() < Colors.length
+
 const onPlayerJoin = ({
   id,
   setOnData,
   send,
-  // close,
+  close,
 }) => {
+  if (!morePlayersAllowed()) {
+    send(Channel.RELIABLE, { event: Event.FromGame.FULL })
+    close()
+    return
+  }
+
   setOnData(onPlayerData(id))
 
   createPlayer(

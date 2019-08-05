@@ -17,6 +17,9 @@ const write = (x) => {
 
 // --- Read ---
 
+// [Player] -> Int
+const count = players => () => R.length(players)
+
 // [Player] -> String -> Player
 const find = R.curry((players, id) => R.find(R.propEq('id', id), players))
 
@@ -31,5 +34,6 @@ const add = players => R.pipe(
 
 export default R.map(deferStateApplication, {
   add,
+  count,
   find,
 })

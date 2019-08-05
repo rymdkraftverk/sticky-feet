@@ -28,15 +28,6 @@ const writeGameCodeToUrl = gameCode => {
   window.history.pushState({ gameCode }, '', `?code=${gameCode}`)
 }
 
-const eventState = ({ event, payload }) => {
-  switch (event) {
-    case Event.FromGame.YOU_JOINED:
-      return AppState.GAME
-    default:
-      return null
-  }
-}
-
 const App = props => {
   const [appState, setAppState] = useState(AppState.LOCKER_ROOM)
   const [gameCode, setGameCode] = useState('')
@@ -56,15 +47,19 @@ const App = props => {
     }
   }, [])
 
-  const onData = message => {
-    const state = eventState(message)
-
-    if (!state) {
-      logError(`Unexpected event in message: ${message}`)
-      return
+  const onData = ({ event }) => {
+    switch (event) {
+      case Event.FromGame.YOU_JOINED:
+        setAppState(AppState.GAME)
+        break
+      case Event.FromGame.FULL:
+        setAppState(AppState.LOCKER_ROOM)
+        setError('Game is full')
+        break
+      default:
+        logError(`Unexpected event: ${event}`)
+        return null
     }
-
-    setAppState(state)
   }
 
   const onJoinClick = () => {

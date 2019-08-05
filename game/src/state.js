@@ -1,11 +1,16 @@
 import * as R from 'ramda'
 import { Colors } from '../../common'
 
+const namesInReversedOrder = R.pipe(
+  R.pluck('name'),
+  R.reverse,
+)
+
 const state = {
   // [Player]
   players: [],
   // [String]
-  availableColors: R.pluck('name', Colors),
+  availableColors: namesInReversedOrder(Colors),
 }
 
 export default state

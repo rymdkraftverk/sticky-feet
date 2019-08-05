@@ -17,6 +17,10 @@ beforeEach(() => {
 })
 
 // --- Read ---
+test('count', () => {
+  expect(repo.count())
+    .toEqual(2)
+})
 
 test('find', () => {
   expect(repo.find('foo'))
