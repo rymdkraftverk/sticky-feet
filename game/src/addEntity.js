@@ -2,9 +2,9 @@ import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 import { DOME_X, DOME_Y } from './constant'
 
-export default (pixiStage, matterEngine, { sprite, body }) => {
+export default (pixiStage, matterWorld, { id, sprite, body }) => {
   pixiStage.addChild(sprite)
-  Matter.World.add(matterEngine, [body])
+  Matter.World.add(matterWorld, [body])
 
   // Sync the movement of sprite and physical body
   l1.repeat(() => {

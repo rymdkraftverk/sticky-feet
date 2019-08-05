@@ -55,7 +55,7 @@ const createSprite = (colorName) => {
   return sprite
 }
 
-export default (pixiStage, matterEngine, id) => {
+export default (pixiStage, matterWorld, id) => {
   const colorName = state.availableColors.pop()
   const sprite = createSprite(colorName)
   const body = createBody()
@@ -103,7 +103,7 @@ export default (pixiStage, matterEngine, id) => {
 
   addEntity(
     pixiStage,
-    matterEngine,
+    matterWorld,
     player,
   )
   playerRepository.add(player)
