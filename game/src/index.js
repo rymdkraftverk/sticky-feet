@@ -21,6 +21,9 @@ const { error, log, warn } = console
 
 log(`Version: ${VERSION}`)
 
+// Enable pixel perfect rendering
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
+
 const app = new PIXI.Application({
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
