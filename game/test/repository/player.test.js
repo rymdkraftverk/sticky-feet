@@ -26,10 +26,10 @@ test('find', () => {
 // --- Write ---
 
 test('add', () => {
-  repo.add([{
+  repo.add({
     id: 'unique',
     color: 'yellow',
-  }])
+  })
 
   expect(state.players)
     .toEqual(PLAYERS.concat({
