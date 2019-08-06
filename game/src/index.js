@@ -6,6 +6,7 @@ import { Event, Colors, Channel } from '../../common'
 import { GAME_HEIGHT, GAME_WIDTH } from '/constant'
 import http from './http'
 import stage from './stage'
+import jump from './jump'
 import createPlayer from './player/create'
 import removePlayer from './player/remove'
 import playerRepository from './player/repository'
@@ -61,22 +62,6 @@ app.ticker.add(() => {
 
 app.loader.add('spritesheet/fight.json')
 app.loader.add('spritesheet/spritesheet.json')
-
-const jump = (id) => {
-  const { body } = playerRepository.find(id)
-
-  Matter.Body.applyForce(
-    body,
-    {
-      x: body.position.x,
-      y: body.position.y,
-    },
-    {
-      x: 0,
-      y: -0.2,
-    },
-  )
-}
 
 const vectorTip = ({ x: originX, y: originY }, angle, distance) => ({
   x: originX + distance * Math.cos(angle),
