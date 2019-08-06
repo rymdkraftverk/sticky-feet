@@ -14,7 +14,7 @@ import {
   DOME_Y,
 } from '../constant'
 
-const COLOR_COUNT = 12
+const COLOR_COUNT = Colors.length
 
 const INDEX_COLOR_MAPPING = R.mergeAll(
   R.addIndex(R.map)(
