@@ -7,7 +7,7 @@ import state from '../state'
 import playerRepository from './repository'
 import * as entity from '../entity'
 import autorun from '../autorun'
-import { Colors } from '../../../common'
+import { Colors } from '../../../../common'
 
 import {
   GAME_HEIGHT,

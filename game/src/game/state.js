@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { Colors } from '../../common'
+import { Colors } from '../../../common'
 
 const namesInReversedOrder = R.pipe(
   R.pluck('name'),

@@ -9,7 +9,7 @@ import {
   CENTER_Y,
   DOME_X,
   DOME_Y,
-} from '/constant'
+} from './constant'
 
 const getCircleVertices = ({ center, radius, steps }) => R.range(0, steps + 1).map((step) => {
   const angle = -1 * step * (2 * Math.PI / steps) - 0.5 * Math.PI
