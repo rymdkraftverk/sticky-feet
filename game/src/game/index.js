@@ -17,11 +17,8 @@ window.decomp = require('poly-decomp')
 const DEBUG_MATTER = false
 
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
-const VERSION = process.env.VERSION || 'N/A'
 
 const { error, log, warn } = console
-
-log(`Version: ${VERSION}`)
 
 // Enable pixel perfect rendering
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
