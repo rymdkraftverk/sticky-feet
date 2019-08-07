@@ -20,8 +20,7 @@ export const add = (pixiStage, matterWorld, { id, sprite, body }) => {
     /* eslint-disable no-param-reassign */
     sprite.position.x = body.position.x
     sprite.position.y = body.position.y
-    // TODO: Axel: Fix rotation
-    sprite.rotation = -Math.atan(body.position.y - DOME_Y / body.position.x - DOME_X) - Math.PI / 2
+    sprite.rotation = Math.atan2(body.position.y - DOME_Y, body.position.x - DOME_X) - Math.PI / 2
     /* eslint-enable no-param-reassign */
   })
 

@@ -126,6 +126,13 @@ const onPlayerLeave = (id) => {
   )
 }
 
+const createBot = (idSuffix = Date.now()) => {
+  createPlayer(
+    app.stage,
+    engine.world,
+    `BOT_${idSuffix}`,
+  )
+}
 
 // Experimental API's are not supported by typescript
 // @ts-ignore
@@ -144,11 +151,7 @@ document.fonts.load('10pt "patchy-robots"')
           })
         })
 
-      createPlayer(
-        app.stage,
-        engine.world,
-        'BOT',
-      )
+      createBot('DEFAULT')
 
       arrow = new PIXI.Sprite(l1.getTexture('arrow/arrow-green'))
       arrow.position = arrowPosition
@@ -184,6 +187,7 @@ const stop = () => {
 
 window.debug = {
   ...window.debug,
+  createBot,
   start,
   stop,
   // Add console commands here
