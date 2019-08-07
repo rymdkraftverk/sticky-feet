@@ -18,8 +18,6 @@ const DEBUG_MATTER = false
 
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
 
-const { error, log, warn } = console
-
 // Enable pixel perfect rendering
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
 
@@ -84,7 +82,7 @@ const onPlayerData = id => (message) => {
       arrow.position = arrowPosition
       break
     default:
-      warn(`Unhandled event for message: ${message}`)
+      console.warn(`Unhandled event for message: ${message}`)
   }
 }
 
@@ -138,7 +136,7 @@ document.fonts.load('10pt "patchy-robots"')
     app.loader.load(() => {
       http.createGame()
         .then(({ gameCode }) => {
-          log(`[Game created] ${gameCode}`)
+          console.log(`[Game created] ${gameCode}`)
 
           signaling.runReceiver({
             wsAddress: WS_ADDRESS,
@@ -159,7 +157,7 @@ document.fonts.load('10pt "patchy-robots"')
     })
   })
   .catch(() => {
-    error('Unable to load font')
+    console.error('Unable to load font')
   })
 
 if (DEBUG_MATTER) {

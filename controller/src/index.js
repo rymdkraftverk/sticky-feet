@@ -5,9 +5,8 @@ import Boundary from './Boundary'
 import App from './App'
 
 const VERSION = process.env.REACT_APP_VERSION || 'N/A'
-const { log } = console
 
-log(`Version: ${VERSION}`)
+console.log(`Version: ${VERSION}`)
 
 /* eslint-disable-next-line no-unused-expressions */
 const GlobalStyle = createGlobalStyle`

@@ -12,8 +12,6 @@ import GamePlaying from './playing/Main'
 import { getLastGameCode, setLastGameCode } from './join/sessionStorage'
 import TurnPhone from './join/TurnPhone'
 
-const { error: logError } = console
-
 const { REACT_APP_WS_ADDRESS: WS_ADDRESS } = process.env
 const TIMEOUT_SECONDS = 20
 
@@ -57,7 +55,7 @@ const App = props => {
         setError('Game is full')
         break
       default:
-        logError(`Unexpected event: ${event}`)
+        console.error(`Unexpected event: ${event}`)
         return null
     }
   }
@@ -128,7 +126,7 @@ const App = props => {
         if (message) {
           displayError(message)
         } else {
-          logError(error)
+          console.error(error)
         }
       })
   }
