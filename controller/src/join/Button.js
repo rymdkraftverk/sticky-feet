@@ -15,7 +15,7 @@ export default styled.button`
   position: relative;
   top: 0;
   left: 0;
-  
+
   :active {
     box-shadow: 0 0;
     top: 0.1em;

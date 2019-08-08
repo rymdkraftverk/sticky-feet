@@ -102,7 +102,11 @@ const onPlayerJoin = ({
 
   setOnData(onPlayerData(id))
 
-  createPlayer(
+  const {
+    color: {
+      hex,
+    },
+  } = createPlayer(
     app.stage,
     engine.world,
     id,
@@ -110,7 +114,10 @@ const onPlayerJoin = ({
 
   send(Channel.RELIABLE, {
     event: Event.FromGame.YOU_JOINED,
-    payload: { id },
+    payload: {
+      id,
+      color: hex,
+    },
   })
 }
 

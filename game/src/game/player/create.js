@@ -23,6 +23,11 @@ const INDEX_COLOR_MAPPING = R.mergeAll(
   ),
 )
 
+const findColor = (name) => R.find(
+  R.propEq('name', name),
+  Colors
+)
+
 const FRONT_COLLAPSED = 2
 const FRONT_STRETCHED = 3
 
@@ -57,12 +62,13 @@ const createSprite = (colorName) => {
 
 export default (pixiStage, matterWorld, id) => {
   const colorName = state.availableColors.pop()
+  const color = findColor(colorName)
   const sprite = createSprite(colorName)
   const body = createBody()
 
   const player = {
     id,
-    color: colorName,
+    color,
     sprite,
     body,
   }

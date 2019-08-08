@@ -30,6 +30,7 @@ const App = props => {
   const [appState, setAppState] = useState(AppState.LOCKER_ROOM)
   const [gameCode, setGameCode] = useState('')
   const [error, setError] = useState('')
+  const [playerColor, setPlayerColor] = useState('')
   const [sendReliable, setSendReliable] = useState({
     f: () => {}, // Hack to be able to put a function in state
   })
@@ -45,10 +46,11 @@ const App = props => {
     }
   }, [])
 
-  const onData = ({ event }) => {
+  const onData = ({ event, payload }) => {
     switch (event) {
       case Event.FromGame.YOU_JOINED:
         setAppState(AppState.GAME)
+        setPlayerColor(payload.color)
         break
       case Event.FromGame.FULL:
         setAppState(AppState.LOCKER_ROOM)
@@ -150,7 +152,7 @@ const App = props => {
       case AppState.GAME_CONNECTING:
         return <LockerRoomLoader />
       case AppState.GAME:
-        return <GamePlaying send={sendReliable.f} />
+        return <GamePlaying send={sendReliable.f} playerColor={playerColor} />
       default:
         return null
     }

@@ -6,10 +6,11 @@ import styled from 'styled-components/macro'
 import Div100vh from 'react-div-100vh'
 import Button from '../join/Button'
 
-const Container = styled(Div100vh)`
+const Container = styled(({ playerColor, ...rest }) => <Div100vh {...rest} />)`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: ${R.prop('playerColor')};
 `
 
 const JumpButton = styled(Button)`
@@ -18,9 +19,7 @@ const JumpButton = styled(Button)`
 `
 
 const distance = ({ x: x1, y: y1 }, { x: x2, y: y2 }) =>
-  Math.sqrt(
-    Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2),
-)
+  Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
 
 const angle = ({ x: x1, y: y1 }, { x: x2, y: y2 }) =>
   Math.atan2(y2 - y1, x2 - x1)
@@ -30,7 +29,7 @@ const touchEventPosition = ({ touches: [{ clientX: x, clientY: y }] }) => ({
   y,
 })
 
-const GamePlaying = ({ send }) => {
+const GamePlaying = ({ send, playerColor }) => {
   const [originPosition, setOriginPosition] = useState(null)
 
   const sendDrag = position => {
@@ -53,6 +52,7 @@ const GamePlaying = ({ send }) => {
 
   return (
     <Container
+      playerColor={playerColor}
       onTouchStart={R.pipe(
         touchEventPosition,
         setOriginPosition,
@@ -63,15 +63,14 @@ const GamePlaying = ({ send }) => {
       )}
       onTouchEnd={sendDragEnd}
     >
-      <JumpButton onTouchStart={sendJump}>
-        Jump
-      </JumpButton>
+      <JumpButton onTouchStart={sendJump}>Jump</JumpButton>
     </Container>
   )
 }
 
 GamePlaying.propTypes = {
   send: PropTypes.func,
+  playerColor: PropTypes.string.isRequired,
 }
 
 export default GamePlaying
