@@ -7,6 +7,7 @@ import state from '../state'
 import playerRepository from './repository'
 import * as entity from '../entity'
 import autorun from '../autorun'
+import scope from '../scope'
 import { Colors } from '../../../../common'
 
 import {
@@ -69,6 +70,7 @@ export default (pixiStage, matterWorld, id) => {
   const player = {
     id,
     color,
+    scope: scope.create(pixiStage),
     sprite,
     body,
   }

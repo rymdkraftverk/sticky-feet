@@ -7,6 +7,7 @@ import { GAME_HEIGHT, GAME_WIDTH } from './constant'
 import http from './http'
 import stage from './stage'
 import jump from './jump'
+import scope from './scope'
 import createPlayer from './player/create'
 import removePlayer from './player/remove'
 import playerRepository from './player/repository'
@@ -41,13 +42,6 @@ l1.init(app, {
 
 const engine = Matter.Engine.create()
 
-// Arrow rendering directional command
-let arrow
-const arrowPosition = {
-  x: 500,
-  y: 300,
-}
-
 // Remove default gravity
 engine.world.gravity.y = 0
 
@@ -58,11 +52,6 @@ app.ticker.add(() => {
 app.loader.add('spritesheet/fight.json')
 app.loader.add('spritesheet/spritesheet.json')
 
-const vectorTip = ({ x: originX, y: originY }, angle, distance) => ({
-  x: originX + distance * Math.cos(angle),
-  y: originY + distance * Math.sin(angle),
-})
-
 const onPlayerData = id => (message) => {
   const { event, payload } = message
 
@@ -71,15 +60,13 @@ const onPlayerData = id => (message) => {
       jump(id)
       break
     case Event.ToGame.DRAG:
-      arrow.rotation = payload.angle
-      arrow.position = vectorTip(
-        arrowPosition,
-        payload.angle,
-        payload.distance,
+      scope.aim(
+        id,
+        payload,
       )
       break
     case Event.ToGame.DRAG_END:
-      arrow.position = arrowPosition
+      scope.reset(id)
       break
     default:
       console.warn(`Unhandled event for message: ${message}`)
@@ -153,12 +140,7 @@ document.fonts.load('10pt "patchy-robots"')
           })
         })
 
-      createBot('DEFAULT')
-
-      arrow = new PIXI.Sprite(l1.getTexture('arrow/arrow-green'))
-      arrow.position = arrowPosition
-      arrow.anchor.set(0.5)
-      app.stage.addChild(arrow)
+      createBot('BOT')
 
       stage({ world: engine.world, app })
     })

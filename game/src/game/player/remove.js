@@ -4,10 +4,15 @@ import * as entity from '../entity'
 
 export default (matterWorld, id) => {
   const player = playerRepository.find(id)
-  const { color: colorName } = player
+  const {
+    color: colorName,
+    scope,
+  } = player
 
   // Free color
   state.availableColors.push(colorName)
+
+  scope.destroy()
 
   entity.remove(
     matterWorld,
