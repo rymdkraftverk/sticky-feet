@@ -14,6 +14,7 @@ import scope from './scope'
 import createPlayer from './player/create'
 import removePlayer from './player/remove'
 import playerRepository from './player/repository'
+import qrCode from './qrCode'
 
 // Hack to make Matter.Bodies.fromVertices work
 // @ts-ignore
@@ -22,6 +23,7 @@ window.decomp = require('poly-decomp')
 const DEBUG_MATTER = false
 
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
+const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
 
 // Enable pixel perfect rendering
 // There's a bug in typescript flagging this as an error.
@@ -148,6 +150,8 @@ document.fonts.load('10pt "patchy-robots"')
             onInitiatorJoin: onPlayerJoin,
             onInitiatorLeave: onPlayerLeave,
           })
+
+          qrCode.display(CONTROLLER_HOST, gameCode)
         })
 
       createBot('DEFAULT')

@@ -20,6 +20,14 @@ body {
   left: 0;
 }
 
+#qr-code {
+  width: 15% !important;
+  height: auto !important;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
 @font-face {
   font-family: 'patchy-robots';
   src: url('asset/patchy-robots.ttf');

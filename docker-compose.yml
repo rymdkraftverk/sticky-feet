@@ -8,7 +8,7 @@ services:
             - ./game:/game
             - ./common:/common
         environment:
-            - CONTROLLER_URL=${CONTROLLER_URL}
+            - CONTROLLER_HOST=${CONTROLLER_HOST}
             - ERROR_LOGGING=${ERROR_LOGGING}
             - HTTP_ADDRESS=${HTTP_ADDRESS}
             - VERSION=${VERSION}
