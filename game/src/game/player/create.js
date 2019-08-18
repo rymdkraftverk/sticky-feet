@@ -24,9 +24,9 @@ const INDEX_COLOR_MAPPING = R.mergeAll(
   ),
 )
 
-const findColor = (name) => R.find(
+const findColor = name => R.find(
   R.propEq('name', name),
-  Colors
+  Colors,
 )
 
 const FRONT_COLLAPSED = 2
