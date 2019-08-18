@@ -1,3 +1,6 @@
+// There's a bug in typescript flagging this as an error.
+// TODO: Remove ts-ignore once typescript is updated
+// @ts-ignore
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
@@ -13,6 +16,7 @@ import removePlayer from './player/remove'
 import playerRepository from './player/repository'
 
 // Hack to make Matter.Bodies.fromVertices work
+// @ts-ignore
 window.decomp = require('poly-decomp')
 
 const DEBUG_MATTER = false
@@ -20,8 +24,14 @@ const DEBUG_MATTER = false
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
 
 // Enable pixel perfect rendering
+// There's a bug in typescript flagging this as an error.
+// TODO: Remove ts-ignore once typescript is updated
+// @ts-ignore
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
 
+// There's a bug in typescript flagging this as an error.
+// TODO: Remove ts-ignore once typescript is updated
+// @ts-ignore
 const app = new PIXI.Application({
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
@@ -115,7 +125,7 @@ const onPlayerLeave = (id) => {
   )
 }
 
-const createBot = (idSuffix = Date.now()) => {
+const createBot = (idSuffix = Date.now().toString()) => {
   createPlayer(
     app.stage,
     engine.world,
@@ -140,7 +150,7 @@ document.fonts.load('10pt "patchy-robots"')
           })
         })
 
-      createBot('BOT')
+      createBot('DEFAULT')
 
       stage({ world: engine.world, app })
     })
@@ -169,10 +179,13 @@ const stop = () => {
   app.ticker.stop()
 }
 
+// debug is not a part of the window type
+// @ts-ignore
 window.debug = {
+  // @ts-ignore
   ...window.debug,
+  // Add console commands here
   createBot,
   start,
   stop,
-  // Add console commands here
 }
