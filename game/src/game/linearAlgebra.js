@@ -21,3 +21,8 @@ export const scale = (factor, { x, y }) => ({
   x: factor * x,
   y: factor * y,
 })
+
+export const rotate = (angle, { x, y }) => ({
+  x: x * Math.cos(angle) - y * Math.sin(angle),
+  y: x * Math.sin(angle) + y * Math.cos(angle),
+})
