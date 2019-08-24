@@ -7,7 +7,9 @@ export default (matterWorld, id) => {
   const player = playerRepository.find(id)
   const {
     autorunId,
-    color: colorName,
+    color: {
+      name: colorName,
+    },
     scope,
   } = player
 
