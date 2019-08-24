@@ -129,14 +129,24 @@ workflows:
       - setup:
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - develop
       - validate:
           requires:
               - setup
       - build_game:
+          filters:
+            branches:
+              only:
+                - master
           requires:
               - validate
       - build_controller:
+          filters:
+            branches:
+              only:
+                - master
           requires:
               - validate
       - deploy_controller:
