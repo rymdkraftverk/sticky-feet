@@ -5,6 +5,8 @@ import { Event } from 'common'
 import styled from 'styled-components/macro'
 import Div100vh from 'react-div-100vh'
 import Button from '../join/Button'
+import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
+import ScrollLock from '../util/ScrollLock'
 
 const Container = styled(({ playerColor, ...rest }) => <Div100vh {...rest} />)`
   display: flex;
@@ -63,7 +65,10 @@ const GamePlaying = ({ send, playerColor }) => {
       )}
       onTouchEnd={sendDragEnd}
     >
+      <IOSDisableDoubleTap>
+      <ScrollLock />
       <JumpButton onTouchStart={sendJump}>Jump</JumpButton>
+      </IOSDisableDoubleTap>
     </Container>
   )
 }
