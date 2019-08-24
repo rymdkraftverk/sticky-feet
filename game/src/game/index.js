@@ -5,6 +5,7 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 import signaling from 'rkv-signaling'
+
 import { Event, Colors, Channel } from '../../../common'
 import { GAME_HEIGHT, GAME_WIDTH } from './constant'
 import http from './http'
@@ -15,6 +16,7 @@ import createPlayer from './player/create'
 import removePlayer from './player/remove'
 import playerRepository from './player/repository'
 import qrCode from './qrCode'
+import projectile from './projectile'
 
 // Hack to make Matter.Bodies.fromVertices work
 // @ts-ignore
@@ -48,8 +50,8 @@ document
   .appendChild(app.view)
 
 l1.init(app, {
-  debug: false,
-  logging: false,
+  debug: process.env.NODE_ENV === 'development',
+  logging: process.env.NODE_ENV === 'development',
 })
 
 const engine = Matter.Engine.create()
@@ -77,8 +79,18 @@ const onPlayerData = id => (message) => {
         payload,
       )
       break
-    case Event.ToGame.DRAG_END:
+    case Event.ToGame.DRAG_END: {
+      const { angle } = payload
       scope.reset(id)
+
+      const player = playerRepository.find(id)
+      projectile.create({
+        stage: app.stage,
+        world: engine.world,
+        angle,
+        player,
+      })
+    }
       break
     default:
       console.warn(`Unhandled event for message: ${message}`)
