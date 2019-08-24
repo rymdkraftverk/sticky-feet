@@ -44,8 +44,12 @@ const GamePlaying = ({ send, playerColor }) => {
     })
   }
 
-  const sendDragEnd = () => {
-    send({ event: Event.ToGame.DRAG_END })
+  const sendDragEnd = (position) => {
+    send({ event: Event.ToGame.DRAG_END,
+      payload: {
+        angle: angle(originPosition, position),
+      },
+    })
   }
 
   const sendJump = () => {
@@ -63,7 +67,7 @@ const GamePlaying = ({ send, playerColor }) => {
         touchEventPosition,
         sendDrag,
       )}
-      onTouchEnd={sendDragEnd}
+      onTouchEnd={R.pipe(touchEventPosition,sendDragEnd)}
     >
       <IOSDisableDoubleTap>
         <ScrollLock />
