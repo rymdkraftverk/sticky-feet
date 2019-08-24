@@ -7,6 +7,7 @@ import state from '../state'
 import playerRepository from './repository'
 import * as entity from '../entity'
 import autorun from '../autorun'
+import gravity from '../gravity'
 import scope from '../scope'
 import { Colors } from '../../../../common'
 
@@ -83,6 +84,7 @@ export default (pixiStage, matterWorld, id) => {
   playerRepository.add(player)
 
   player.autorunId = autorun(id)
+  player.gravityId = gravity(id)
 
   return player
 }

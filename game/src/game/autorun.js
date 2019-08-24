@@ -30,7 +30,7 @@ export default (id) => {
       y: body.position.y - DOME_Y,
     }
 
-    const velocityDirection = rotate(-Math.PI / 2.1, normalize(foo))
+    const velocityDirection = rotate(-Math.PI / 1.9, normalize(foo))
 
     // TODO: Decide how to handle this gravity
     // const FORCE_FACTOR = 200
