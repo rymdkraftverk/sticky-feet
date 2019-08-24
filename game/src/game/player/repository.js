@@ -20,8 +20,14 @@ const write = (x) => {
 // [Player] -> Int
 const count = players => () => R.length(players)
 
-// [Player] -> String -> Player
+// [Player] -> Player id -> Player
 const find = R.curry((players, id) => R.find(R.propEq('id', id), players))
+
+// [Player] -> Body id -> Player
+const findByBody = players => bodyId => R.find(
+  x => x.body.id === bodyId,
+  players,
+)
 
 // --- Write ---
 
@@ -42,5 +48,6 @@ export default R.map(deferStateApplication, {
   add,
   count,
   find,
+  findByBody,
   remove,
 })

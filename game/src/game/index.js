@@ -17,6 +17,7 @@ import removePlayer from './player/remove'
 import playerRepository from './player/repository'
 import qrCode from './qrCode'
 import projectile from './projectile'
+import collider from './collider'
 
 // Hack to make Matter.Bodies.fromVertices work
 // @ts-ignore
@@ -62,6 +63,8 @@ engine.world.gravity.y = 0
 app.ticker.add(() => {
   Matter.Engine.update(engine)
 })
+
+Matter.Events.on(engine, 'collisionStart', collider)
 
 app.loader.add('spritesheet/fight.json')
 app.loader.add('spritesheet/spritesheet.json')
