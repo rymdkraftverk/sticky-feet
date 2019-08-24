@@ -82,7 +82,7 @@ export default (pixiStage, matterWorld, id) => {
   )
   playerRepository.add(player)
 
-  autorun(id)
+  player.autorunId = autorun(id)
 
   return player
 }

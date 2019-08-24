@@ -10,7 +10,7 @@ import {
 export default (id) => {
   const { body } = playerRepository.find(id)
 
-  l1.repeat(() => {
+  const b = l1.repeat(() => {
     const normalize = (v) => {
       const length = Math.sqrt((v.x ** 2) + (v.y ** 2))
 
@@ -43,4 +43,7 @@ export default (id) => {
     Matter.Body.setVelocity(body, { x: velocityDirection.x * 2, y: velocityDirection.y * 2 })
     // Matter.Body.applyForce(body, { x: 0, y: 0 }, force)
   })
+
+  b.id = `autorun_${id}`
+  return b.id
 }
