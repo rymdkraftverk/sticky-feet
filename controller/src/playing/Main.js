@@ -66,8 +66,8 @@ const GamePlaying = ({ send, playerColor }) => {
       onTouchEnd={sendDragEnd}
     >
       <IOSDisableDoubleTap>
-      <ScrollLock />
-      <JumpButton onTouchStart={sendJump}>Jump</JumpButton>
+        <ScrollLock />
+        <JumpButton onTouchStart={sendJump}>Jump</JumpButton>
       </IOSDisableDoubleTap>
     </Container>
   )
