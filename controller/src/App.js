@@ -12,6 +12,15 @@ import GamePlaying from './playing/Main'
 import { getLastGameCode, setLastGameCode } from './join/sessionStorage'
 import TurnPhone from './join/TurnPhone'
 
+const noop = () => {}
+
+navigator.vibrate =
+  navigator.vibrate ||
+  navigator.webkitVibrate ||
+  navigator.mozVibrate ||
+  navigator.msVibrate ||
+  noop
+
 const { REACT_APP_WS_ADDRESS: WS_ADDRESS } = process.env
 const TIMEOUT_SECONDS = 20
 
