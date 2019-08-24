@@ -183,6 +183,14 @@ const stop = () => {
   app.ticker.stop()
 }
 
+const resizeGame = () => {
+  const screenWidth = window.innerWidth
+  const screenHeight = window.innerHeight
+  l1.resize(screenWidth, screenHeight)
+}
+resizeGame()
+window.addEventListener('resize', resizeGame)
+
 // debug is not a part of the window type
 // @ts-ignore
 window.debug = {
