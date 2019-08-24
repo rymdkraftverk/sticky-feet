@@ -167,11 +167,10 @@ document.fonts.load('10pt "patchy-robots"')
           })
 
           qrCode.display(CONTROLLER_HOST, gameCode)
+
+          createBot('DEFAULT')
+          stage({ world: engine.world, app, gameCode })
         })
-
-      createBot('DEFAULT')
-
-      stage({ world: engine.world, app })
     })
   })
   .catch(() => {

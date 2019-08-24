@@ -2,6 +2,9 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 import * as R from 'ramda'
+
+import textStyle from './textStyle'
+
 import {
   GAME_WIDTH,
   GAME_HEIGHT,
@@ -61,7 +64,30 @@ const createDome = ({ world, app }) => {
   Matter.World.add(world, [marker])
 }
 
+const TEXT_X = 12
+const URL_Y = 50
+const CODE_Y = 150
 
-export default ({ world, app }) => {
+const createJoinInstructions = ({ app, gameCode }) => {
+  const urlLabel = new PIXI.Text('Url', { ...textStyle, fill: '#aaaaaa' })
+  urlLabel.position = { x: TEXT_X, y: URL_Y }
+  app.stage.addChild(urlLabel)
+
+  const url = new PIXI.Text('www.fightgame.com', { ...textStyle, fontFamily: 'Arial' })
+  url.position = { x: TEXT_X, y: URL_Y + 26 }
+  app.stage.addChild(url)
+
+  const codeLabel = new PIXI.Text('Code', { ...textStyle, fill: '#aaaaaa' })
+  codeLabel.position = { x: TEXT_X, y: CODE_Y }
+  app.stage.addChild(codeLabel)
+
+  const code = new PIXI.Text(gameCode, { ...textStyle, fontFamily: 'Arial', fontSize: 64 })
+  code.position = { x: TEXT_X, y: CODE_Y + 26 }
+  app.stage.addChild(code)
+}
+
+
+export default ({ world, app, gameCode }) => {
   createDome({ world, app })
+  createJoinInstructions({ app, gameCode })
 }
