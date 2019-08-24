@@ -7,8 +7,10 @@ const syncBehaviorId = entityId => `sync_${entityId}`
 
 export const remove = (matterWorld, { id, sprite, body }) => {
   l1.remove(syncBehaviorId(id))
-  sprite.destroy()
-  Matter.World.remove(matterWorld, body)
+  l1.once(() => {
+    sprite.destroy()
+    Matter.World.remove(matterWorld, body)
+  })
 }
 
 export const add = (pixiStage, matterWorld, { id, sprite, body }) => {
