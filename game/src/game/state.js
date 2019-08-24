@@ -7,6 +7,8 @@ const namesInReversedOrder = R.pipe(
 )
 
 const state = {
+  matterWorld: null,
+  pixiStage: null,
   // [Player]
   players: [],
   // [String]

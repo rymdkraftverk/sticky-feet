@@ -1,12 +1,13 @@
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import playerRepository from './player/repository'
+import state from './state'
 
-const create = (pixiStage) => {
+const create = () => {
   const scope = new PIXI.Sprite(l1.getTexture('arrow/arrow-green'))
   scope.anchor.set(0.5)
   scope.visible = false
-  pixiStage.addChild(scope)
+  state.pixiStage.addChild(scope)
   return scope
 }
 

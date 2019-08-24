@@ -62,7 +62,7 @@ const createSprite = (colorName) => {
   return sprite
 }
 
-export default (pixiStage, matterWorld, id) => {
+export default (id) => {
   const colorName = state.availableColors.pop()
   const color = findColor(colorName)
   const sprite = createSprite(colorName)
@@ -71,16 +71,12 @@ export default (pixiStage, matterWorld, id) => {
   const player = {
     id,
     color,
-    scope: scope.create(pixiStage),
+    scope: scope.create(),
     sprite,
     body,
   }
 
-  entity.add(
-    pixiStage,
-    matterWorld,
-    player,
-  )
+  entity.add(player)
   playerRepository.add(player)
 
   player.autorunId = autorun(id)

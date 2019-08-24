@@ -14,6 +14,8 @@ import {
   DOME_Y,
 } from './constant'
 
+import state from './state'
+
 const getCircleVertices = ({ center, radius, steps }) => R.range(0, steps + 1).map((step) => {
   const angle = -1 * step * (2 * Math.PI / steps) - 0.5 * Math.PI
   const x = radius * Math.cos(angle) + center.x
@@ -21,7 +23,7 @@ const getCircleVertices = ({ center, radius, steps }) => R.range(0, steps + 1).m
   return { x, y }
 })
 
-const createDome = ({ world, app }) => {
+const createDome = () => {
   const vertices = [
     { x: GAME_WIDTH - (GAME_HEIGHT / 2) + 1, y: 1 },
     { x: GAME_WIDTH, y: 1 },
@@ -50,44 +52,43 @@ const createDome = ({ world, app }) => {
     ],
     { isStatic: true, friction: 0 },
   )
-  Matter.World.add(world, [dome])
+  Matter.World.add(state.matterWorld, [dome])
 
   const domeSprite = new PIXI.Sprite(l1.getTexture('dome-0'))
   domeSprite.scale.set(5.65)
   domeSprite.anchor.set(0.5)
   domeSprite.x = DOME_X
   domeSprite.y = DOME_Y
-  app.stage.addChild(domeSprite)
+  state.pixiStage.addChild(domeSprite)
 
   // This is used to mark the center for debug purposes
   const marker = Matter.Bodies.circle(DOME_X, DOME_Y, 15, { isStatic: true })
-  Matter.World.add(world, [marker])
+  Matter.World.add(state.matterWorld, [marker])
 }
 
 const TEXT_X = 12
 const URL_Y = 50
 const CODE_Y = 150
 
-const createJoinInstructions = ({ app, gameCode }) => {
+const createJoinInstructions = (gameCode) => {
   const urlLabel = new PIXI.Text('Url', { ...textStyle, fill: '#aaaaaa' })
   urlLabel.position = { x: TEXT_X, y: URL_Y }
-  app.stage.addChild(urlLabel)
+  state.pixiStage.addChild(urlLabel)
 
   const url = new PIXI.Text('www.fightgame.com', { ...textStyle, fontFamily: 'Arial' })
   url.position = { x: TEXT_X, y: URL_Y + 26 }
-  app.stage.addChild(url)
+  state.pixiStage.addChild(url)
 
   const codeLabel = new PIXI.Text('Code', { ...textStyle, fill: '#aaaaaa' })
   codeLabel.position = { x: TEXT_X, y: CODE_Y }
-  app.stage.addChild(codeLabel)
+  state.pixiStage.addChild(codeLabel)
 
   const code = new PIXI.Text(gameCode, { ...textStyle, fontFamily: 'Arial', fontSize: 64 })
   code.position = { x: TEXT_X, y: CODE_Y + 26 }
-  app.stage.addChild(code)
+  state.pixiStage.addChild(code)
 }
 
-
-export default ({ world, app, gameCode }) => {
-  createDome({ world, app })
-  createJoinInstructions({ app, gameCode })
+export default (gameCode) => {
+  createDome()
+  createJoinInstructions(gameCode)
 }

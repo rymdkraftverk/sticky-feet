@@ -5,7 +5,7 @@ import * as Matter from 'matter-js'
 import { add } from './entity'
 
 const create = ({
-  angle, stage, world, player: { body },
+  angle, player: { body },
 }) => {
   const originX = body.position.x
   const originY = body.position.y
@@ -28,15 +28,11 @@ const create = ({
     })
   })
 
-  add(
-    stage,
-    world,
-    {
-      id: `projectile-${Math.random()}`,
-      sprite: projectileSprite,
-      body: projectileBody,
-    },
-  )
+  add({
+    id: `projectile-${Math.random()}`,
+    sprite: projectileSprite,
+    body: projectileBody,
+  })
 }
 
 export default {

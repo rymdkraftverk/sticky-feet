@@ -9,6 +9,7 @@ import signaling from 'rkv-signaling'
 import { Event, Colors, Channel } from '../../../common'
 import { GAME_HEIGHT, GAME_WIDTH } from './constant'
 import http from './http'
+import state from './state'
 import stage from './stage'
 import jump from './jump'
 import scope from './scope'
@@ -45,6 +46,7 @@ const app = new PIXI.Application({
   // clearBeforeRender: false,
   backgroundColor: 0x000077,
 })
+state.pixiStage = app.stage
 
 document
   .getElementById('game')
@@ -56,9 +58,10 @@ l1.init(app, {
 })
 
 const engine = Matter.Engine.create()
+state.matterWorld = engine.world
 
 // Remove default gravity
-engine.world.gravity.y = 0
+state.matterWorld.gravity.y = 0
 
 app.ticker.add(() => {
   Matter.Engine.update(engine)
@@ -88,8 +91,6 @@ const onPlayerData = id => (message) => {
 
       const player = playerRepository.find(id)
       projectile.create({
-        stage: app.stage,
-        world: engine.world,
         angle,
         player,
       })
@@ -120,11 +121,7 @@ const onPlayerJoin = ({
     color: {
       hex,
     },
-  } = createPlayer(
-    app.stage,
-    engine.world,
-    id,
-  )
+  } = createPlayer(id)
 
   send(Channel.RELIABLE, {
     event: Event.FromGame.YOU_JOINED,
@@ -137,17 +134,13 @@ const onPlayerJoin = ({
 
 const onPlayerLeave = (id) => {
   removePlayer(
-    engine.world,
+    state.matterWorld,
     id,
   )
 }
 
 const createBot = (idSuffix = Date.now().toString()) => {
-  createPlayer(
-    app.stage,
-    engine.world,
-    `BOT_${idSuffix}`,
-  )
+  createPlayer(`BOT_${idSuffix}`)
 }
 
 // Experimental API's are not supported by typescript
@@ -169,7 +162,7 @@ document.fonts.load('10pt "patchy-robots"')
           qrCode.display(CONTROLLER_HOST, gameCode)
 
           createBot('DEFAULT')
-          stage({ world: engine.world, app, gameCode })
+          stage(gameCode)
         })
     })
   })
