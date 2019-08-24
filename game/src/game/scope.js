@@ -5,6 +5,7 @@ import playerRepository from './player/repository'
 const create = (pixiStage) => {
   const scope = new PIXI.Sprite(l1.getTexture('arrow/arrow-green'))
   scope.anchor.set(0.5)
+  scope.visible = false
   pixiStage.addChild(scope)
   return scope
 }
