@@ -1,6 +1,6 @@
 import './game'
 // @ts-ignore
-import { prettyVersionTime } from '../../../common'
+import { prettyVersionTime } from '../../common'
 
 const { VERSION } = process.env
 
