@@ -30,8 +30,8 @@ const findColor = name => R.find(
   Colors,
 )
 
-const FRONT_COLLAPSED = 2
-const FRONT_STRETCHED = 3
+const FRONT_COLLAPSED = 0
+const FRONT_STRETCHED = 1
 
 const createSpriteAnimation = (colorName) => {
   const colorIndex = INDEX_COLOR_MAPPING[colorName]
@@ -57,7 +57,7 @@ const createSprite = (colorName) => {
   )
   sprite.scale.set(2)
   sprite.anchor.set(0.5)
-  sprite.animationSpeed = 0.02
+  sprite.animationSpeed = 0.08
   sprite.play()
   return sprite
 }
