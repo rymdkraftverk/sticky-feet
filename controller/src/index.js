@@ -1,12 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createGlobalStyle } from 'styled-components/macro'
+import { prettyVersionTime } from 'common'
 import Boundary from './Boundary'
 import App from './App'
 
-const VERSION = process.env.REACT_APP_VERSION || 'N/A'
+const VERSION = process.env.REACT_APP_VERSION
 
-console.log(`Version: ${VERSION}`)
+if (VERSION) {
+  console.log(`Version: ${VERSION} | Time: ${prettyVersionTime(VERSION)}`)
+}
 
 /* eslint-disable-next-line no-unused-expressions */
 const GlobalStyle = createGlobalStyle`

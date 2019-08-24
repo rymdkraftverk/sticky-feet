@@ -41,7 +41,7 @@ jobs:
       - checkout
       - run:
           name: Combine timestamp and sha of last commit to create version
-          command: TZ=UTC git show -s --date=iso-strict-local --pretty=tformat:'%cd_%h' > version
+          command: git show -s --format="%ct-%h" > version
       - npm_install:
           dir: "."
       - npm_install:

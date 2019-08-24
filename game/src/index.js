@@ -1,5 +1,9 @@
 import './game'
+// @ts-ignore
+import { prettyVersionTime } from '../../../common'
 
-const VERSION = process.env.VERSION || 'N/A'
+const { VERSION } = process.env
 
-console.log(`Version: ${VERSION}`)
+if (VERSION) {
+  console.log(`Version: ${VERSION} | Time: ${prettyVersionTime(VERSION)}`)
+}
