@@ -33,8 +33,10 @@ const touchEventPosition = ({ touches: [{ clientX: x, clientY: y }] }) => ({
 
 const GamePlaying = ({ send, playerColor }) => {
   const [originPosition, setOriginPosition] = useState(null)
+  const [position, setPosition] = useState(null)
 
   const sendDrag = position => {
+    setPosition(position)
     send({
       event: Event.ToGame.DRAG,
       payload: {
@@ -68,10 +70,9 @@ const GamePlaying = ({ send, playerColor }) => {
         touchEventPosition,
         sendDrag,
       )}
-      onTouchEnd={R.pipe(
-        touchEventPosition,
-        sendDragEnd,
-      )}
+      onTouchEnd={() => {
+        sendDragEnd(position)
+      }}
     >
       <IOSDisableDoubleTap>
         <ScrollLock />
