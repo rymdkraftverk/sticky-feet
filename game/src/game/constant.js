@@ -6,3 +6,5 @@ export const CENTER_Y = GAME_HEIGHT / 2
 
 export const DOME_X = GAME_WIDTH / 2
 export const DOME_Y = 360
+
+export const DOME_CENTER = { x: DOME_X, y: DOME_Y }

@@ -3,45 +3,28 @@ import * as l1 from 'l1'
 import playerRepository from './player/repository'
 
 import {
-  DOME_X,
-  DOME_Y,
+  rotate,
+  normalize,
+  subtract,
+  scale,
+  length,
+} from './linearAlgebra'
+
+import {
+  DOME_CENTER,
 } from './constant'
 
 export default (id) => {
   const { body } = playerRepository.find(id)
 
   const b = l1.repeat(() => {
-    const normalize = (v) => {
-      const length = Math.sqrt((v.x ** 2) + (v.y ** 2))
+    const playerVector = subtract(DOME_CENTER, body.position)
+    // should be PI / 2, but it's a hack to avoid getting stuck on the wall
+    const velocityDirection = rotate(-Math.PI / 1.9, normalize(playerVector))
 
-      return {
-        x: v.x / length,
-        y: v.y / length,
-      }
-    }
-
-    const rotate = (angle, v) => ({
-      x: v.x * Math.cos(angle) - v.y * Math.sin(angle),
-      y: v.x * Math.sin(angle) + v.y * Math.cos(angle),
-    })
-
-    const foo = {
-      x: body.position.x - DOME_X,
-      y: body.position.y - DOME_Y,
-    }
-
-    const velocityDirection = rotate(-Math.PI / 1.9, normalize(foo))
-
-    // TODO: Decide how to handle this gravity
-    // const FORCE_FACTOR = 200
-
-    // const force = {
-    //   x: normalize(foo).x / FORCE_FACTOR,
-    //   y: normalize(foo).y / FORCE_FACTOR,
-    // }
-
-    Matter.Body.setVelocity(body, { x: velocityDirection.x * 2, y: velocityDirection.y * 2 })
-    // Matter.Body.applyForce(body, { x: 0, y: 0 }, force)
+    // speed scales with distance from center to offset angular velocity benefit of jumping
+    const velocity = scale(10 * length(playerVector) / 1280, velocityDirection)
+    Matter.Body.setVelocity(body, velocity)
   })
 
   b.id = `autorun_${id}`
