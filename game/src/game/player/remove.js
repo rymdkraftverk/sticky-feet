@@ -3,7 +3,7 @@ import state from '../state'
 import playerRepository from './repository'
 import * as entity from '../entity'
 
-export default (matterWorld, id) => {
+export default (id) => {
   const player = playerRepository.find(id)
   const {
     autorunId,
