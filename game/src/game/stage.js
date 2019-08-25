@@ -142,6 +142,6 @@ const createJoinInstructions = (gameCode) => {
 }
 
 export default (gameCode) => {
-  createDome()
+  // createDome()
   createJoinInstructions(gameCode)
 }
