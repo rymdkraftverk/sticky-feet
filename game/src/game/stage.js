@@ -74,21 +74,25 @@ const createJoinInstructions = (gameCode) => {
   const urlLabel = new PIXI.Text('Url', { ...textStyle, fill: '#aaaaaa' })
   // @ts-ignore
   urlLabel.position = { x: TEXT_X, y: URL_Y }
+  l1.makeResizable(urlLabel)
   state.pixiStage.addChild(urlLabel)
 
   const url = new PIXI.Text('www.fightgame.com', { ...textStyle, fontFamily: 'Arial' })
   // @ts-ignore
   url.position = { x: TEXT_X, y: URL_Y + 26 }
+  l1.makeResizable(url)
   state.pixiStage.addChild(url)
 
   const codeLabel = new PIXI.Text('Code', { ...textStyle, fill: '#aaaaaa' })
   // @ts-ignore
   codeLabel.position = { x: TEXT_X, y: CODE_Y }
+  l1.makeResizable(codeLabel)
   state.pixiStage.addChild(codeLabel)
 
   const code = new PIXI.Text(gameCode, { ...textStyle, fontFamily: 'Arial', fontSize: 64 })
   // @ts-ignore
   code.position = { x: TEXT_X, y: CODE_Y + 26 }
+  l1.makeResizable(code)
   state.pixiStage.addChild(code)
 }
 
