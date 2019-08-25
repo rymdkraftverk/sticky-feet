@@ -10,6 +10,7 @@ const create = ({
   const originX = body.position.x
   const originY = body.position.y
 
+  // @ts-ignore
   const projectileSprite = new PIXI.AnimatedSprite(['fireball1', 'fireball2'].map(l1.getTexture))
   projectileSprite.scale.set(3)
   projectileSprite.animationSpeed = 0.1

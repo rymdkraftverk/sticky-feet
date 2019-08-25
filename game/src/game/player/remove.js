@@ -20,10 +20,7 @@ export default (matterWorld, id) => {
 
   l1.remove(autorunId)
 
-  entity.remove(
-    matterWorld,
-    player,
-  )
+  entity.remove(player)
   playerRepository.remove(id)
 
   return player

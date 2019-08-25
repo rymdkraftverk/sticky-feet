@@ -9,6 +9,7 @@ import signaling from 'rkv-signaling'
 import { Event, Colors, Channel } from '../../../common'
 import { GAME_HEIGHT, GAME_WIDTH } from './constant'
 import http from './http'
+// @ts-ignore
 import state from './state'
 import stage from './stage'
 import jump from './jump'
@@ -132,13 +133,6 @@ const onPlayerJoin = ({
   })
 }
 
-const onPlayerLeave = (id) => {
-  removePlayer(
-    state.matterWorld,
-    id,
-  )
-}
-
 const createBot = (idSuffix = Date.now().toString()) => {
   createPlayer(`BOT_${idSuffix}`)
 }
@@ -156,7 +150,7 @@ document.fonts.load('10pt "patchy-robots"')
             wsAddress: WS_ADDRESS,
             receiverId: gameCode,
             onInitiatorJoin: onPlayerJoin,
-            onInitiatorLeave: onPlayerLeave,
+            onInitiatorLeave: removePlayer,
           })
 
           qrCode.display(CONTROLLER_HOST, gameCode)
