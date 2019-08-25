@@ -33,7 +33,7 @@ const attachGravity = (id) => {
     Matter.Body.setVelocity(body, updatedVelocity)
   })
 
-  b.id = `autorun_${id}`
+  b.id = `gravity_${id}`
   return b.id
 }
 

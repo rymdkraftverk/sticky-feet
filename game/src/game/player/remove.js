@@ -7,6 +7,7 @@ export default (id) => {
   const player = playerRepository.find(id)
   const {
     autorunId,
+    gravityId,
     color: {
       name: colorName,
     },
@@ -19,6 +20,7 @@ export default (id) => {
   scope.destroy()
 
   l1.remove(autorunId)
+  l1.remove(gravityId)
 
   entity.remove(player)
   playerRepository.remove(id)
