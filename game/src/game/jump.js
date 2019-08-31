@@ -12,7 +12,6 @@ import {
 } from './constant'
 
 export default (id) => {
-  console.log('jump detected')
   const { body } = playerRepository.find(id)
 
   const jumpDirection = normalize(subtract(body.position, DOME_CENTER))
