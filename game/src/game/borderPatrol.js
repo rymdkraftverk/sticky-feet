@@ -12,7 +12,7 @@ import {
   scale,
 } from './linearAlgebra'
 
-const RADIUS = DOME_Y
+const RADIUS = DOME_Y * 0.95
 
 const enforceVelocity = (relativePosition, velocity) => {
   const positionDirection = normalize(relativePosition)

@@ -24,6 +24,8 @@ const getCircleVertices = ({ center, radius, steps }) => R.range(0, steps + 1).m
 })
 
 const createDome = () => {
+  // MatterJS dome
+  /*
   const vertices = [
     { x: GAME_WIDTH - (GAME_HEIGHT / 2) + 1, y: 1 },
     { x: GAME_WIDTH, y: 1 },
@@ -52,7 +54,9 @@ const createDome = () => {
     ],
     { isStatic: true, friction: 0 },
   )
+
   Matter.World.add(state.matterWorld, [dome])
+  */
 
   const domeSprite = new PIXI.Sprite(l1.getTexture('dome-0'))
   domeSprite.scale.set(5.65)
@@ -142,6 +146,6 @@ const createJoinInstructions = (gameCode) => {
 }
 
 export default (gameCode) => {
-  // createDome()
+  createDome()
   createJoinInstructions(gameCode)
 }
