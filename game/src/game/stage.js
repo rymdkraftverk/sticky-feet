@@ -1,27 +1,16 @@
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
-import * as R from 'ramda'
 
 import textStyle from './textStyle'
 
 import {
-  GAME_WIDTH,
   GAME_HEIGHT,
-  CENTER_X,
-  CENTER_Y,
   DOME_X,
   DOME_Y,
 } from './constant'
 
 import state from './state'
-
-const getCircleVertices = ({ center, radius, steps }) => R.range(0, steps + 1).map((step) => {
-  const angle = -1 * step * (2 * Math.PI / steps) - 0.5 * Math.PI
-  const x = radius * Math.cos(angle) + center.x
-  const y = radius * Math.sin(angle) + center.y
-  return { x, y }
-})
 
 const createDome = () => {
   const domeSprite = new PIXI.Sprite(l1.getTexture('dome-0'))

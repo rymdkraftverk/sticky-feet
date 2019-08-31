@@ -1,4 +1,3 @@
-import * as Matter from 'matter-js'
 import * as l1 from 'l1'
 import playerRepository from './player/repository'
 
