@@ -3,6 +3,8 @@ import * as l1 from 'l1'
 import playerRepository from './player/repository'
 
 import {
+  add,
+  dotProduct,
   rotate,
   normalize,
   subtract,
@@ -12,18 +14,40 @@ import {
 
 import {
   DOME_CENTER,
+  LAP_TIME,
+  TICKS_PER_SEC,
 } from './constant'
+
+const enforceRunning = (domeCenter, lapTime, position, velocity) => {
+  const relativePosition = subtract(domeCenter, position)
+  const radialDirection = rotate(-Math.PI / 2, normalize(relativePosition))
+
+  // speed scales with distance from center to offset angular velocity benefit
+  // of jumping
+  const desiredSpeed = length(relativePosition)
+    * (2 * Math.PI)
+    / lapTime
+    / TICKS_PER_SEC
+
+  const radialVelocityAlignment = dotProduct(velocity, radialDirection)
+  const correctionVelocity = scale(
+    desiredSpeed - radialVelocityAlignment,
+    radialDirection,
+  )
+
+  return add(correctionVelocity, velocity)
+}
 
 export default (id) => {
   const { body } = playerRepository.find(id)
 
   const b = l1.repeat(() => {
-    const playerVector = subtract(DOME_CENTER, body.position)
-    const velocityDirection = rotate(-Math.PI / 2, normalize(playerVector))
-
-    // speed scales with distance from center to offset angular velocity benefit of jumping
-    const velocity = scale(10 * length(playerVector) / 1280, velocityDirection)
-    Matter.Body.setVelocity(body, velocity)
+    body.velocity = enforceRunning(
+      DOME_CENTER,
+      LAP_TIME,
+      body.position,
+      body.velocity,
+    )
   })
 
   b.id = `autorun_${id}`

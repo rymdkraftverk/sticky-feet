@@ -8,6 +8,7 @@ export default (id) => {
   const {
     autorunId,
     gravityId,
+    borderPatrolId,
     color: {
       name: colorName,
     },
@@ -21,6 +22,7 @@ export default (id) => {
 
   l1.remove(autorunId)
   l1.remove(gravityId)
+  l1.remove(borderPatrolId)
 
   entity.remove(player)
   playerRepository.remove(id)

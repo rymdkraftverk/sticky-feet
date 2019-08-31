@@ -14,6 +14,26 @@ import {
 
 const RADIUS = DOME_Y
 
+const enforceVelocity = (relativePosition, velocity) => {
+  const positionDirection = normalize(relativePosition)
+  const velocityAlignment = dotProduct(velocity, positionDirection)
+
+  // allow inward velocity
+  if (velocityAlignment < 0) {
+    return velocity
+  }
+
+  const outwardVelocity = scale(
+    velocityAlignment,
+    positionDirection,
+  )
+
+  return subtract(
+    outwardVelocity,
+    velocity,
+  )
+}
+
 export const enforceBorder = (radius, center, { position, velocity }) => {
   const relativePosition = subtract(center, position)
   const positionDistance = length(relativePosition)
@@ -27,21 +47,9 @@ export const enforceBorder = (radius, center, { position, velocity }) => {
     scale(radius / positionDistance, relativePosition),
   )
 
-  const positionDirection = normalize(relativePosition)
-
-  const outwardVelocity = scale(
-    dotProduct(velocity, positionDirection),
-    positionDirection,
-  )
-
-  const updatedVelocity = subtract(
-    outwardVelocity,
-    velocity,
-  )
-
   return {
     position: updatedPosition,
-    velocity: updatedVelocity,
+    velocity: enforceVelocity(relativePosition, velocity),
   }
 }
 
@@ -55,7 +63,7 @@ const borderPatrol = (id) => {
     Matter.Body.setPosition(body, position)
   })
 
-  b.id = `autorun_${id}`
+  b.id = `border_patrol_${id}`
   return b.id
 }
 
