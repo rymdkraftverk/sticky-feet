@@ -10,6 +10,7 @@ import autorun from '../autorun'
 import gravity from '../gravity'
 import scope from '../scope'
 import { Colors } from '../../../../common'
+import borderPatrol from '../borderPatrol'
 
 import {
   GAME_HEIGHT,
@@ -81,6 +82,7 @@ export default (id) => {
 
   player.autorunId = autorun(id)
   player.gravityId = gravity(id)
+  player.borderPatrolId = borderPatrol(id)
 
   return player
 }

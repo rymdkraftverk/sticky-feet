@@ -9,12 +9,9 @@ import {
 } from './linearAlgebra'
 
 import {
-  DOME_X,
-  DOME_Y,
+  DOME_CENTER,
+  GRAVITY_STRENTH,
 } from './constant'
-
-const DOME_CENTER = { x: DOME_X, y: DOME_Y }
-const GRAVITY_STRENTH = 2 // what's reasonable?
 
 const updateVelocity = (position, velocity) => {
   const gravityDirection = normalize(subtract(DOME_CENTER, position))

@@ -24,36 +24,6 @@ const getCircleVertices = ({ center, radius, steps }) => R.range(0, steps + 1).m
 })
 
 const createDome = () => {
-  const vertices = [
-    { x: GAME_WIDTH - (GAME_HEIGHT / 2) + 1, y: 1 },
-    { x: GAME_WIDTH, y: 1 },
-    { x: GAME_WIDTH, y: GAME_HEIGHT },
-    { x: GAME_WIDTH - GAME_HEIGHT, y: GAME_HEIGHT },
-    { x: GAME_WIDTH - GAME_HEIGHT, y: 1 },
-    { x: GAME_WIDTH - (GAME_HEIGHT / 2) - 1, y: 1 },
-  ]
-
-  const circleVertices = getCircleVertices({
-    center: {
-      x: CENTER_X,
-      y: CENTER_Y,
-    },
-    steps: 100,
-    radius: (GAME_HEIGHT / 2) - 10,
-  })
-
-  const dome = Matter.Bodies.fromVertices(
-    DOME_X,
-    DOME_Y,
-    [
-      ...vertices,
-      ...circleVertices,
-      { x: DOME_X + 1, y: 1 },
-    ],
-    { isStatic: true, friction: 0 },
-  )
-  Matter.World.add(state.matterWorld, [dome])
-
   const domeSprite = new PIXI.Sprite(l1.getTexture('dome-0'))
   domeSprite.scale.set(5.65)
   domeSprite.anchor.set(0.5)

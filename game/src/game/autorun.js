@@ -3,45 +3,51 @@ import * as l1 from 'l1'
 import playerRepository from './player/repository'
 
 import {
-  DOME_X,
-  DOME_Y,
+  add,
+  dotProduct,
+  rotate,
+  normalize,
+  subtract,
+  scale,
+  length,
+} from './linearAlgebra'
+
+import {
+  DOME_CENTER,
+  LAP_TIME,
+  TICKS_PER_SEC,
 } from './constant'
+
+const enforceRunning = (domeCenter, lapTime, position, velocity) => {
+  const relativePosition = subtract(domeCenter, position)
+  const radialDirection = rotate(-Math.PI / 2, normalize(relativePosition))
+
+  // speed scales with distance from center to offset angular velocity benefit
+  // of jumping
+  const desiredSpeed = length(relativePosition)
+    * (2 * Math.PI)
+    / lapTime
+    / TICKS_PER_SEC
+
+  const radialVelocityAlignment = dotProduct(velocity, radialDirection)
+  const correctionVelocity = scale(
+    desiredSpeed - radialVelocityAlignment,
+    radialDirection,
+  )
+
+  return add(correctionVelocity, velocity)
+}
 
 export default (id) => {
   const { body } = playerRepository.find(id)
 
   const b = l1.repeat(() => {
-    const normalize = (v) => {
-      const length = Math.sqrt((v.x ** 2) + (v.y ** 2))
-
-      return {
-        x: v.x / length,
-        y: v.y / length,
-      }
-    }
-
-    const rotate = (angle, v) => ({
-      x: v.x * Math.cos(angle) - v.y * Math.sin(angle),
-      y: v.x * Math.sin(angle) + v.y * Math.cos(angle),
-    })
-
-    const foo = {
-      x: body.position.x - DOME_X,
-      y: body.position.y - DOME_Y,
-    }
-
-    const velocityDirection = rotate(-Math.PI / 1.9, normalize(foo))
-
-    // TODO: Decide how to handle this gravity
-    // const FORCE_FACTOR = 200
-
-    // const force = {
-    //   x: normalize(foo).x / FORCE_FACTOR,
-    //   y: normalize(foo).y / FORCE_FACTOR,
-    // }
-
-    Matter.Body.setVelocity(body, { x: velocityDirection.x * 2, y: velocityDirection.y * 2 })
-    // Matter.Body.applyForce(body, { x: 0, y: 0 }, force)
+    body.velocity = enforceRunning(
+      DOME_CENTER,
+      LAP_TIME,
+      body.position,
+      body.velocity,
+    )
   })
 
   b.id = `autorun_${id}`
