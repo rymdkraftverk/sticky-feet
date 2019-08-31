@@ -8,6 +8,7 @@ import signaling from 'rkv-signaling'
 
 import { Event, Colors, Channel } from '../../../common'
 import { GAME_HEIGHT, GAME_WIDTH } from './constant'
+import leaderboard from './leaderboard'
 import http from './http'
 // @ts-ignore
 import state from './state'
@@ -157,6 +158,7 @@ document.fonts.load('10pt "patchy-robots"')
 
           createBot('DEFAULT')
           stage(gameCode)
+          leaderboard()
         })
     })
   })
