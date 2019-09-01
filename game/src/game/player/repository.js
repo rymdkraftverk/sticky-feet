@@ -21,7 +21,10 @@ const write = (x) => {
 const count = players => () => R.length(players)
 
 // [Player] -> Player id -> Player
-const find = R.curry((players, id) => R.find(R.propEq('id', id), players))
+const find = players => id => R.find(
+  R.propEq('id', id),
+  players,
+)
 
 // [Player] -> Body id -> Player
 const findByBody = players => bodyId => R.find(
