@@ -11,6 +11,8 @@ const state = {
   pixiStage: null,
   // [Player]
   players: [],
+  // [Projectile]
+  projectiles: [],
   // [String]
   availableColors: namesInReversedOrder(Colors),
 }

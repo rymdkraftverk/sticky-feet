@@ -2,7 +2,8 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 
-import { add } from './entity'
+import state from './state'
+import * as entity from './entity'
 
 const create = ({
   angle, player: { body },
@@ -29,11 +30,14 @@ const create = ({
     })
   })
 
-  add({
+  const projectile = {
     id: `projectile-${Math.random()}`,
     sprite: projectileSprite,
     body: projectileBody,
-  })
+  }
+
+  entity.add(projectile)
+  state.projectiles.push(projectile)
 }
 
 export default {
