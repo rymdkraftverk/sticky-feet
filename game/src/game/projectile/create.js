@@ -2,11 +2,11 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 
-import state from '../state'
 import * as entity from '../entity'
+import projectileRepository from './repository'
 
 export default ({
-  angle, player: { body },
+  angle, player: { body, id: playerId },
 }) => {
   const originX = body.position.x
   const originY = body.position.y
@@ -22,6 +22,7 @@ export default ({
   const projectileBody = Matter.Bodies.circle(originX, originY, 10, {
     isSensor: true,
   })
+  projectileBody.entityType = 'projectile'
 
   l1.repeat(() => {
     Matter.Body.setVelocity(projectileBody, {
@@ -34,8 +35,9 @@ export default ({
     id: `projectile-${Math.random()}`,
     sprite: projectileSprite,
     body: projectileBody,
+    firedBy: playerId,
   }
 
   entity.add(projectile)
-  state.projectiles.push(projectile)
+  projectileRepository.add(projectile)
 }

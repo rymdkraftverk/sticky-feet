@@ -1,8 +1,23 @@
 import * as R from 'ramda'
 
 import playerRepository from './player/repository'
+import projectileRepository from './projectile/repository'
 import removePlayer from './player/remove'
 import getLeader from './getLeader'
+import * as entity from './entity'
+
+const projectilePlayerCollision = (playerId, projectileId) => {
+  const player = playerRepository.findByBody(playerId)
+  const projectile = projectileRepository.findByBody(projectileId)
+
+  if (player.id !== projectile.firedBy) {
+    // TODO:
+    // - move to concept
+    // - remove move behavior
+    entity.remove(projectile)
+    projectileRepository.remove(projectile.id)
+  }
+}
 
 const playerPlayerCollision = (idA, idB) => {
   const playerA = playerRepository.findByBody(idA)
@@ -23,6 +38,7 @@ const playerPlayerCollision = (idA, idB) => {
 const COLLISION_MAP = {
   player: {
     player: playerPlayerCollision,
+    projectile: projectilePlayerCollision,
   },
 }
 
