@@ -75,6 +75,7 @@ export default (id) => {
     scope: scope.create(),
     sprite,
     body,
+    speed: 1,
   }
 
   entity.add(player)
