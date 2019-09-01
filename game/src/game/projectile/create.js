@@ -2,10 +2,10 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 
-import state from './state'
-import * as entity from './entity'
+import state from '../state'
+import * as entity from '../entity'
 
-const create = ({
+export default ({
   angle, player: { body },
 }) => {
   const originX = body.position.x
@@ -38,8 +38,4 @@ const create = ({
 
   entity.add(projectile)
   state.projectiles.push(projectile)
-}
-
-export default {
-  create,
 }

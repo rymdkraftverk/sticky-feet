@@ -19,7 +19,7 @@ import createPlayer from './player/create'
 import removePlayer from './player/remove'
 import playerRepository from './player/repository'
 import qrCode from './qrCode'
-import projectile from './projectile'
+import createProjectile from './projectile/create'
 import collider from './collider'
 
 // Hack to make Matter.Bodies.fromVertices work
@@ -92,7 +92,7 @@ const onPlayerData = id => (message) => {
       scope.reset(id)
 
       const player = playerRepository.find(id)
-      projectile.create({
+      createProjectile({
         angle,
         player,
       })
