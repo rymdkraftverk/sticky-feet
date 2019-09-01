@@ -1,7 +1,18 @@
 import playerRepository from './player/repository'
+import removePlayer from './player/remove'
+import getLeader from './getLeader'
 
-const playerCollision = ({ color: { name: colorA } }, { color: { name: colorB } }) => {
-  console.log(`PLAYER COLLISION: ${colorA} - ${colorB}`)
+const playerCollision = (playerA, playerB) => {
+  const { body: { position: positionA } } = playerA
+  const { body: { position: positionB } } = playerB
+
+  const leaderPosition = getLeader(positionA, positionB)
+
+  const leadingPlayer = leaderPosition === positionA
+    ? playerA
+    : playerB
+
+  removePlayer(leadingPlayer.id)
 }
 
 export default (event) => {
