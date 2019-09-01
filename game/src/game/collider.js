@@ -1,8 +1,10 @@
+import * as R from 'ramda'
+
 import playerRepository from './player/repository'
 import removePlayer from './player/remove'
 import getLeader from './getLeader'
 
-const playerCollision = (idA, idB) => {
+const playerPlayerCollision = (idA, idB) => {
   const playerA = playerRepository.findByBody(idA)
   const playerB = playerRepository.findByBody(idB)
 
@@ -18,23 +20,48 @@ const playerCollision = (idA, idB) => {
   removePlayer(leadingPlayer.id)
 }
 
+const COLLISION_MAP = {
+  player: {
+    player: playerPlayerCollision,
+  },
+}
+
 export default (event) => {
   const {
     pairs: [
       {
-        bodyA: {
-          id: idA,
-          entityType: typeA,
-        },
-        bodyB: {
-          id: idB,
-          entityType: typeB,
-        },
+        bodyA,
+        bodyB,
       },
     ],
   } = event
 
-  if (typeA === 'player' && typeB === 'player') {
-    playerCollision(idA, idB)
-  }
+  const sortedColliders = R.sortBy(
+    R.prop('entityType'),
+    [
+      bodyA,
+      bodyB,
+    ],
+  )
+
+  const sortedColliderTypes = R.pluck(
+    'entityType',
+    sortedColliders,
+  )
+
+  const collision = R.path(
+    sortedColliderTypes,
+    COLLISION_MAP,
+  ) || console.log
+
+  const [
+    {
+      id: idA,
+    },
+    {
+      id: idB,
+    },
+  ] = sortedColliders
+
+  collision(idA, idB)
 }
