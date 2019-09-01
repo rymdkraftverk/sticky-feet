@@ -2,7 +2,10 @@ import playerRepository from './player/repository'
 import removePlayer from './player/remove'
 import getLeader from './getLeader'
 
-const playerCollision = (playerA, playerB) => {
+const playerCollision = (idA, idB) => {
+  const playerA = playerRepository.findByBody(idA)
+  const playerB = playerRepository.findByBody(idB)
+
   const { body: { position: positionA } } = playerA
   const { body: { position: positionB } } = playerB
 
@@ -21,18 +24,17 @@ export default (event) => {
       {
         bodyA: {
           id: idA,
+          entityType: typeA,
         },
         bodyB: {
           id: idB,
+          entityType: typeB,
         },
       },
     ],
   } = event
 
-  const playerA = playerRepository.findByBody(idA)
-  const playerB = playerRepository.findByBody(idB)
-
-  if (playerA && playerB) {
-    playerCollision(playerA, playerB)
+  if (typeA === 'player' && typeB === 'player') {
+    playerCollision(idA, idB)
   }
 }

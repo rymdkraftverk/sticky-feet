@@ -45,12 +45,16 @@ const createSpriteAnimation = (colorName) => {
   )
 }
 
-const createBody = () => Matter.Bodies.circle(
-  (DOME_X - GAME_HEIGHT / 2) + 20,
-  400,
-  15,
-  { friction: 0 },
-)
+const createBody = () => {
+  const body = Matter.Bodies.circle(
+    (DOME_X - GAME_HEIGHT / 2) + 20,
+    400,
+    15,
+    { friction: 0 },
+  )
+  body.entityType = 'player'
+  return body
+}
 
 const createSprite = (colorName) => {
   const sprite = new PIXI.AnimatedSprite(
