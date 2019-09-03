@@ -9,6 +9,7 @@ export default (id) => {
     autorunId,
     gravityId,
     borderPatrolId,
+    pointAtMiddleId,
     color: {
       name: colorName,
     },
@@ -23,6 +24,7 @@ export default (id) => {
   l1.remove(autorunId)
   l1.remove(gravityId)
   l1.remove(borderPatrolId)
+  l1.remove(pointAtMiddleId)
 
   entity.remove(player)
   playerRepository.remove(id)

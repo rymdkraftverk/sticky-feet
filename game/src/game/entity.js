@@ -1,7 +1,6 @@
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 
-import { DOME_X, DOME_Y } from './constant'
 import state from './state'
 
 const syncBehaviorId = entityId => `sync_${entityId}`
@@ -23,7 +22,6 @@ export const add = ({ id, sprite, body }) => {
     /* eslint-disable no-param-reassign */
     sprite.position.x = body.position.x
     sprite.position.y = body.position.y
-    sprite.rotation = Math.atan2(body.position.y - DOME_Y, body.position.x - DOME_X) - Math.PI / 2
     /* eslint-enable no-param-reassign */
   })
 

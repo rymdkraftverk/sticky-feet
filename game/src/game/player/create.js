@@ -11,6 +11,7 @@ import gravity from '../gravity'
 import scope from '../scope'
 import { Colors } from '../../../../common'
 import borderPatrol from '../borderPatrol'
+import pointAtMiddle from '../pointAtMiddle'
 
 import {
   GAME_HEIGHT,
@@ -88,6 +89,7 @@ export default (id) => {
   player.autorunId = autorun(id)
   player.gravityId = gravity(id)
   player.borderPatrolId = borderPatrol(id)
+  player.pointAtMiddleId = pointAtMiddle(id)
 
   return player
 }
