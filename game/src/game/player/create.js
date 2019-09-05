@@ -86,10 +86,12 @@ export default (id) => {
   entity.add(player)
   playerRepository.add(player)
 
-  player.autorunId = autorun(id)
-  player.gravityId = gravity(id)
-  player.borderPatrolId = borderPatrol(id)
-  player.pointAtMiddleId = pointAtMiddle(id)
+  player.behaviors = {
+    autorunId: autorun(id),
+    gravityId: gravity(id),
+    borderPatrolId: borderPatrol(id),
+    pointAtMiddleId: pointAtMiddle(id)
+  }
 
   return player
 }

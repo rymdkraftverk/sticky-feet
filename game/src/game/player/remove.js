@@ -6,10 +6,7 @@ import * as entity from '../entity'
 export default (id) => {
   const player = playerRepository.find(id)
   const {
-    autorunId,
-    gravityId,
-    borderPatrolId,
-    pointAtMiddleId,
+    behaviors,
     color: {
       name: colorName,
     },
@@ -21,10 +18,9 @@ export default (id) => {
 
   scope.destroy()
 
-  l1.remove(autorunId)
-  l1.remove(gravityId)
-  l1.remove(borderPatrolId)
-  l1.remove(pointAtMiddleId)
+  Object
+    .values(behaviors)
+    .forEach(l1.remove)
 
   entity.remove(player)
   playerRepository.remove(id)
