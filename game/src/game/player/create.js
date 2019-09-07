@@ -5,6 +5,7 @@ import * as Matter from 'matter-js'
 
 import state from '../state'
 import playerRepository from './repository'
+import spawnPosition from './spawnPosition'
 import * as entity from '../entity'
 import autorun from '../autorun'
 import gravity from '../gravity'
@@ -12,11 +13,6 @@ import scope from '../scope'
 import { Colors } from '../../../../common'
 import borderPatrol from '../borderPatrol'
 import pointAtMiddle from '../pointAtMiddle'
-
-import {
-  GAME_HEIGHT,
-  DOME_X,
-} from '../constant'
 
 const COLOR_COUNT = Colors.length
 
@@ -57,9 +53,10 @@ export const createSideAnimation = colorName => createAnimation(
 )
 
 const createBody = () => {
+  const { x, y } = spawnPosition()
   const body = Matter.Bodies.circle(
-    (DOME_X - GAME_HEIGHT / 2) + 20,
-    400,
+    x,
+    y,
     15,
     { friction: 0 },
   )

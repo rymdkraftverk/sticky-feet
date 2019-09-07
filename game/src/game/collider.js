@@ -1,8 +1,9 @@
 import * as R from 'ramda'
+import * as Matter from 'matter-js'
 
 import playerRepository from './player/repository'
 import projectileRepository from './projectile/repository'
-import removePlayer from './player/remove'
+import spawnPosition from './player/spawnPosition'
 import removeProjectile from './projectile/remove'
 import getLeader from './getLeader'
 import slow from './slow'
@@ -30,7 +31,10 @@ const playerPlayerCollision = (idA, idB) => {
     ? playerA
     : playerB
 
-  removePlayer(leadingPlayer.id)
+  Matter.Body.setPosition(
+    leadingPlayer.body,
+    spawnPosition(),
+  )
 }
 
 const COLLISION_MAP = {
