@@ -51,7 +51,7 @@ jobs:
       - persist_to_workspace:
           paths: .
           root: .
-  validate:
+  assure_quality:
     docker:
       - image: node:11.11
     steps:
@@ -127,7 +127,7 @@ workflows:
   default:
     jobs:
       - setup
-      - validate:
+      - assure_quality:
           requires:
               - setup
       - build_game:
@@ -136,14 +136,14 @@ workflows:
               only:
                 - master
           requires:
-              - validate
+              - assure_quality
       - build_controller:
           filters:
             branches:
               only:
                 - master
           requires:
-              - validate
+              - assure_quality
       - deploy_controller:
           requires:
             - build_controller
