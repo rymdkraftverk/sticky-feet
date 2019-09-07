@@ -55,8 +55,8 @@ document
   .appendChild(app.view)
 
 l1.init(app, {
-  debug: process.env.NODE_ENV === 'development',
-  logging: process.env.NODE_ENV === 'development',
+  // debug: process.env.NODE_ENV === 'development',
+  // logging: process.env.NODE_ENV === 'development',
 })
 
 const engine = Matter.Engine.create()
