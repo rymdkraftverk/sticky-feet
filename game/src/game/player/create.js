@@ -32,19 +32,29 @@ const findColor = name => R.find(
   Colors,
 )
 
-const FRONT_COLLAPSED = 0
-const FRONT_STRETCHED = 1
+const SIDE_1 = 0
+const SIDE_2 = 1
+const FRONT_STRETCHED = 2
+const FRONT_COLLAPSED = 3
 
-const createSpriteAnimation = (colorName) => {
+const createAnimation = (colorName, texture1, texture2) => {
   const colorIndex = INDEX_COLOR_MAPPING[colorName]
   return R.map(
     l1.getTexture,
     [
-      `lizard-${colorIndex + (COLOR_COUNT * FRONT_COLLAPSED)}`,
-      `lizard-${colorIndex + (COLOR_COUNT * FRONT_STRETCHED)}`,
+      `lizard-${colorIndex + (COLOR_COUNT * texture1)}`,
+      `lizard-${colorIndex + (COLOR_COUNT * texture2)}`,
     ],
   )
 }
+
+export const createFrontAnimation = colorName => createAnimation(
+  colorName, FRONT_COLLAPSED, FRONT_STRETCHED,
+)
+
+export const createSideAnimation = colorName => createAnimation(
+  colorName, SIDE_1, SIDE_2,
+)
 
 const createBody = () => {
   const body = Matter.Bodies.circle(
@@ -59,7 +69,7 @@ const createBody = () => {
 
 const createSprite = (colorName) => {
   const sprite = new PIXI.AnimatedSprite(
-    createSpriteAnimation(colorName),
+    createSideAnimation(colorName),
   )
   sprite.scale.set(2)
   sprite.anchor.set(0.5)
@@ -81,6 +91,7 @@ export default (id) => {
     sprite,
     body,
     speed: 1,
+    score: 0,
   }
 
   entity.add(player)

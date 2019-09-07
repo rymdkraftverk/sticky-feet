@@ -1,9 +1,11 @@
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 
+import * as R from 'ramda'
 import state from './state'
 import textStyle from './textStyle'
 import { GAME_HEIGHT, GAME_WIDTH } from './constant'
+import { createFrontAnimation } from './player/create'
 
 const BACKGROUND_WIDTH = 270
 const BACKGROUND_X = GAME_WIDTH - 270
@@ -13,30 +15,37 @@ const TITLE_Y = 20
 const ROWS_START_Y = 70
 const ROW_MARGIN_Y = 50
 
+const TEXT_Y_OFFSET = 7
+
+let rows = []
+
 const renderRow = ({
-  index, name, texture,
+  index, name, textures, score,
 }) => {
   const container = new PIXI.Container()
   container.y = ROWS_START_Y + index * ROW_MARGIN_Y
   container.x = BACKGROUND_X + 5
   state.pixiStage.addChild(container)
 
-  const sprite = new PIXI.Sprite(l1.getTexture(texture))
+  const sprite = new PIXI.AnimatedSprite(textures)
+  sprite.animationSpeed = 0.02
+  sprite.play()
   sprite.scale.set(2)
 
   const nameObject = new PIXI.Text(name, { ...textStyle, fontSize: 14 })
   nameObject.x = 40
-  nameObject.y = 5
+  nameObject.y = TEXT_Y_OFFSET
   l1.makeResizable(nameObject)
 
-  const score = new PIXI.Text('42', { ...textStyle, fontSize: 14 })
-  score.x = BACKGROUND_WIDTH - 40
-  score.y = 5
-  l1.makeResizable(score)
+  const scoreText = new PIXI.Text(score, { ...textStyle, fontSize: 14 })
+  scoreText.x = BACKGROUND_WIDTH - 40
+  scoreText.y = TEXT_Y_OFFSET
+  l1.makeResizable(scoreText)
 
   container.addChild(sprite)
   container.addChild(nameObject)
-  container.addChild(score)
+  container.addChild(scoreText)
+  rows = rows.concat(container)
 }
 
 export default () => {
@@ -54,17 +63,27 @@ export default () => {
   title.anchor.x = 0.5
   l1.makeResizable(title)
   state.pixiStage.addChild(title)
+}
 
-  renderRow({ index: 0, name: 'Faberly', texture: 'lizard-43' })
-  renderRow({ index: 1, name: 'Sajmoni', texture: 'lizard-43' })
-  renderRow({ index: 2, name: 'Axel Ulmestig', texture: 'lizard-43' })
-  renderRow({ index: 3, name: 'lorentzlasson', texture: 'lizard-43' })
-  renderRow({ index: 4, name: 'lorentzlasson', texture: 'lizard-43' })
-  renderRow({ index: 5, name: 'lorentzlasson', texture: 'lizard-43' })
-  renderRow({ index: 6, name: 'lorentzlasson', texture: 'lizard-43' })
-  renderRow({ index: 7, name: 'lorentzlasson', texture: 'lizard-43' })
-  renderRow({ index: 8, name: 'lorentzlasson', texture: 'lizard-43' })
-  renderRow({ index: 9, name: 'lorentzlasson', texture: 'lizard-43' })
-  renderRow({ index: 10, name: 'lorentzlasson', texture: 'lizard-43' })
-  renderRow({ index: 11, name: 'lorentzlasson', texture: 'lizard-43' })
+export const renderLeaderboard = (players) => {
+  const forEach = R.addIndex(R.forEach)
+
+  rows.forEach((row) => {
+    row.destroy()
+  })
+  rows = []
+
+  R.pipe(
+    R.sortWith([
+      R.descend(R.prop('score')),
+    ]),
+    forEach(({ score, color }, index) => {
+      renderRow({
+        index,
+        name: color.name,
+        score,
+        textures: createFrontAnimation(color.name),
+      })
+    }),
+  )(players)
 }
