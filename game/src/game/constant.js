@@ -14,3 +14,5 @@ export const TICKS_PER_SEC = 60
 
 export const GRAVITY_STRENTH = 1
 export const JUMP_STRENGTH = 20
+export const SLOW_FACTOR = 5
+export const SLOW_DURATION = 120

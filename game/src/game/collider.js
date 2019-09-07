@@ -3,19 +3,17 @@ import * as R from 'ramda'
 import playerRepository from './player/repository'
 import projectileRepository from './projectile/repository'
 import removePlayer from './player/remove'
+import removeProjectile from './projectile/remove'
 import getLeader from './getLeader'
-import * as entity from './entity'
+import slow from './slow'
 
 const projectilePlayerCollision = (playerId, projectileId) => {
   const player = playerRepository.findByBody(playerId)
   const projectile = projectileRepository.findByBody(projectileId)
 
   if (player.id !== projectile.firedBy) {
-    // TODO:
-    // - move to concept
-    // - remove move behavior
-    entity.remove(projectile)
-    projectileRepository.remove(projectile.id)
+    slow(player.id)
+    removeProjectile(projectile.id)
   }
 }
 

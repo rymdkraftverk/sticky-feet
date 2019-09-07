@@ -38,12 +38,13 @@ const enforceRunning = (domeCenter, lapTime, position, velocity) => {
 }
 
 export default (id) => {
-  const { body, speed } = playerRepository.find(id)
+  const player = playerRepository.find(id)
+  const { body } = player
 
   const b = l1.repeat(() => {
     body.velocity = enforceRunning(
       DOME_CENTER,
-      LAP_TIME / speed,
+      LAP_TIME / player.speed,
       body.position,
       body.velocity,
     )

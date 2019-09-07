@@ -17,6 +17,12 @@ const write = (x) => {
 
 // --- Read ---
 
+// [Projectile] -> Projectile id -> Projectile
+const find = projectiles => id => R.find(
+  R.propEq('id', id),
+  projectiles,
+)
+
 // [Projectile] -> Body id -> Projectile
 const findByBody = projectiles => bodyId => R.find(
   x => x.body.id === bodyId,
@@ -40,6 +46,7 @@ const remove = R.curry((projectiles, id) => R.pipe(
 
 export default R.map(deferStateApplication, {
   add,
+  find,
   findByBody,
   remove,
 })

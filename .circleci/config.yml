@@ -126,12 +126,7 @@ jobs:
 workflows:
   default:
     jobs:
-      - setup:
-          filters:
-            branches:
-              only:
-                - master
-                - develop
+      - setup
       - validate:
           requires:
               - setup

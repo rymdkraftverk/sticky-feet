@@ -90,7 +90,7 @@ export default (id) => {
     autorunId: autorun(id),
     gravityId: gravity(id),
     borderPatrolId: borderPatrol(id),
-    pointAtMiddleId: pointAtMiddle(id)
+    pointAtMiddleId: pointAtMiddle(id),
   }
 
   return player

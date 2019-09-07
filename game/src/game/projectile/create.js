@@ -5,6 +5,22 @@ import * as Matter from 'matter-js'
 import * as entity from '../entity'
 import projectileRepository from './repository'
 
+const move = (id) => {
+  const {
+    sprite: { rotation: angle },
+    body,
+  } = projectileRepository.find(id)
+
+  const b = l1.repeat(() => {
+    Matter.Body.setVelocity(body, {
+      x: 4 * Math.cos(angle),
+      y: 4 * Math.sin(angle),
+    })
+  })
+  b.id = `projectile_move_${id}`
+  return b.id
+}
+
 export default ({
   angle, player: { body, id: playerId },
 }) => {
@@ -24,13 +40,6 @@ export default ({
   })
   projectileBody.entityType = 'projectile'
 
-  l1.repeat(() => {
-    Matter.Body.setVelocity(projectileBody, {
-      x: 4 * Math.cos(angle),
-      y: 4 * Math.sin(angle),
-    })
-  })
-
   const projectile = {
     id: `projectile-${Math.random()}`,
     sprite: projectileSprite,
@@ -40,4 +49,8 @@ export default ({
 
   entity.add(projectile)
   projectileRepository.add(projectile)
+
+  projectile.behaviors = {
+    moveId: move(projectile.id),
+  }
 }
