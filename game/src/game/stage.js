@@ -12,6 +12,8 @@ import {
 
 import state from './state'
 
+const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
+
 const createDome = () => {
   const domeSprite = new PIXI.Sprite(l1.getTexture('dome-0'))
   domeSprite.scale.set(5.65)
@@ -72,7 +74,10 @@ const createJoinInstructions = (gameCode) => {
   l1.makeResizable(urlLabel)
   state.pixiStage.addChild(urlLabel)
 
-  const url = new PIXI.Text('www.fightgame.com', { ...textStyle, fontFamily: 'Arial' })
+  const url = new PIXI.Text(
+    CONTROLLER_HOST,
+    { ...textStyle, fontFamily: 'Arial' },
+  )
   // @ts-ignore
   url.position = { x: TEXT_X, y: URL_Y + 30 }
   l1.makeResizable(url)
