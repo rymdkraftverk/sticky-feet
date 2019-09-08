@@ -30,6 +30,7 @@
     "react-scripts": "2.1.8",
     "react-switch": "^4.1.0",
     "rkv-signaling": "0.0.3",
+    "shake.js": "^1.2.2",
     "styled-components": "^4.1.3"
   },
   "browserslist": [

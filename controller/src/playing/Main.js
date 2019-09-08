@@ -7,6 +7,7 @@ import Div100vh from 'react-div-100vh'
 import Button from '../join/Button'
 import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
 import ScrollLock from '../util/ScrollLock'
+import useShake from '../useShake'
 
 const Container = styled(({ playerColor, ...rest }) => <Div100vh {...rest} />)`
   display: flex;
@@ -34,6 +35,10 @@ const touchEventPosition = ({ touches: [{ clientX: x, clientY: y }] }) => ({
 const GamePlaying = ({ send, playerColor }) => {
   const [originPosition, setOriginPosition] = useState(null)
   const [position, setPosition] = useState(null)
+
+  useShake(() => {
+    send({ event: Event.ToGame.SHAKE })
+  })
 
   const sendDrag = pos => {
     setPosition(pos)

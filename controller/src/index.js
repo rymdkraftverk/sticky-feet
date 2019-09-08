@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components/macro'
 import { prettyVersionTime } from 'common'
 import Boundary from './Boundary'
 import App from './App'
+import Shake from 'shake.js'
 
 const VERSION = process.env.REACT_APP_VERSION
 
@@ -38,6 +39,11 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
   }
 `
+const myShakeEvent = new Shake({
+  threshold: 5,
+  timeout: 1000,
+})
+myShakeEvent.start()
 
 // Prevent displaying "undo text" dialog on iOS when device is accidentally shaken
 window.addEventListener('devicemotion', e => {

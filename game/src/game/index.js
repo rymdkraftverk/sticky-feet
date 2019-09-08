@@ -14,6 +14,7 @@ import http from './http'
 import state from './state'
 import stage from './stage'
 import jump from './jump'
+import shake from './shake'
 import scope from './scope'
 import createPlayer from './player/create'
 import removePlayer from './player/remove'
@@ -80,6 +81,9 @@ const onPlayerData = id => (message) => {
   switch (event) {
     case Event.ToGame.JUMP:
       jump(id)
+      break
+    case Event.ToGame.SHAKE:
+      shake(id)
       break
     case Event.ToGame.DRAG:
       scope.aim(

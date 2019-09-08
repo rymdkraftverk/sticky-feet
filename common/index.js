@@ -10,6 +10,7 @@ export const Event = {
     JUMP: 'jump',
     DRAG: 'drag',
     DRAG_END: 'drag.end',
+    SHAKE: 'shake',
   }
 }
 
