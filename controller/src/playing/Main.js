@@ -35,24 +35,29 @@ const GamePlaying = ({ send, playerColor }) => {
   const [originPosition, setOriginPosition] = useState(null)
   const [position, setPosition] = useState(null)
 
-  const sendDrag = position => {
-    setPosition(position)
+  const sendDrag = pos => {
+    setPosition(pos)
     send({
       event: Event.ToGame.DRAG,
       payload: {
-        angle: angle(originPosition, position),
-        distance: distance(originPosition, position),
+        angle: angle(originPosition, pos),
+        distance: distance(originPosition, pos),
       },
     })
   }
 
-  const sendDragEnd = position => {
+  const sendDragEnd = () => {
+    if (!originPosition || !position) return
+
     send({
       event: Event.ToGame.DRAG_END,
       payload: {
         angle: angle(originPosition, position),
       },
     })
+
+    setOriginPosition(null)
+    setPosition(null)
   }
 
   const sendJump = () => {
@@ -71,7 +76,7 @@ const GamePlaying = ({ send, playerColor }) => {
         sendDrag,
       )}
       onTouchEnd={() => {
-        sendDragEnd(position)
+        sendDragEnd()
       }}
     >
       <IOSDisableDoubleTap>
