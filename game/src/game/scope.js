@@ -2,6 +2,10 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import playerRepository from './player/repository'
 import state from './state'
+import {
+  add,
+  fromPolar,
+} from './linearAlgebra'
 
 const create = () => {
   const scope = new PIXI.Sprite(l1.getTexture('arrow/arrow-green'))
@@ -10,11 +14,6 @@ const create = () => {
   state.pixiStage.addChild(scope)
   return scope
 }
-
-const vectorTip = ({ x: originX, y: originY }, angle, distance) => ({
-  x: originX + distance * Math.cos(angle),
-  y: originY + distance * Math.sin(angle),
-})
 
 const aim = (id, { angle, distance }) => {
   const player = playerRepository.find(id)
@@ -31,10 +30,9 @@ const aim = (id, { angle, distance }) => {
   scope.visible = true
 
   scope.rotation = angle
-  scope.position = vectorTip(
+  scope.position = add(
     { x, y },
-    angle,
-    distance,
+    fromPolar(angle, distance),
   )
 
   player.scope = scope

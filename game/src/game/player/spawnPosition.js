@@ -1,9 +1,22 @@
-import {
-  DOME_X,
-  GAME_HEIGHT,
-} from '../constant'
+import * as R from 'ramda'
 
-export default () => ({
-  x: (DOME_X - GAME_HEIGHT / 2) + 20,
-  y: 400,
-})
+import {
+  add,
+  fromPolar,
+} from '../linearAlgebra'
+
+import { DOME_CENTER } from '../constant'
+
+const DISTANCE_FROM_MIDDLE = 1
+
+const randomAngle = () => Math.random() * Math.PI * 2
+
+const spawnPosition = angle => add(
+  DOME_CENTER,
+  fromPolar(angle, DISTANCE_FROM_MIDDLE),
+)
+
+export default R.pipe(
+  randomAngle,
+  spawnPosition,
+)

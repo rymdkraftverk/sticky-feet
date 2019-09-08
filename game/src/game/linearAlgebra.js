@@ -22,4 +22,9 @@ export const rotate = (angle, { x, y }) => ({
   y: x * Math.sin(angle) + y * Math.cos(angle),
 })
 
+export const fromPolar = (angle, magnitude) => ({
+  x: magnitude * Math.cos(angle),
+  y: magnitude * Math.sin(angle),
+})
+
 export const dotProduct = ({ x: x1, y: y1 }, { x: x2, y: y2 }) => x1 * x2 + y1 * y2
