@@ -3,7 +3,36 @@ import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 
 import * as entity from '../entity'
+import removeProjectile from './remove'
 import projectileRepository from './repository'
+import {
+  DOME_CENTER,
+  GAME_HEIGHT,
+  GAME_WIDTH,
+} from '../constant'
+
+import { subtract } from '../linearAlgebra'
+
+const exceedsBorder = (position) => {
+  const { x, y } = subtract(position, DOME_CENTER)
+
+  return Math.abs(x) > GAME_WIDTH / 2
+    || Math.abs(y) > GAME_HEIGHT / 2
+}
+
+const borderPatrolBehavior = (id) => {
+  const projectile = projectileRepository.find(id)
+  const { body: { position } } = projectile
+
+  const b = l1.repeat(() => {
+    if (exceedsBorder(position)) {
+      removeProjectile(id)
+    }
+  })
+
+  b.id = `projectile_border_patrol_${id}`
+  return b.id
+}
 
 const move = (id) => {
   const {
@@ -52,5 +81,6 @@ export default ({
 
   projectile.behaviors = {
     moveId: move(projectile.id),
+    projectileBorderPatrolId: borderPatrolBehavior(projectile.id),
   }
 }
