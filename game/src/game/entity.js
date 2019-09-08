@@ -5,8 +5,18 @@ import state from './state'
 
 const syncBehaviorId = entityId => `sync_${entityId}`
 
-export const remove = ({ id, sprite, body }) => {
+export const remove = ({
+  id,
+  sprite,
+  body,
+  behaviors,
+}) => {
   l1.remove(syncBehaviorId(id))
+
+  Object
+    .values(behaviors)
+    .forEach(l1.remove)
+
   l1.once(() => {
     sprite.destroy()
     Matter.World.remove(state.matterWorld, body)
