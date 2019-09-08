@@ -7,6 +7,16 @@ import spawnPosition from './player/spawnPosition'
 import removeProjectile from './projectile/remove'
 import getLeader from './getLeader'
 import slow from './slow'
+import { renderLeaderboard } from './leaderboard'
+import state from './state'
+
+const hoistLeading = (leaderPosition, players) => R.sort(
+  R.comparator(R.pipe(
+    R.path(['body', 'position']),
+    R.equals(leaderPosition),
+  )),
+  players,
+)
 
 const projectilePlayerCollision = (playerId, projectileId) => {
   const player = playerRepository.findByBody(playerId)
@@ -19,22 +29,39 @@ const projectilePlayerCollision = (playerId, projectileId) => {
 }
 
 const playerPlayerCollision = (idA, idB) => {
-  const playerA = playerRepository.findByBody(idA)
-  const playerB = playerRepository.findByBody(idB)
+  const players = R.map(
+    playerRepository.findByBody,
+    [idA, idB],
+  )
 
-  const { body: { position: positionA } } = playerA
-  const { body: { position: positionB } } = playerB
+  const positions = R.map(
+    R.path(['body', 'position']),
+    players,
+  )
 
-  const leaderPosition = getLeader(positionA, positionB)
+  const leaderPosition = getLeader(...positions)
 
-  const leadingPlayer = leaderPosition === positionA
-    ? playerA
-    : playerB
+  const [
+    leadingPlayer,
+    trailingPlayer,
+  ] = hoistLeading(
+    leaderPosition,
+    players,
+  )
 
+  // Respawn caught player
   Matter.Body.setPosition(
     leadingPlayer.body,
     spawnPosition(),
   )
+
+  // Distribute score
+  trailingPlayer.score += 1
+  renderLeaderboard(state.players)
+}
+
+const unknownCollision = (...ids) => {
+  console.log('UNKNOWN COLLISION', ids)
 }
 
 const COLLISION_MAP = {
@@ -70,7 +97,7 @@ export default (event) => {
   const collision = R.path(
     sortedColliderTypes,
     COLLISION_MAP,
-  ) || console.log
+  ) || unknownCollision
 
   const [
     {
