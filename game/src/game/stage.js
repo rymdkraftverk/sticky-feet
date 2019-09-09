@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
-import * as Matter from 'matter-js'
 
 import textStyle from './textStyle'
 
@@ -21,10 +20,6 @@ const createDome = () => {
   domeSprite.x = DOME_X
   domeSprite.y = DOME_Y
   state.pixiStage.addChild(domeSprite)
-
-  // This is used to mark the center for debug purposes
-  const marker = Matter.Bodies.circle(DOME_X, DOME_Y, 15, { isStatic: true })
-  Matter.World.add(state.matterWorld, [marker])
 }
 
 const drawInstructionArrow = ({
