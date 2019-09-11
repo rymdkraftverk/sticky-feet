@@ -8,6 +8,7 @@ import signaling from 'rkv-signaling'
 
 import { Event, Colors, Channel } from '../../../common'
 import { GAME_HEIGHT, GAME_WIDTH } from './constant'
+import Sound from './sound'
 import leaderboard, { renderLeaderboard } from './leaderboard'
 import http from './http'
 // @ts-ignore
@@ -128,6 +129,8 @@ const onPlayerJoin = ({
       hex,
     },
   } = createPlayer(id)
+
+  Sound.UI_04.play()
 
   send(Channel.RELIABLE, {
     event: Event.FromGame.YOU_JOINED,
