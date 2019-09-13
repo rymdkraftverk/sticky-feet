@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import * as R from 'ramda'
 import PropTypes from 'prop-types'
 import { Event } from 'common'
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 import Div100vh from 'react-div-100vh'
-import Button from '../join/Button'
 import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
 import ScrollLock from '../util/ScrollLock'
 import useShake from '../useShake'
@@ -16,9 +15,27 @@ const Container = styled(({ playerColor, ...rest }) => <Div100vh {...rest} />)`
   background: ${R.prop('playerColor')};
 `
 
-const JumpButton = styled(Button)`
-  border: 0.1em solid;
-  font-size: 8vw;
+const panel = css`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const JumpPanel = styled.div`
+  ${panel};
+  width: 40vw;
+`
+
+const ShootPanel = styled.div`
+  ${panel};
+  width: 100%;
+`
+
+const VerticalSeparator = styled.div`
+  height: 100%;
+  width: 1vw;
+  background: black;
 `
 
 const distance = ({ x: x1, y: y1 }, { x: x2, y: y2 }) =>
@@ -70,25 +87,28 @@ const GamePlaying = ({ send, playerColor }) => {
   }
 
   return (
-    <Container
-      playerColor={playerColor}
-      onTouchStart={R.pipe(
-        touchEventPosition,
-        setOriginPosition,
-      )}
-      onTouchMove={R.pipe(
-        touchEventPosition,
-        sendDrag,
-      )}
-      onTouchEnd={() => {
-        sendDragEnd()
-      }}
-    >
-      <IOSDisableDoubleTap>
+    <IOSDisableDoubleTap>
+      <Container playerColor={playerColor}>
         <ScrollLock />
-        <JumpButton onTouchStart={sendJump}>Jump</JumpButton>
-      </IOSDisableDoubleTap>
-    </Container>
+        <JumpPanel onTouchStart={sendJump}>Jump</JumpPanel>
+        <VerticalSeparator />
+        <ShootPanel
+          onTouchStart={R.pipe(
+            touchEventPosition,
+            setOriginPosition,
+          )}
+          onTouchMove={R.pipe(
+            touchEventPosition,
+            sendDrag,
+          )}
+          onTouchEnd={() => {
+            sendDragEnd()
+          }}
+        >
+          Shoot
+        </ShootPanel>
+      </Container>
+    </IOSDisableDoubleTap>
   )
 }
 
