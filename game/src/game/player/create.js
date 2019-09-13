@@ -87,7 +87,7 @@ export default (id) => {
     scope: scope.create(),
     sprite,
     body,
-    speed: 1,
+    slows: 0,
     score: 0,
   }
 

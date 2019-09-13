@@ -13,8 +13,9 @@ import {
 
 import {
   DOME_CENTER,
-  LAP_TIME,
+  DEFAULT_LAP_TIME,
   TICKS_PER_SEC,
+  SLOW_FACTOR,
 } from './constant'
 
 const enforceRunning = (domeCenter, lapTime, position, velocity) => {
@@ -42,9 +43,10 @@ export default (id) => {
   const { body } = player
 
   const b = l1.repeat(() => {
+    const lapTime = DEFAULT_LAP_TIME * (SLOW_FACTOR ** player.slows)
     body.velocity = enforceRunning(
       DOME_CENTER,
-      LAP_TIME / player.speed,
+      lapTime,
       body.position,
       body.velocity,
     )

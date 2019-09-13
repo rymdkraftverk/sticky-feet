@@ -3,15 +3,14 @@ import * as l1 from 'l1'
 import playerRepository from './player/repository'
 
 import {
-  SLOW_FACTOR,
   SLOW_DURATION,
 } from './constant'
 
 export default (id) => {
   const player = playerRepository.find(id)
-  player.speed /= SLOW_FACTOR
+  player.slows += 1
 
   l1.once(() => {
-    player.speed *= SLOW_FACTOR
+    if (player.slows > 0) player.slows -= 1
   }, SLOW_DURATION)
 }
