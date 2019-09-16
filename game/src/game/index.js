@@ -15,6 +15,7 @@ import http from './http'
 import state from './state'
 import stage from './stage'
 import jump from './jump'
+import doBreak from './break'
 import shake from './shake'
 import scope from './scope'
 import createPlayer from './player/create'
@@ -80,8 +81,12 @@ const onPlayerData = id => (message) => {
   const { event, payload } = message
 
   switch (event) {
+    case Event.ToGame.BREAK:
+      doBreak.start(id)
+      break
     case Event.ToGame.JUMP:
       jump(id)
+      doBreak.stop(id)
       break
     case Event.ToGame.SHAKE:
       shake(id)

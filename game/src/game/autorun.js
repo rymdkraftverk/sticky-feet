@@ -38,15 +38,19 @@ const enforceRunning = (domeCenter, lapTime, position, velocity) => {
   return add(correctionVelocity, velocity)
 }
 
+const lapTime = (slows, breaking) => {
+  const correctedForSlow = DEFAULT_LAP_TIME * (SLOW_FACTOR ** slows)
+  return breaking ? correctedForSlow + DEFAULT_LAP_TIME : correctedForSlow
+}
+
 export default (id) => {
   const player = playerRepository.find(id)
   const { body } = player
 
   const b = l1.repeat(() => {
-    const lapTime = DEFAULT_LAP_TIME * (SLOW_FACTOR ** player.slows)
     body.velocity = enforceRunning(
       DOME_CENTER,
-      lapTime,
+      lapTime(player.slows, player.breaking),
       body.position,
       body.velocity,
     )

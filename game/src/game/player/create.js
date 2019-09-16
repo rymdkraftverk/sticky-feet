@@ -89,6 +89,7 @@ export default (id) => {
     body,
     slows: 0,
     score: 0,
+    breaking: false,
   }
 
   entity.add(player)
