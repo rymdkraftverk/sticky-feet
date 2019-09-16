@@ -7,7 +7,7 @@ import * as Matter from 'matter-js'
 import signaling from 'rkv-signaling'
 
 import { Event, Colors, Channel } from '../../../common'
-import { GAME_HEIGHT, GAME_WIDTH } from './constant'
+import { GAME_HEIGHT, GAME_WIDTH, PROJECTILE_COOLDOWN } from './constant'
 import Sound from './sound'
 import leaderboard, { renderLeaderboard } from './leaderboard'
 import http from './http'
@@ -23,6 +23,7 @@ import removePlayer from './player/remove'
 import playerRepository from './player/repository'
 import qrCode from './qrCode'
 import createProjectile from './projectile/create'
+import cooldown from './cooldown'
 import collider from './collider'
 
 // Hack to make Matter.Bodies.fromVertices work
@@ -97,16 +98,21 @@ const onPlayerData = id => (message) => {
         payload,
       )
       break
-    case Event.ToGame.DRAG_END: {
-      const { angle } = payload
+    case Event.ToGame.DRAG_END:
       scope.reset(id)
-
-      const player = playerRepository.find(id)
-      createProjectile({
-        angle,
-        player,
-      })
-    }
+      cooldown(
+        id,
+        {
+          id: 'projectile',
+          duration: PROJECTILE_COOLDOWN,
+          ability: () => {
+            createProjectile(
+              id,
+              payload,
+            )
+          },
+        },
+      )
       break
     default:
       console.warn(`Unhandled event for message: ${message}`)

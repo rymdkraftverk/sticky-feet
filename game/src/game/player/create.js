@@ -90,6 +90,7 @@ export default (id) => {
     slows: 0,
     score: 0,
     breaking: false,
+    cooldowns: {},
   }
 
   entity.add(player)

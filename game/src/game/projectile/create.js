@@ -5,6 +5,7 @@ import * as Matter from 'matter-js'
 import * as entity from '../entity'
 import removeProjectile from './remove'
 import projectileRepository from './repository'
+import playerRepository from '../player/repository'
 import {
   DOME_CENTER,
   GAME_HEIGHT,
@@ -50,9 +51,12 @@ const move = (id) => {
   return b.id
 }
 
-export default ({
-  angle, player: { body, id: playerId },
-}) => {
+export default (id, { angle }) => {
+  const {
+    body,
+    id: playerId,
+  } = playerRepository.find(id)
+
   const originX = body.position.x
   const originY = body.position.y
 

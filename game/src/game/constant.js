@@ -16,4 +16,5 @@ export const GRAVITY_STRENTH = 1
 export const JUMP_STRENGTH = 20
 export const BREAK_STRENGTH = 2
 export const SLOW_FACTOR = 2
-export const SLOW_DURATION = 120
+export const SLOW_DURATION = TICKS_PER_SEC * 2
+export const PROJECTILE_COOLDOWN = TICKS_PER_SEC * 3
