@@ -7,7 +7,6 @@ import * as Matter from 'matter-js'
 import signaling from 'rkv-signaling'
 
 import { Event, Colors, Channel } from '../../../common'
-import { GAME_HEIGHT, GAME_WIDTH, PROJECTILE_COOLDOWN } from './constant'
 import Sound from './sound'
 import leaderboard, { renderLeaderboard } from './leaderboard'
 import http from './http'
@@ -25,6 +24,12 @@ import qrCode from './qrCode'
 import createProjectile from './projectile/create'
 import cooldown from './cooldown'
 import collider from './collider'
+import {
+  GAME_HEIGHT,
+  GAME_WIDTH,
+  PROJECTILE_COOLDOWN,
+  SHAKE_COOLDOWN,
+} from './constant'
 
 // Hack to make Matter.Bodies.fromVertices work
 // @ts-ignore
@@ -90,7 +95,16 @@ const onPlayerData = id => (message) => {
       doBreak.stop(id)
       break
     case Event.ToGame.SHAKE:
-      shake(id)
+      cooldown(
+        id,
+        {
+          id: 'shake',
+          duration: SHAKE_COOLDOWN,
+          ability: () => {
+            shake(id)
+          },
+        },
+      )
       break
     case Event.ToGame.DRAG:
       scope.aim(
@@ -225,4 +239,7 @@ window.debug = {
   createBot,
   start,
   stop,
+  state,
+  disableCooldowns: false,
+  logging: false,
 }

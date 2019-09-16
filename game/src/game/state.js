@@ -18,11 +18,3 @@ const state = {
 }
 
 export default state
-
-// debug is not a part of the window type
-// @ts-ignore
-window.debug = {
-  // @ts-ignore
-  ...window.debug,
-  state,
-}
