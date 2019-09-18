@@ -32,6 +32,9 @@ const findByBody = players => bodyId => R.find(
   players,
 )
 
+// [Player] -> () -> [Player]
+const all = R.always
+
 // --- Write ---
 
 // [Player] -> Player -> [Player]
@@ -49,6 +52,7 @@ const remove = R.curry((players, id) => R.pipe(
 
 export default R.map(deferStateApplication, {
   add,
+  all,
   count,
   find,
   findByBody,
