@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
 
+import Sound from '../sound'
 import * as entity from '../entity'
 import removeProjectile from './remove'
 import projectileRepository from './repository'
@@ -87,4 +88,6 @@ export default (id, { angle }) => {
     moveId: move(projectile.id),
     projectileBorderPatrolId: borderPatrolBehavior(projectile.id),
   }
+
+  Sound.PROJECTILE_SHOOT.play()
 }

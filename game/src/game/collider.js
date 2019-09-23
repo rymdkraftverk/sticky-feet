@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import * as Matter from 'matter-js'
 
+import Sound from './sound'
 import playerRepository from './player/repository'
 import projectileRepository from './projectile/repository'
 import spawnPosition from './player/spawnPosition'
@@ -25,6 +26,7 @@ const projectilePlayerCollision = (playerId, projectileId) => {
   if (player.id !== projectile.firedBy) {
     slow(player.id)
     removeProjectile(projectile.id)
+    Sound.PROJECTILE_HIT.play()
   }
 }
 
@@ -54,6 +56,7 @@ const playerPlayerCollision = (idA, idB) => {
     leadingPlayer.body,
     spawnPosition(),
   )
+  Sound.KILL.play()
 
   // Distribute score
   trailingPlayer.score += 1

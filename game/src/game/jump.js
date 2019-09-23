@@ -1,3 +1,4 @@
+import Sound from './sound'
 import playerRepository from './player/repository'
 import {
   add,
@@ -18,4 +19,5 @@ export default (id) => {
   const jumpVector = scale(JUMP_STRENGTH, jumpDirection)
 
   body.velocity = add(jumpVector, body.velocity)
+  Sound.JUMP.play()
 }
