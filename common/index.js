@@ -66,4 +66,6 @@ export const Colors = [
   }
 ]
 
-export const prettyVersionTime = version => new Date(parseInt(version.split('-')[0]) * 1000).toISOString()
+export const prettyVersionTime = version => (
+  new Date(parseInt(version.split('-')[0]) * 1000).toISOString()
+)

@@ -1,11 +1,13 @@
 import * as l1 from 'l1'
 
+import state from './state'
 import debugLog from './debugLog'
 import playerRepository from './player/repository'
 
+import { TUTORIAL_MODE } from './constant'
+
 export default (playerId, { id, duration, ability }) => {
-  // @ts-ignore
-  if (window.debug.disableCooldowns) {
+  if (state.mode === TUTORIAL_MODE) {
     ability()
     return
   }

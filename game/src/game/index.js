@@ -242,6 +242,5 @@ window.debug = {
   start,
   stop,
   state,
-  disableCooldowns: false,
   logging: false,
 }

@@ -30,7 +30,7 @@ const AppState = {
   GAME: 'game',
 }
 
-const getGameCodeFromUrl = () => getUrlParams(window.location.search).code
+const getGameCodeFromUrl = () => getUrlParams().code
 const writeGameCodeToUrl = gameCode => {
   window.history.pushState({ gameCode }, '', `?code=${gameCode}`)
 }

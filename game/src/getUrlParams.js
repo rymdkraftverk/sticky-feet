@@ -9,6 +9,7 @@ export default () => {
     .split('&')
     .reduce((params, param) => {
       const [key, value] = param.split('=')
+      /* eslint-disable-next-line no-param-reassign */
       params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : ''
       return params
     }, {})

@@ -19,3 +19,6 @@ export const SLOW_FACTOR = 2
 export const SLOW_DURATION = TICKS_PER_SEC * 2
 export const PROJECTILE_COOLDOWN = TICKS_PER_SEC * 2
 export const SHAKE_COOLDOWN = TICKS_PER_SEC * 4
+
+// Modes
+export const TUTORIAL_MODE = 'tutorial'

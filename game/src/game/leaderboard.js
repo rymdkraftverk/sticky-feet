@@ -1,10 +1,14 @@
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
-
 import * as R from 'ramda'
+
 import state from './state'
 import textStyle from './textStyle'
-import { GAME_HEIGHT, GAME_WIDTH } from './constant'
+import {
+  GAME_HEIGHT,
+  GAME_WIDTH,
+  TUTORIAL_MODE,
+} from './constant'
 import { createFrontAnimation } from './player/create'
 
 const BACKGROUND_WIDTH = 270
@@ -66,6 +70,10 @@ export default () => {
 }
 
 export const renderLeaderboard = (players) => {
+  if (state.mode === TUTORIAL_MODE) {
+    return
+  }
+
   const forEach = R.addIndex(R.forEach)
 
   rows.forEach((row) => {

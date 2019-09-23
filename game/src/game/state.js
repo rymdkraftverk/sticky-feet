@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import getUrlParams from '../getUrlParams'
 import { Colors } from '../../../common'
 
 const namesInReversedOrder = R.pipe(
@@ -15,6 +16,8 @@ const state = {
   projectiles: [],
   // [String]
   availableColors: namesInReversedOrder(Colors),
+  // Mode
+  mode: getUrlParams().mode,
 }
 
 export default state
