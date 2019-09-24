@@ -7,7 +7,7 @@ export const Event = {
     YOU_JOINED: 'you.joined',
   },
   ToGame: {
-    BREAK: 'break',
+    BRAKE: 'brake',
     JUMP: 'jump',
     DRAG: 'drag',
     DRAG_END: 'drag.end',

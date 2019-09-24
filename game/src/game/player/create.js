@@ -13,6 +13,7 @@ import scope from '../scope'
 import { Colors } from '../../../../common'
 import borderPatrol from '../borderPatrol'
 import pointAtMiddle from '../pointAtMiddle'
+import { DEFAULT_PLAYER_SPRITE_SCALE } from '../constant'
 
 const COLOR_COUNT = Colors.length
 
@@ -68,7 +69,7 @@ const createSprite = (colorName) => {
   const sprite = new PIXI.AnimatedSprite(
     createSideAnimation(colorName),
   )
-  sprite.scale.set(2)
+  sprite.scale.set(DEFAULT_PLAYER_SPRITE_SCALE)
   sprite.anchor.set(0.5)
   sprite.animationSpeed = 0.08
   sprite.play()
@@ -89,7 +90,7 @@ export default (id) => {
     body,
     slows: 0,
     score: 0,
-    breaking: false,
+    brakeJumpPower: 0,
     cooldowns: {},
   }
 

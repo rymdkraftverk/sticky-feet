@@ -9,14 +9,18 @@ import {
 
 import {
   DOME_CENTER,
-  JUMP_STRENGTH,
+  MAX_JUMP_STRENGTH,
 } from './constant'
 
 export default (id) => {
-  const { body } = playerRepository.find(id)
+  const {
+    body,
+    brakeJumpPower,
+  } = playerRepository.find(id)
 
   const jumpDirection = normalize(subtract(body.position, DOME_CENTER))
-  const jumpVector = scale(JUMP_STRENGTH, jumpDirection)
+  const jumpStrength = MAX_JUMP_STRENGTH * brakeJumpPower
+  const jumpVector = scale(jumpStrength, jumpDirection)
 
   body.velocity = add(jumpVector, body.velocity)
   Sound.JUMP.play()

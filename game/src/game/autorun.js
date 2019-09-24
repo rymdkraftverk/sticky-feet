@@ -14,6 +14,7 @@ import {
 import {
   DOME_CENTER,
   DEFAULT_LAP_TIME,
+  BRAKE_STRENGTH,
   TICKS_PER_SEC,
   SLOW_FACTOR,
 } from './constant'
@@ -38,10 +39,11 @@ const enforceRunning = (domeCenter, lapTime, position, velocity) => {
   return add(correctionVelocity, velocity)
 }
 
-const lapTime = (slows, breaking) => {
-  const correctedForSlow = DEFAULT_LAP_TIME * (SLOW_FACTOR ** slows)
-  return breaking ? correctedForSlow + DEFAULT_LAP_TIME : correctedForSlow
-}
+const lapTime = (slows, brakeJumpPower) => (
+  DEFAULT_LAP_TIME
+  * (SLOW_FACTOR ** slows)
+  + (BRAKE_STRENGTH * brakeJumpPower)
+)
 
 export default (id) => {
   const player = playerRepository.find(id)
@@ -50,7 +52,7 @@ export default (id) => {
   const b = l1.repeat(() => {
     body.velocity = enforceRunning(
       DOME_CENTER,
-      lapTime(player.slows, player.breaking),
+      lapTime(player.slows, player.brakeJumpPower),
       body.position,
       body.velocity,
     )

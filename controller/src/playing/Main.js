@@ -52,7 +52,7 @@ const touchEventPosition = ({ touches: [{ clientX: x, clientY: y }] }) => ({
 const GamePlaying = ({ send, playerColor }) => {
   const [originPosition, setOriginPosition] = useState(null)
   const [position, setPosition] = useState(null)
-  const [breaking, setBreaking] = useState(false)
+  const [braking, setBraking] = useState(false)
 
   useShake(() => {
     send({ event: Event.ToGame.SHAKE })
@@ -83,13 +83,13 @@ const GamePlaying = ({ send, playerColor }) => {
     setPosition(null)
   }
 
-  const sendBreak = () => {
-    setBreaking(true)
-    send({ event: Event.ToGame.BREAK })
+  const sendBrake = () => {
+    setBraking(true)
+    send({ event: Event.ToGame.BRAKE })
   }
 
   const sendJump = () => {
-    setBreaking(false)
+    setBraking(false)
     send({ event: Event.ToGame.JUMP })
   }
 
@@ -97,8 +97,8 @@ const GamePlaying = ({ send, playerColor }) => {
     <IOSDisableDoubleTap>
       <Container playerColor={playerColor}>
         <ScrollLock />
-        <JumpPanel onTouchStart={sendBreak} onTouchEnd={sendJump}>
-          {breaking ? 'Jump' : 'Break'}
+        <JumpPanel onTouchStart={sendBrake} onTouchEnd={sendJump}>
+          {braking ? 'Jump' : 'Brake'}
         </JumpPanel>
         <VerticalSeparator />
         <ShootPanel
