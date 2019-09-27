@@ -1,6 +1,3 @@
-// There's a bug in typescript flagging this as an error.
-// TODO: Remove ts-ignore once typescript is updated
-// @ts-ignore
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as Matter from 'matter-js'
@@ -10,7 +7,6 @@ import { Event, Colors, Channel } from '../../../common'
 import Sound from './sound'
 import leaderboard, { renderLeaderboard } from './leaderboard'
 import http from './http'
-// @ts-ignore
 import state from './state'
 import stage from './stage'
 import jump from './jump'
@@ -32,8 +28,7 @@ import {
 } from './constant'
 
 // Hack to make Matter.Bodies.fromVertices work
-// @ts-ignore
-window.decomp = require('poly-decomp')
+window['decomp'] = require('poly-decomp')
 
 const DEBUG_MATTER = false
 
@@ -232,11 +227,8 @@ const resizeGame = () => {
 resizeGame()
 window.addEventListener('resize', resizeGame)
 
-// debug is not a part of the window type
-// @ts-ignore
-window.debug = {
-  // @ts-ignore
-  ...window.debug,
+window['debug'] = {
+  ...window['debug'],
   // Add console commands here
   createBot,
   start,

@@ -61,6 +61,7 @@ export default (id, { angle }) => {
   const originX = body.position.x
   const originY = body.position.y
 
+  // TODO: Look into why this throws type error
   // @ts-ignore
   const projectileSprite = new PIXI.AnimatedSprite(['fireball1', 'fireball2'].map(l1.getTexture))
   projectileSprite.scale.set(3)

@@ -7,6 +7,8 @@ rules:
   import/no-absolute-path: off
   import/no-unresolved: off
   no-console: off
+  # We need this to make expando pattern work with type checking
+  dot-notation: off
   semi:
     - error
     - never

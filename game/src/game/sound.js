@@ -2,6 +2,7 @@ import { Howl } from 'howler'
 import * as R from 'ramda'
 
 // Typescript erroneously reports this as an error
+// Probably because importing a sound file like this is parcel bundler specific
 // @ts-ignore
 import ui04 from '../asset/sound/UI04.mp3'
 // @ts-ignore
