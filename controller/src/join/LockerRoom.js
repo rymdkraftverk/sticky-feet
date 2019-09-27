@@ -44,6 +44,7 @@ const connection =
 
 const isMobile = connection && connection.type === 'cellular'
 
+// * This does not seem to work on iOS
 const onFocus = e => {
   e.target.placeholder = ''
   e.target.select()
@@ -86,7 +87,6 @@ const LockerRoom = props => {
               onFocus={onFocus}
               onBlur={onBlur}
               onKeyPress={onKeyPress}
-              className="game-join-input"
               spellCheck="false"
               autoComplete="off"
               autoCorrect="off"

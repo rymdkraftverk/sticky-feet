@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
     touch-action: manipulation;
   }
 
+  input {
+    user-select: text;
+  }
+
   body {
     margin: 0;
     padding: 0;
@@ -46,6 +50,7 @@ const myShakeEvent = new Shake({
 myShakeEvent.start()
 
 // Prevent displaying "undo text" dialog on iOS when device is accidentally shaken
+// This probably does not work though
 window.addEventListener('devicemotion', e => {
   e.preventDefault()
 })
