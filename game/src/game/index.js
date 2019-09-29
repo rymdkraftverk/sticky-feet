@@ -75,7 +75,7 @@ app.ticker.add(() => {
 
 Matter.Events.on(engine, 'collisionStart', collider)
 
-app.loader.add('spritesheet/fight.json')
+app.loader.add('spritesheet/main.json')
 app.loader.add('spritesheet/spritesheet.json')
 
 Sound.MUSIC.play()

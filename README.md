@@ -1,4 +1,4 @@
-# Fight
+# Sticky Feet
 
 ## Validate circle ci config
 

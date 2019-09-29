@@ -85,7 +85,7 @@ jobs:
           at: .
       - run:
           name: Upload to itch.io
-          command: butler push game/dist rymdkraftverk/fight:web
+          command: butler push game/dist rymdkraftverk/sticky-feet:web
   build_controller:
     docker:
       - image: node:11.11
