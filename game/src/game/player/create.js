@@ -73,6 +73,7 @@ const createSprite = (colorName) => {
   sprite.anchor.set(0.5)
   sprite.animationSpeed = 0.08
   sprite.play()
+
   return sprite
 }
 

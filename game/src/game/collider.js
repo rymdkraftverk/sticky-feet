@@ -10,6 +10,7 @@ import getLeader from './getLeader'
 import slow from './slow'
 import { renderLeaderboard } from './leaderboard'
 import state from './state'
+import assignCrown from './assignCrown'
 
 const hoistLeading = (leaderPosition, players) => R.sort(
   R.comparator(R.pipe(
@@ -61,6 +62,8 @@ const playerPlayerCollision = (idA, idB) => {
   // Distribute score
   trailingPlayer.score += 1
   renderLeaderboard(state.players)
+
+  assignCrown()
 }
 
 const unknownCollision = (...ids) => {
