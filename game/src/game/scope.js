@@ -8,7 +8,7 @@ import {
 } from './linearAlgebra'
 
 const create = () => {
-  const scope = new PIXI.Sprite(l1.getTexture('arrow/arrow-green'))
+  const scope = new PIXI.Sprite()
   scope.anchor.set(0.5)
   scope.visible = false
   state.pixiStage.addChild(scope)
@@ -24,8 +24,12 @@ const aim = (id, { angle, distance }) => {
         y,
       },
     },
+    cooldowns,
     scope,
   } = player
+
+  const texture = cooldowns.projectile ? 'arrow/arrow-red' : 'arrow/arrow-green'
+  scope.texture = l1.getTexture(texture)
 
   scope.visible = true
 
