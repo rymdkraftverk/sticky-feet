@@ -39,10 +39,10 @@ const enforceRunning = (domeCenter, lapTime, position, velocity) => {
   return add(correctionVelocity, velocity)
 }
 
-const lapTime = (slows, brakeJumpPower) => (
+const lapTime = (slows, braking) => (
   DEFAULT_LAP_TIME
   * (SLOW_FACTOR ** slows)
-  + (BRAKE_STRENGTH * brakeJumpPower)
+  + (braking ? BRAKE_STRENGTH : 0)
 )
 
 export default (id) => {
@@ -52,7 +52,7 @@ export default (id) => {
   const b = l1.repeat(() => {
     body.velocity = enforceRunning(
       DOME_CENTER,
-      lapTime(player.slows, player.brakeJumpPower),
+      lapTime(player.slows, player.braking),
       body.position,
       body.velocity,
     )

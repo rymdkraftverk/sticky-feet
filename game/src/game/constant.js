@@ -16,8 +16,7 @@ export const DEFAULT_PLAYER_SPRITE_SCALE = 2
 
 export const GRAVITY_STRENTH = 0.15
 export const MAX_JUMP_STRENGTH = 13 // Just below ceiling
-export const MAX_BRAKE_JUMP_POWER = 1
-export const FULL_BRAKE_TIME = TICKS_PER_SEC * 0.7
+export const FULL_JUMP_LOAD_TIME = TICKS_PER_SEC * 0.7
 export const BRAKE_STRENGTH = DEFAULT_LAP_TIME * 2
 export const SLOW_FACTOR = 2
 export const SLOW_DURATION = TICKS_PER_SEC * 2

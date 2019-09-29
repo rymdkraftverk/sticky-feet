@@ -90,7 +90,8 @@ export default (id) => {
     body,
     slows: 0,
     score: 0,
-    brakeJumpPower: 0,
+    jumpPower: 0,
+    braking: false,
     cooldowns: {},
   }
 

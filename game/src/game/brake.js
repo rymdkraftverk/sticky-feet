@@ -2,31 +2,32 @@ import * as l1 from 'l1'
 import playerRepository from './player/repository'
 
 import {
-  FULL_BRAKE_TIME,
-  MAX_BRAKE_JUMP_POWER,
+  FULL_JUMP_LOAD_TIME,
   DEFAULT_PLAYER_SPRITE_SCALE,
 } from './constant'
 
-const BRAKE_JUMP_POWER_INCREMNT = 1 / FULL_BRAKE_TIME
+const JUMP_POWER_INCREMNT = 1 / FULL_JUMP_LOAD_TIME
 
 const MIN_SPRITE_SCALE = 1
 const SPRITE_SCALE_DIFF = DEFAULT_PLAYER_SPRITE_SCALE - MIN_SPRITE_SCALE
 
 const behaviorId = playerId => `brake_${playerId}`
 
-const spriteScale = brakeJumpPower => (
-  DEFAULT_PLAYER_SPRITE_SCALE - brakeJumpPower * SPRITE_SCALE_DIFF
+const spriteScale = jumpPower => (
+  DEFAULT_PLAYER_SPRITE_SCALE - jumpPower * SPRITE_SCALE_DIFF
 )
 
 const start = (id) => {
   const player = playerRepository.find(id)
 
-  if (player.brakeJumpPower !== 0) return // Guard against race conditions
+  if (player.jumpPower !== 0) return // Guard against race conditions
+
+  player.braking = true
 
   const b = l1.repeat(() => {
-    if (player.brakeJumpPower < MAX_BRAKE_JUMP_POWER) {
-      player.brakeJumpPower += BRAKE_JUMP_POWER_INCREMNT
-      const scale = spriteScale(player.brakeJumpPower)
+    if (player.jumpPower < 1) {
+      player.jumpPower += JUMP_POWER_INCREMNT
+      const scale = spriteScale(player.jumpPower)
       player.sprite.scale.set(scale)
     }
   })
@@ -38,7 +39,8 @@ const stop = (id) => {
 
   // Run after brake has stopped
   l1.once(() => {
-    player.brakeJumpPower = 0
+    player.braking = false
+    player.jumpPower = 0
     player.sprite.scale.set(DEFAULT_PLAYER_SPRITE_SCALE)
   })
   l1.remove(behaviorId(id))

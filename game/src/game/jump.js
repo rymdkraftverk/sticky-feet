@@ -15,11 +15,11 @@ import {
 export default (id) => {
   const {
     body,
-    brakeJumpPower,
+    jumpPower,
   } = playerRepository.find(id)
 
   const jumpDirection = normalize(subtract(body.position, DOME_CENTER))
-  const jumpStrength = MAX_JUMP_STRENGTH * brakeJumpPower
+  const jumpStrength = MAX_JUMP_STRENGTH * jumpPower
   const jumpVector = scale(jumpStrength, jumpDirection)
 
   body.velocity = add(jumpVector, body.velocity)
