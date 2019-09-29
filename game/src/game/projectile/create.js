@@ -11,6 +11,7 @@ import {
   DOME_CENTER,
   GAME_HEIGHT,
   GAME_WIDTH,
+  PROJECTILE_SPEED,
 } from '../constant'
 
 import { subtract } from '../linearAlgebra'
@@ -44,8 +45,8 @@ const move = (id) => {
 
   const b = l1.repeat(() => {
     Matter.Body.setVelocity(body, {
-      x: 4 * Math.cos(angle),
-      y: 4 * Math.sin(angle),
+      x: Math.sqrt(2) * PROJECTILE_SPEED * Math.cos(angle),
+      y: Math.sqrt(2) * PROJECTILE_SPEED * Math.sin(angle),
     })
   })
   b.id = `projectile_move_${id}`
