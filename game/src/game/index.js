@@ -27,6 +27,8 @@ import {
   SHAKE_COOLDOWN,
 } from './constant'
 
+import * as Color from './constant/color'
+
 // Hack to make Matter.Bodies.fromVertices work
 window['decomp'] = require('poly-decomp')
 
@@ -50,7 +52,7 @@ const app = new PIXI.Application({
   antialias: true,
   // TODO: Enable when possible (background image exists)
   // clearBeforeRender: false,
-  backgroundColor: 0x000077,
+  backgroundColor: l1.fromHex(Color.LIGHT_GRAY),
 })
 state.pixiStage = app.stage
 
@@ -185,8 +187,8 @@ document.fonts.load('10pt "patchy-robots"')
 
           qrCode.display(CONTROLLER_HOST, gameCode)
 
-          createBot('DEFAULT')
           stage(gameCode)
+          createBot('DEFAULT')
           leaderboard()
 
           // Not sure why this reported as an error

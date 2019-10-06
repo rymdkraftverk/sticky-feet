@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as R from 'ramda'
 
+import * as Color from './constant/color'
 import state from './state'
 import textStyle from './textStyle'
 import {
@@ -55,13 +56,13 @@ const renderRow = ({
 export default () => {
   const background = new PIXI.Graphics()
   background
-    .beginFill(l1.fromHex('#111111'))
+    .beginFill(l1.fromHex(Color.DARK_GRAY))
     .drawRect(BACKGROUND_X, 0, BACKGROUND_WIDTH, GAME_HEIGHT)
   background.cacheAsBitmap = true
 
   state.pixiStage.addChild(background)
 
-  const title = new PIXI.Text('Leaderboard', { ...textStyle, fill: '#aaaaaa', fontSize: 24 })
+  const title = new PIXI.Text('Leaderboard', { ...textStyle, fill: Color.LIGHT_GRAY, fontSize: 24 })
   // @ts-ignore
   title.position = { x: BACKGROUND_X + BACKGROUND_WIDTH / 2, y: TITLE_Y }
   title.anchor.x = 0.5
