@@ -26,6 +26,7 @@ import {
   PROJECTILE_COOLDOWN,
   SHAKE_COOLDOWN,
 } from './constant'
+import debugMatter from './util/debugMatter'
 
 import * as Color from './constant/color'
 
@@ -54,6 +55,8 @@ const app = new PIXI.Application({
   // clearBeforeRender: false,
   backgroundColor: l1.fromHex(Color.LIGHT_GRAY),
 })
+// Enables setting zIndex on the children of stage
+app.stage.sortableChildren = true
 state.pixiStage = app.stage
 
 document
@@ -202,15 +205,19 @@ document.fonts.load('10pt "patchy-robots"')
   })
 
 if (DEBUG_MATTER) {
-  const matterRenderer = Matter.Render.create({
-    element: document.getElementById('matter'),
-    engine,
-    options: {
-      width: GAME_WIDTH,
-      height: GAME_HEIGHT,
-    },
+  // This is incorrectly marked as an error by tsc
+  // @ts-ignore
+  const gfx = new PIXI.Graphics()
+  gfx.zIndex = 10000
+  app.stage.addChild(gfx)
+
+  l1.repeat(() => {
+    debugMatter(
+      Matter.Composite.allBodies(engine.world),
+      gfx,
+      { color: l1.fromHex(Color.GREEN) },
+    )
   })
-  Matter.Render.run(matterRenderer)
 }
 
 const start = () => {

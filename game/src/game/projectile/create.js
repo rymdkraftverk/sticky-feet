@@ -66,6 +66,7 @@ export default (id, { angle }) => {
   // @ts-ignore
   const projectileSprite = new PIXI.AnimatedSprite(['fireball1', 'fireball2'].map(l1.getTexture))
   projectileSprite.scale.set(3)
+  projectileSprite.anchor.set(0.5)
   projectileSprite.animationSpeed = 0.1
   projectileSprite.play()
   projectileSprite.rotation = angle
