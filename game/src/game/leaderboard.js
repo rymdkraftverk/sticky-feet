@@ -63,8 +63,7 @@ export default () => {
   state.pixiStage.addChild(background)
 
   const title = new PIXI.Text('Leaderboard', { ...textStyle, fill: Color.LIGHT_GRAY, fontSize: 24 })
-  // @ts-ignore
-  title.position = { x: BACKGROUND_X + BACKGROUND_WIDTH / 2, y: TITLE_Y }
+  title.position.set(BACKGROUND_X + BACKGROUND_WIDTH / 2, TITLE_Y)
   title.anchor.x = 0.5
   l1.makeResizable(title)
   state.pixiStage.addChild(title)

@@ -60,8 +60,7 @@ const createJoinInstructions = (gameCode) => {
       fill: Color.LIGHT_GRAY,
       fontSize: 20,
     })
-  // @ts-ignore
-  grabYourPhone.position = { x: TEXT_X, y: PHONE_Y }
+  grabYourPhone.position.set(TEXT_X, PHONE_Y)
   l1.makeResizable(grabYourPhone)
   state.pixiStage.addChild(grabYourPhone)
 
@@ -73,8 +72,7 @@ const createJoinInstructions = (gameCode) => {
   state.pixiStage.addChild(arrow1)
 
   const urlLabel = new PIXI.Text('Go to', { ...textStyle, fill: Color.LIGHT_GRAY })
-  // @ts-ignore
-  urlLabel.position = { x: TEXT_X, y: URL_Y }
+  urlLabel.position.set(TEXT_X, URL_Y)
   l1.makeResizable(urlLabel)
   state.pixiStage.addChild(urlLabel)
 
@@ -82,8 +80,7 @@ const createJoinInstructions = (gameCode) => {
     CONTROLLER_HOST,
     { ...textStyle, fontFamily: 'Arial' },
   )
-  // @ts-ignore
-  url.position = { x: TEXT_X, y: URL_Y + 30 }
+  url.position.set(TEXT_X, URL_Y + 30)
   l1.makeResizable(url)
   state.pixiStage.addChild(url)
 
@@ -95,16 +92,14 @@ const createJoinInstructions = (gameCode) => {
   state.pixiStage.addChild(arrow2)
 
   const codeLabel = new PIXI.Text('Code', { ...textStyle, fill: Color.LIGHT_GRAY })
-  // @ts-ignore
-  codeLabel.position = { x: TEXT_X, y: CODE_Y }
+  codeLabel.position.set(TEXT_X, CODE_Y)
   l1.makeResizable(codeLabel)
   state.pixiStage.addChild(codeLabel)
 
   const code = new PIXI.Text(gameCode, {
     ...textStyle, fontFamily: 'Arial', fontSize: 64, fill: Color.RED,
   })
-  // @ts-ignore
-  code.position = { x: TEXT_X, y: CODE_Y + 26 }
+  code.position.set(TEXT_X, CODE_Y + 26)
   l1.makeResizable(code)
   state.pixiStage.addChild(code)
 }
