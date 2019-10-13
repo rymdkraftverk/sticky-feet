@@ -8,6 +8,7 @@ const radius = 2
 
 test('within boundary', () => {
   const body = {
+    grounded: false,
     position: {
       x: 1,
       y: 1,
@@ -38,6 +39,7 @@ test('outside boundary, no speed', () => {
 
   expect(enforceBorder(radius, center, body))
     .toEqual({
+      grounded: true,
       position: {
         x: center.x + radius,
         y: 0,
@@ -62,6 +64,7 @@ test('outside boundary, no speed', () => {
 
   expect(enforceBorder(radius, center, body))
     .toMatchCloseTo({
+      grounded: true,
       position: {
         x: center.x + Math.sqrt(1 / 2) * radius,
         y: center.y + Math.sqrt(1 / 2) * radius,
@@ -84,6 +87,7 @@ test('outside boundary, outward speed', () => {
 
   expect(enforceBorder(radius, center, body))
     .toEqual({
+      grounded: true,
       position: {
         x: center.x + radius,
         y: center.y,

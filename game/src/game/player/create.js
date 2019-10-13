@@ -94,6 +94,7 @@ export default (id) => {
     jumpPower: 0,
     braking: false,
     cooldowns: {},
+    grounded: false,
   }
 
   entity.add(player)

@@ -16,8 +16,10 @@ export default (id) => {
   const {
     body,
     jumpPower,
+    grounded,
   } = playerRepository.find(id)
 
+  if (!grounded) return
   const jumpDirection = normalize(subtract(body.position, DOME_CENTER))
   const jumpStrength = MAX_JUMP_STRENGTH * jumpPower
   const jumpVector = scale(jumpStrength, jumpDirection)

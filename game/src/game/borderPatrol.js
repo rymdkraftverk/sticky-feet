@@ -39,7 +39,11 @@ export const enforceBorder = (radius, center, { position, velocity }) => {
   const positionDistance = length(relativePosition)
 
   if (positionDistance <= radius) {
-    return { position, velocity }
+    return {
+      position,
+      velocity,
+      grounded: false,
+    }
   }
 
   const updatedPosition = add(
@@ -50,17 +54,24 @@ export const enforceBorder = (radius, center, { position, velocity }) => {
   return {
     position: updatedPosition,
     velocity: enforceVelocity(relativePosition, velocity),
+    grounded: true,
   }
 }
 
 const borderPatrol = (id) => {
-  const { body } = playerRepository.find(id)
+  const player = playerRepository.find(id)
+  const { body } = player
 
   const b = l1.repeat(() => {
-    const { position, velocity } = enforceBorder(RADIUS, DOME_CENTER, body)
+    const {
+      position,
+      velocity,
+      grounded,
+    } = enforceBorder(RADIUS, DOME_CENTER, body)
 
     Matter.Body.setVelocity(body, velocity)
     Matter.Body.setPosition(body, position)
+    player.grounded = grounded
   })
 
   b.id = `border_patrol_${id}`
