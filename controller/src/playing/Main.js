@@ -44,7 +44,9 @@ const distance = ({ x: x1, y: y1 }, { x: x2, y: y2 }) =>
 const angle = ({ x: x1, y: y1 }, { x: x2, y: y2 }) =>
   Math.atan2(y2 - y1, x2 - x1)
 
-const touchEventPosition = ({ touches: [{ clientX: x, clientY: y }] }) => ({
+const touchEventPosition = ({
+  targetTouches: [{ clientX: x, clientY: y }],
+}) => ({
   x,
   y,
 })
