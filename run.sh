@@ -1,3 +1,3 @@
 #!/bin/bash
-source ./.env
-docker-compose up game controller
+. .env
+docker-compose up

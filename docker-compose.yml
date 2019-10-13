@@ -1,7 +1,7 @@
 version: '3'
 services:
     game:
-        image: 'node:10.16'
+        image: 'node:11.11'
         working_dir: /game
         command: ["sh", "./run-dev.sh"]
         volumes:
@@ -18,7 +18,7 @@ services:
             - '8082:8082' # hot reload
 
     controller:
-        image: 'node:10.16'
+        image: 'node:11.11'
         working_dir: /controller
         command: ["sh", "./run-dev.sh"]
         volumes:
@@ -30,3 +30,18 @@ services:
             - REACT_APP_WS_ADDRESS=${REACT_APP_WS_ADDRESS}
         ports:
             - '4001:4001'
+
+    backend:
+        image: 'node:11.11'
+        working_dir: /backend
+        command: ["sh", "./run-dev.sh"]
+        volumes:
+          - ../rkv-signaling-server:/backend
+        environment:
+            - CORS_WHITELIST=${CORS_WHITELIST}
+            - GAME_CODE=${GAME_CODE}
+            - REDIS_URL=${REDIS_URL}
+            - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+            - VERSION=${VERSION}
+        ports:
+            - '3000:3000'
