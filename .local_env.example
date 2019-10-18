@@ -1,0 +1,8 @@
+#!/bin/bash
+
+LOCAL_IP=$(node localIp.js)
+
+export HTTP_ADDRESS=http://${LOCAL_IP}:3000
+export REACT_APP_WS_ADDRESS=ws://${LOCAL_IP}:3000
+export WS_ADDRESS=ws://${LOCAL_IP}:3000
+export CONTROLLER_HOST=${LOCAL_IP}:4001
