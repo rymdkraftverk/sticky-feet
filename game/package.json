@@ -28,6 +28,6 @@
     "poly-decomp": "^0.3.0",
     "qrcode": "^1.4.1",
     "ramda": "^0.26.1",
-    "rkv-signaling": "0.0.4"
+    "rkv-signaling": "0.0.5"
   }
 }
