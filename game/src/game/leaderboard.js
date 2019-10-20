@@ -8,12 +8,12 @@ import textStyle from './textStyle'
 import {
   GAME_HEIGHT,
   GAME_WIDTH,
+  SIDEBAR_WIDTH,
   TUTORIAL_MODE,
 } from './constant'
 import { createFrontAnimation } from './player/create'
 
-const BACKGROUND_WIDTH = 270
-const BACKGROUND_X = GAME_WIDTH - 270
+const BACKGROUND_X = GAME_WIDTH - SIDEBAR_WIDTH
 
 const TITLE_Y = 20
 
@@ -43,7 +43,7 @@ const renderRow = ({
   ex.makeResizable(nameObject)
 
   const scoreText = new PIXI.Text(score, { ...textStyle, fontSize: 14 })
-  scoreText.x = BACKGROUND_WIDTH - 40
+  scoreText.x = SIDEBAR_WIDTH - 40
   scoreText.y = TEXT_Y_OFFSET
   ex.makeResizable(scoreText)
 
@@ -57,13 +57,13 @@ export default () => {
   const background = new PIXI.Graphics()
   background
     .beginFill(ex.fromHex(Color.DARK_GRAY))
-    .drawRect(BACKGROUND_X, 0, BACKGROUND_WIDTH, GAME_HEIGHT)
+    .drawRect(BACKGROUND_X, 0, SIDEBAR_WIDTH, GAME_HEIGHT)
   background.cacheAsBitmap = true
 
   state.pixiStage.addChild(background)
 
   const title = new PIXI.Text('Leaderboard', { ...textStyle, fill: Color.LIGHT_GRAY, fontSize: 24 })
-  title.position.set(BACKGROUND_X + BACKGROUND_WIDTH / 2, TITLE_Y)
+  title.position.set(BACKGROUND_X + SIDEBAR_WIDTH / 2, TITLE_Y)
   title.anchor.x = 0.5
   ex.makeResizable(title)
   state.pixiStage.addChild(title)
