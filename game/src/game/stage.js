@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import * as l1 from 'l1'
+import * as ex from 'pixi-ex'
 
 import * as Color from './constant/color'
 import textStyle from './textStyle'
@@ -16,7 +16,7 @@ import state from './state'
 const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
 
 const createDome = () => {
-  const domeSprite = new PIXI.Sprite(l1.getTexture('dome-0'))
+  const domeSprite = new PIXI.Sprite(ex.getTexture('dome-0'))
   domeSprite.scale.set(1)
   domeSprite.anchor.set(0.5)
   domeSprite.x = DOME_X
@@ -27,7 +27,7 @@ const createDome = () => {
 const drawInstructionArrow = ({
   x, y, angle,
 }) => {
-  const instructionArrow = new PIXI.Sprite(l1.getTexture('expand-arrow-one'))
+  const instructionArrow = new PIXI.Sprite(ex.getTexture('expand-arrow-one'))
 
   instructionArrow.alpha = 0.2
   instructionArrow.x = x
@@ -50,7 +50,7 @@ const BACKGROUND_WIDTH = 270
 const createJoinInstructions = (gameCode) => {
   const background = new PIXI.Graphics()
   background
-    .beginFill(l1.fromHex(Color.DARK_GRAY))
+    .beginFill(ex.fromHex(Color.DARK_GRAY))
     .drawRect(0, 0, BACKGROUND_WIDTH, GAME_HEIGHT)
   state.pixiStage.addChild(background)
 
@@ -61,7 +61,7 @@ const createJoinInstructions = (gameCode) => {
       fontSize: 20,
     })
   grabYourPhone.position.set(TEXT_X, PHONE_Y)
-  l1.makeResizable(grabYourPhone)
+  ex.makeResizable(grabYourPhone)
   state.pixiStage.addChild(grabYourPhone)
 
   const arrow1 = drawInstructionArrow({
@@ -73,7 +73,7 @@ const createJoinInstructions = (gameCode) => {
 
   const urlLabel = new PIXI.Text('Go to', { ...textStyle, fill: Color.LIGHT_GRAY })
   urlLabel.position.set(TEXT_X, URL_Y)
-  l1.makeResizable(urlLabel)
+  ex.makeResizable(urlLabel)
   state.pixiStage.addChild(urlLabel)
 
   const url = new PIXI.Text(
@@ -81,7 +81,7 @@ const createJoinInstructions = (gameCode) => {
     { ...textStyle, fontFamily: 'Arial' },
   )
   url.position.set(TEXT_X, URL_Y + 30)
-  l1.makeResizable(url)
+  ex.makeResizable(url)
   state.pixiStage.addChild(url)
 
   const arrow2 = drawInstructionArrow({
@@ -93,14 +93,14 @@ const createJoinInstructions = (gameCode) => {
 
   const codeLabel = new PIXI.Text('Code', { ...textStyle, fill: Color.LIGHT_GRAY })
   codeLabel.position.set(TEXT_X, CODE_Y)
-  l1.makeResizable(codeLabel)
+  ex.makeResizable(codeLabel)
   state.pixiStage.addChild(codeLabel)
 
   const code = new PIXI.Text(gameCode, {
     ...textStyle, fontFamily: 'Arial', fontSize: 64, fill: Color.RED,
   })
   code.position.set(TEXT_X, CODE_Y + 26)
-  l1.makeResizable(code)
+  ex.makeResizable(code)
   state.pixiStage.addChild(code)
 }
 

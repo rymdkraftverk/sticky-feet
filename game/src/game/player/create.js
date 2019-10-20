@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import * as l1 from 'l1'
+import * as ex from 'pixi-ex'
 import * as PIXI from 'pixi.js'
 import * as Matter from 'matter-js'
 
@@ -37,7 +37,7 @@ const FRONT_COLLAPSED = 3
 const createAnimation = (colorName, texture1, texture2) => {
   const colorIndex = INDEX_COLOR_MAPPING[colorName]
   return R.map(
-    l1.getTexture,
+    ex.getTexture,
     [
       `lizard-${colorIndex + (COLOR_COUNT * texture1)}`,
       `lizard-${colorIndex + (COLOR_COUNT * texture2)}`,

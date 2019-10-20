@@ -22,8 +22,9 @@
   },
   "dependencies": {
     "howler": "^2.1.2",
-    "l1": "^0.6.0-3",
+    "l1": "^0.6.0-4",
     "matter-js": "^0.14.2",
+    "pixi-ex": "0.0.3",
     "pixi.js": "^5.1.5",
     "poly-decomp": "^0.3.0",
     "qrcode": "^1.4.1",

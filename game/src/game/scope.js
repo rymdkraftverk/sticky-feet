@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import * as l1 from 'l1'
+import * as ex from 'pixi-ex'
 import playerRepository from './player/repository'
 import state from './state'
 import {
@@ -29,7 +29,7 @@ const aim = (id, { angle, distance }) => {
   } = player
 
   const texture = cooldowns.projectile ? 'arrow/arrow-red' : 'arrow/arrow-green'
-  scope.texture = l1.getTexture(texture)
+  scope.texture = ex.getTexture(texture)
 
   scope.visible = true
 

@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import * as l1 from 'l1'
+import * as ex from 'pixi-ex'
 import * as R from 'ramda'
 
 import * as Color from './constant/color'
@@ -40,12 +40,12 @@ const renderRow = ({
   const nameObject = new PIXI.Text(name, { ...textStyle, fontSize: 14 })
   nameObject.x = 40
   nameObject.y = TEXT_Y_OFFSET
-  l1.makeResizable(nameObject)
+  ex.makeResizable(nameObject)
 
   const scoreText = new PIXI.Text(score, { ...textStyle, fontSize: 14 })
   scoreText.x = BACKGROUND_WIDTH - 40
   scoreText.y = TEXT_Y_OFFSET
-  l1.makeResizable(scoreText)
+  ex.makeResizable(scoreText)
 
   container.addChild(sprite)
   container.addChild(nameObject)
@@ -56,7 +56,7 @@ const renderRow = ({
 export default () => {
   const background = new PIXI.Graphics()
   background
-    .beginFill(l1.fromHex(Color.DARK_GRAY))
+    .beginFill(ex.fromHex(Color.DARK_GRAY))
     .drawRect(BACKGROUND_X, 0, BACKGROUND_WIDTH, GAME_HEIGHT)
   background.cacheAsBitmap = true
 
@@ -65,7 +65,7 @@ export default () => {
   const title = new PIXI.Text('Leaderboard', { ...textStyle, fill: Color.LIGHT_GRAY, fontSize: 24 })
   title.position.set(BACKGROUND_X + BACKGROUND_WIDTH / 2, TITLE_Y)
   title.anchor.x = 0.5
-  l1.makeResizable(title)
+  ex.makeResizable(title)
   state.pixiStage.addChild(title)
 }
 

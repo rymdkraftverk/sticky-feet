@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
+import * as ex from 'pixi-ex'
 import * as Matter from 'matter-js'
 import signaling from 'rkv-signaling'
 
@@ -53,7 +54,7 @@ const app = new PIXI.Application({
   antialias: true,
   // TODO: Enable when possible (background image exists)
   // clearBeforeRender: false,
-  backgroundColor: l1.fromHex(Color.LIGHT_GRAY),
+  backgroundColor: ex.fromHex(Color.LIGHT_GRAY),
 })
 // Enables setting zIndex on the children of stage
 app.stage.sortableChildren = true
@@ -63,10 +64,9 @@ document
   .getElementById('game')
   .appendChild(app.view)
 
-l1.init(app, {
-  // debug: process.env.NODE_ENV === 'development',
-  // logging: process.env.NODE_ENV === 'development',
-})
+ex.init(app)
+
+app.ticker.add(l1.update)
 
 const engine = Matter.Engine.create()
 state.matterWorld = engine.world
@@ -215,7 +215,7 @@ if (DEBUG_MATTER) {
     debugMatter(
       Matter.Composite.allBodies(engine.world),
       gfx,
-      { color: l1.fromHex(Color.GREEN) },
+      { color: ex.fromHex(Color.GREEN) },
     )
   })
 }
@@ -231,7 +231,7 @@ const stop = () => {
 const resizeGame = () => {
   const screenWidth = window.innerWidth
   const screenHeight = window.innerHeight
-  l1.resize(screenWidth, screenHeight)
+  ex.resize(screenWidth, screenHeight)
 }
 resizeGame()
 window.addEventListener('resize', resizeGame)

@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
+import * as ex from 'pixi-ex'
 import * as Matter from 'matter-js'
 
 import Sound from '../sound'
@@ -64,7 +65,7 @@ export default (id, { angle }) => {
 
   // TODO: Look into why this throws type error
   // @ts-ignore
-  const projectileSprite = new PIXI.AnimatedSprite(['fireball1', 'fireball2'].map(l1.getTexture))
+  const projectileSprite = new PIXI.AnimatedSprite(['fireball1', 'fireball2'].map(ex.getTexture))
   projectileSprite.scale.set(3)
   projectileSprite.anchor.set(0.5)
   projectileSprite.animationSpeed = 0.1

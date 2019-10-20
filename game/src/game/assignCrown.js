@@ -1,4 +1,4 @@
-import * as l1 from 'l1'
+import * as ex from 'pixi-ex'
 import * as PIXI from 'pixi.js'
 import * as R from 'ramda'
 
@@ -7,7 +7,7 @@ import state from './state'
 const CROWN_NAME = 'leader crown'
 
 const placeCrownOnSprite = (playerSprite) => {
-  const crown = new PIXI.Sprite(l1.getTexture('crown'))
+  const crown = new PIXI.Sprite(ex.getTexture('crown'))
   crown.scale.set(1 / 5)
   crown.x -= crown.width / 1
   crown.y -= crown.height * 2
