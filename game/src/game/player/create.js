@@ -13,6 +13,7 @@ import scope from '../scope'
 import { Colors } from '../../../../common'
 import borderPatrol from '../borderPatrol'
 import pointAtMiddle from '../pointAtMiddle'
+import scopeFollowsPlayer from '../scopeFollowsPlayer'
 import { DEFAULT_PLAYER_SPRITE_SCALE } from '../constant'
 
 const COLOR_COUNT = Colors.length
@@ -102,6 +103,7 @@ export default (id) => {
 
   player.behaviors = {
     autorunId: autorun(id),
+    scopeFollowsPlayerId: scopeFollowsPlayer(id),
     gravityId: gravity(id),
     borderPatrolId: borderPatrol(id),
     pointAtMiddleId: pointAtMiddle(id),

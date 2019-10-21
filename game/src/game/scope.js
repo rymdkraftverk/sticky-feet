@@ -15,15 +15,20 @@ const create = () => {
   return scope
 }
 
+const updatePosition = (id, { distance }) => {
+  const player = playerRepository.find(id)
+
+  const { body: { position: { x, y } } } = player
+
+  player.scope.position = add(
+    { x, y },
+    fromPolar(player.scope.rotation, distance),
+  )
+}
+
 const aim = (id, { angle, distance }) => {
   const player = playerRepository.find(id)
   const {
-    body: {
-      position: {
-        x,
-        y,
-      },
-    },
     cooldowns,
     scope,
   } = player
@@ -34,10 +39,8 @@ const aim = (id, { angle, distance }) => {
   scope.visible = true
 
   scope.rotation = angle
-  scope.position = add(
-    { x, y },
-    fromPolar(angle, distance),
-  )
+  updatePosition(id, { distance })
+  scope.distance = distance
 
   player.scope = scope
 }
@@ -51,4 +54,5 @@ export default {
   aim,
   create,
   reset,
+  updatePosition,
 }

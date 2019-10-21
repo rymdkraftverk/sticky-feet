@@ -244,4 +244,5 @@ window['debug'] = {
   stop,
   state,
   logging: false,
+  behaviors: () => l1.getAll().map(b => b.id),
 }
