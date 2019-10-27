@@ -5,6 +5,7 @@ export const Channel = {
 export const Event = {
   FromGame: {
     YOU_JOINED: 'you.joined',
+    FULL: 'full',
   },
   ToGame: {
     BRAKE: 'brake',

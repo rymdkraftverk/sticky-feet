@@ -2,11 +2,13 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as ex from 'pixi-ex'
 import * as Matter from 'matter-js'
+import * as R from 'ramda'
 import signaling from 'rkv-signaling'
 
 import { Event, Colors, Channel } from '../../../common'
 import Sound from './sound'
-import leaderboard, { renderLeaderboard } from './leaderboard'
+import leaderboard from './leaderboard'
+import updateScoreIndicators from './updateScoreIndicators'
 import http from './http'
 import state from './state'
 import stage from './stage'
@@ -21,6 +23,7 @@ import qrCode from './qrCode'
 import createProjectile from './projectile/create'
 import cooldown from './cooldown'
 import collider from './collider'
+import debugLog from './debugLog'
 import {
   GAME_HEIGHT,
   GAME_WIDTH,
@@ -159,6 +162,8 @@ const onPlayerJoin = ({
 
   Sound.UI_04.play()
 
+  updateScoreIndicators()
+
   send(Channel.RELIABLE, {
     event: Event.FromGame.YOU_JOINED,
     payload: {
@@ -168,8 +173,18 @@ const onPlayerJoin = ({
   })
 }
 
+const onPlayerLeave = R.pipe(
+  removePlayer,
+  R.tap(updateScoreIndicators),
+)
+
 const createBot = (idSuffix = Date.now().toString()) => {
-  createPlayer(`BOT_${idSuffix}`)
+  onPlayerJoin({
+    id: `BOT_${idSuffix}`,
+    setOnData: () => {},
+    send: debugLog,
+    close: () => {},
+  })
 }
 
 // Experimental API's are not supported by typescript
@@ -185,18 +200,14 @@ document.fonts.load('10pt "patchy-robots"')
             wsAddress: WS_ADDRESS,
             receiverId: gameCode,
             onInitiatorJoin: onPlayerJoin,
-            onInitiatorLeave: removePlayer,
+            onInitiatorLeave: onPlayerLeave,
           })
 
           qrCode.display(CONTROLLER_HOST, gameCode)
 
           stage(gameCode)
+          leaderboard.renderFrame()
           createBot('DEFAULT')
-          leaderboard()
-
-          // Not sure why this reported as an error
-          // @ts-ignore
-          renderLeaderboard(state.players)
         })
     })
   })

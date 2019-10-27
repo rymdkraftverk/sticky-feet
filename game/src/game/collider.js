@@ -8,9 +8,7 @@ import spawnPosition from './player/spawnPosition'
 import removeProjectile from './projectile/remove'
 import getLeader from './getLeader'
 import slow from './slow'
-import { renderLeaderboard } from './leaderboard'
-import state from './state'
-import assignCrown from './assignCrown'
+import updateScoreIndicators from './updateScoreIndicators'
 
 const hoistLeading = (leaderPosition, players) => R.sort(
   R.comparator(R.pipe(
@@ -61,9 +59,7 @@ const playerPlayerCollision = (idA, idB) => {
 
   // Distribute score
   trailingPlayer.score += 1
-  renderLeaderboard(state.players)
-
-  assignCrown()
+  updateScoreIndicators()
 }
 
 const unknownCollision = (...ids) => {

@@ -53,7 +53,7 @@ const renderRow = ({
   rows = rows.concat(container)
 }
 
-export default () => {
+const renderFrame = () => {
   const background = new PIXI.Graphics()
   background
     .beginFill(ex.fromHex(Color.DARK_GRAY))
@@ -69,7 +69,7 @@ export default () => {
   state.pixiStage.addChild(title)
 }
 
-export const renderLeaderboard = (players) => {
+const renderContent = () => {
   if (state.mode === TUTORIAL_MODE) {
     return
   }
@@ -93,5 +93,10 @@ export const renderLeaderboard = (players) => {
         textures: createFrontAnimation(color.name),
       })
     }),
-  )(players)
+  )(state.players)
+}
+
+export default {
+  renderFrame,
+  renderContent,
 }
