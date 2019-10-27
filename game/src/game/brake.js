@@ -21,6 +21,7 @@ const start = (id) => {
   const player = playerRepository.find(id)
 
   if (player.jumpPower !== 0) return // Guard against race conditions
+  if (!player.grounded) return
 
   player.braking = true
 
@@ -36,6 +37,8 @@ const start = (id) => {
 
 const stop = (id) => {
   const player = playerRepository.find(id)
+
+  if (player.jumpPower === 0) return
 
   // Run after brake has stopped
   l1.once(() => {
