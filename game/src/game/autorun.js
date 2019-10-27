@@ -13,11 +13,12 @@ import {
 
 import {
   DOME_CENTER,
-  DEFAULT_LAP_TIME,
   BRAKE_STRENGTH,
   TICKS_PER_SEC,
   SLOW_FACTOR,
 } from './constant'
+
+import state from './state'
 
 const enforceRunning = (domeCenter, lapTime, position, velocity) => {
   const relativePosition = subtract(domeCenter, position)
@@ -40,7 +41,7 @@ const enforceRunning = (domeCenter, lapTime, position, velocity) => {
 }
 
 const lapTime = (slows, braking) => (
-  DEFAULT_LAP_TIME
+  state.lapTime
   * (SLOW_FACTOR ** slows)
   + (braking ? BRAKE_STRENGTH : 0)
 )

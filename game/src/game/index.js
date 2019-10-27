@@ -28,7 +28,7 @@ import {
   SHAKE_COOLDOWN,
 } from './constant'
 import debugMatter from './util/debugMatter'
-
+import setLapTime from './setLapTime'
 import * as Color from './constant/color'
 
 // Hack to make Matter.Bodies.fromVertices work
@@ -245,4 +245,5 @@ window['debug'] = {
   state,
   logging: false,
   behaviors: () => l1.getAll().map(b => b.id),
+  setLapTime,
 }
