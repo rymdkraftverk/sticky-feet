@@ -116,7 +116,7 @@ const GamePlaying = ({ send, playerColor }) => {
             sendDragEnd()
           }}
         >
-          Shoot
+          Drag to shoot
         </ShootPanel>
       </Container>
     </IOSDisableDoubleTap>
