@@ -112,17 +112,6 @@ jobs:
       - upload_website:
           bucket: rkv-fight-controller
           dir: controller/build
-  tag:
-    docker:
-      - image: rymdkraftverk/ci:latest
-    steps:
-      - attach_workspace:
-          at: .
-      - add_ssh_keys
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run: |
-          git tag `cat version`
-          git push --tags
 workflows:
   default:
     jobs:
@@ -150,7 +139,3 @@ workflows:
       - deploy_game_itch:
           requires:
             - build_game
-      - tag:
-          requires:
-            - deploy_controller
-            - deploy_game_itch
