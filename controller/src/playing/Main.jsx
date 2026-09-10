@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import * as R from 'ramda'
 import PropTypes from 'prop-types'
 import { Event } from 'common'
 import styled, { css } from 'styled-components'
-import Div100vh from 'react-div-100vh'
+import FullHeight from '../FullHeight'
 import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
 import ScrollLock from '../util/ScrollLock'
 import useShake from '../useShake'
 
-const Container = styled(({ playerColor, ...rest }) => <Div100vh {...rest} />)`
+const Container = styled(FullHeight)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${R.prop('playerColor')};
+  background: var(--player-color);
 `
 
 const panel = css`
@@ -97,21 +97,15 @@ function GamePlaying({ send, playerColor }) {
 
   return (
     <IOSDisableDoubleTap>
-      <Container playerColor={playerColor}>
+      <Container style={{ '--player-color': playerColor }}>
         <ScrollLock />
         <JumpPanel onTouchStart={sendBrake} onTouchEnd={sendJump}>
           {braking ? 'Jump' : 'Brake'}
         </JumpPanel>
         <VerticalSeparator />
         <ShootPanel
-          onTouchStart={R.pipe(
-            touchEventPosition,
-            setOriginPosition,
-          )}
-          onTouchMove={R.pipe(
-            touchEventPosition,
-            sendDrag,
-          )}
+          onTouchStart={R.pipe(touchEventPosition, setOriginPosition)}
+          onTouchMove={R.pipe(touchEventPosition, sendDrag)}
           onTouchEnd={() => {
             sendDragEnd()
           }}

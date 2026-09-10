@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { notify } from 'react-notify-toast'
 import styled from 'styled-components'
-import Div100vh from 'react-div-100vh'
+import FullHeight from '../FullHeight'
 import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
 import ScrollLock from '../util/ScrollLock'
 import Button from './Button'
 
 const PLACEHOLDER = 'Code'
 
-const Container = styled(Div100vh)`
+const Container = styled.div`
   display: flex;
 `
 
@@ -39,11 +37,6 @@ const GameJoinButton = styled(Button)`
   opacity: ${({ disabled }) => (disabled ? '0.2' : '1')};
 `
 
-const connection =
-  navigator.connection || navigator.mozConnection || navigator.webkitConnection
-
-const isMobile = connection && connection.type === 'cellular'
-
 // * This does not seem to work on iOS
 const onFocus = e => {
   e.target.placeholder = ''
@@ -61,23 +54,11 @@ function LockerRoom(props) {
     if (isSubmit(e.key)) props.onJoinClick()
   }
 
-  useEffect(() => {
-    if (isMobile) {
-      notify.show('Connect to WiFi for best experience', 'warning')
-    }
-  }, [])
-
-  useEffect(() => {
-    if (props.error) {
-      notify.show(props.error, 'error')
-    }
-  }, [props.error])
-
   return (
     <IOSDisableDoubleTap>
       <ScrollLock />
-      <Div100vh>
-        <Container style={{ height: '50rvh' }}>
+      <FullHeight>
+        <Container style={{ height: '50dvh' }}>
           <ContainerColumn>
             <GameCodeInput
               type="text"
@@ -102,20 +83,15 @@ function LockerRoom(props) {
             </GameJoinButton>
           </ContainerColumn>
         </Container>
-      </Div100vh>
+      </FullHeight>
     </IOSDisableDoubleTap>
   )
 }
 
 LockerRoom.propTypes = {
-  error: PropTypes.string,
   gameCode: PropTypes.string.isRequired,
   onJoinClick: PropTypes.func.isRequired,
   gameCodeChange: PropTypes.func.isRequired,
-}
-
-LockerRoom.defaultProps = {
-  error: null,
 }
 
 export default LockerRoom

@@ -1,5 +1,4 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { createGlobalStyle } from 'styled-components'
 import { prettyVersionTime } from 'common'
 import Shake from 'shake.js'
@@ -54,10 +53,9 @@ window.addEventListener('devicemotion', e => {
   e.preventDefault()
 })
 
-ReactDOM.render(
+createRoot(document.getElementById('root')).render(
   <Boundary>
     <GlobalStyle />
     <App />
   </Boundary>,
-  document.getElementById('root'),
 )

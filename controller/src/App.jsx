@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import Notifications from 'react-notify-toast'
+import { useEffect, useState } from 'react'
 import MediaQuery from 'react-responsive'
 import { Event, Channel } from 'common'
 import signaling from 'rkv-signaling'
@@ -11,6 +10,7 @@ import LockerRoomLoader from './join/LockerRoomLoader'
 import GamePlaying from './playing/Main'
 import { getLastGameCode, setLastGameCode } from './join/sessionStorage'
 import TurnPhone from './join/TurnPhone'
+import Toast from './Toast'
 
 const noop = () => false
 
@@ -38,7 +38,7 @@ const writeGameCodeToUrl = gameCode => {
 function App() {
   const [appState, setAppState] = useState(AppState.LOCKER_ROOM)
   const [gameCode, setGameCode] = useState('')
-  const [error, setError] = useState('')
+  const [notice, setNotice] = useState(null)
   const [playerColor, setPlayerColor] = useState('')
   const [sendReliable, setSendReliable] = useState({
     f: () => {}, // Hack to be able to put a function in state
@@ -46,6 +46,7 @@ function App() {
 
   useEffect(() => {
     alertIfNoRtc()
+    warnIfCellular()
     const codeFromUrl = getGameCodeFromUrl()
     const code = codeFromUrl || getLastGameCode()
     setGameCode(code)
@@ -62,8 +63,7 @@ function App() {
         setPlayerColor(payload.color)
         break
       case Event.FromGame.FULL:
-        setAppState(AppState.LOCKER_ROOM)
-        setError('Game is full')
+        displayError('Game is full')
         break
       default:
         console.error(`Unexpected event: ${event}`)
@@ -77,7 +77,7 @@ function App() {
 
   const join = code => {
     setAppState(AppState.GAME_CONNECTING)
-    setError('')
+    setNotice(null)
     setLastGameCode(code)
     setTimeout(checkConnectionTimeout, TIMEOUT_SECONDS * 1000)
     writeGameCodeToUrl(code)
@@ -86,7 +86,21 @@ function App() {
 
   const displayError = message => {
     setAppState(AppState.LOCKER_ROOM)
-    setError(message)
+    setNotice({ text: message, type: 'error' })
+  }
+
+  const warnIfCellular = () => {
+    const connection =
+      navigator.connection ||
+      navigator.mozConnection ||
+      navigator.webkitConnection
+
+    if (connection && connection.type === 'cellular') {
+      setNotice({
+        text: 'Connect to WiFi for best experience',
+        type: 'warning',
+      })
+    }
   }
 
   const alertIfNoRtc = () => {
@@ -136,7 +150,7 @@ function App() {
         if (message) {
           displayError(message)
         } else {
-          console.error(error)
+          console.error(joinError)
         }
       })
   }
@@ -146,7 +160,6 @@ function App() {
       case AppState.LOCKER_ROOM:
         return (
           <LockerRoom
-            error={error}
             gameCodeChange={gameCodeChange}
             gameCode={gameCode}
             onJoinClick={onJoinClick}
@@ -163,7 +176,14 @@ function App() {
 
   return (
     <div>
-      <Notifications />
+      {notice && (
+        <Toast
+          key={notice.text}
+          text={notice.text}
+          type={notice.type}
+          onHide={() => setNotice(null)}
+        />
+      )}
       <MediaQuery orientation="portrait">
         <TurnPhone />
       </MediaQuery>

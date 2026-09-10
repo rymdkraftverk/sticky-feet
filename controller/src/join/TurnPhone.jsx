@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
-import Div100vh from 'react-div-100vh'
+import FullHeight from '../FullHeight'
 import turnPhoneGifPath from './turnPhone.gif'
 import turnPhoneSoundPath from './key.mp3'
 
@@ -17,7 +17,7 @@ const Content = styled.div`
   align-items: center;
 `
 
-const PageContainer = styled(Div100vh)`
+const PageContainer = styled(FullHeight)`
   display: flex;
   flex-direction: column;
 `
