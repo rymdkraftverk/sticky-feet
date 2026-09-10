@@ -1,22 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createGlobalStyle } from 'styled-components/macro'
+import { createGlobalStyle } from 'styled-components'
 import { prettyVersionTime } from 'common'
 import Boundary from './Boundary'
 import App from './App'
 import Shake from 'shake.js'
 
-const VERSION = process.env.REACT_APP_VERSION
+const version = process.env.REACT_APP_VERSION
 
-if (VERSION) {
-  console.log(`Version: ${VERSION} | Time: ${prettyVersionTime(VERSION)}`)
+if (version) {
+  console.log(`Version: ${version} | Time: ${prettyVersionTime(version)}`)
 }
 
 /* eslint-disable-next-line no-unused-expressions */
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'patchy-robots';
-    src: url('patchy-robots.ttf');
+    src: url('/patchy-robots.ttf');
   }
 
   html {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as Sentry from '@sentry/browser'
 
-const { REACT_APP_ERROR_LOGGING: ERROR_LOGGING = false } = process.env
+const ERROR_LOGGING = process.env.REACT_APP_ERROR_LOGGING || false
 
 // Needs to be Component as componentDidCatch is not implemented
 // as hook yet: https://reactjs.org/docs/hooks-faq.html#do-hooks-cover-all-use-cases-for-classes

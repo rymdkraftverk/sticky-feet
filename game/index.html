@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="/style.css" rel="stylesheet" type="text/css">
+  <title>Sticky Feet</title>
+</head>
+
+<body>
+  <div id="container">
+    <div id="game"></div>
+  </div>
+  <script>
+    const loading = document.createElement('div')
+    loading.innerHTML = 'loading...'
+    loading.setAttribute('id', 'loading')
+    document.getElementById('game').appendChild(loading)
+    document.addEventListener('DOMContentLoaded', () => loading.remove())
+  </script>
+  <script type="module" src="/src/index.js"></script>
+</body>
+</html>

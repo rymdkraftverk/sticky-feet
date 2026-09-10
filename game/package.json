@@ -2,25 +2,18 @@
   "name": "game",
   "version": "0.0.1",
   "private": true,
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "parcel -p 8081 --hmr-port 8082 src/index.html",
-    "build": "rm -rf dist && parcel build src/index.html --public-url ./",
-    "typecheck": "tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 8081",
+    "test": "vitest run",
+    "typecheck": "tsc --allowJs --checkJs --noEmit --target es2020 --module esnext --moduleResolution bundler src/*.js",
     "lint": "eslint .",
-    "munch": "muncher --input src/asset --output static/spritesheet/main"
-  },
-  "devDependencies": {
-    "eslint": "^5.3.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.0",
-    "jest-matcher-deep-close-to": "^1.3.0",
-    "muncher": "0.0.5",
-    "parcel-bundler": "^1.12.3",
-    "parcel-plugin-static-files-copy": "^2.1.2",
-    "typescript": "^3.6.3"
+    "munch": "muncher --input src/asset --output public/spritesheet/main"
   },
   "dependencies": {
+    "common": "file:../common",
     "howler": "^2.1.2",
     "l1": "^0.6.0-4",
     "matter-js": "^0.14.2",
@@ -28,7 +21,18 @@
     "pixi.js": "^5.1.5",
     "poly-decomp": "^0.3.0",
     "qrcode": "^1.4.1",
-    "ramda": "^0.26.1",
+    "ramda": "^0.31.3",
     "rkv-signaling": "0.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "jest-matcher-deep-close-to": "^1.3.0",
+    "jsdom": "^27.4.0",
+    "muncher": "0.0.5",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.5",
+    "vitest": "^3.2.4"
   }
 }

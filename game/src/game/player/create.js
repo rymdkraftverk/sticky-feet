@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import * as ex from 'pixi-ex'
 import * as PIXI from 'pixi.js'
 import * as Matter from 'matter-js'
+import { Colors } from 'common'
 
 import state from '../state'
 import playerRepository from './repository'
@@ -10,7 +11,6 @@ import * as entity from '../entity'
 import autorun from '../autorun'
 import gravity from '../gravity'
 import scope from '../scope'
-import { Colors } from '../../../../common'
 import borderPatrol from '../borderPatrol'
 import pointAtMiddle from '../pointAtMiddle'
 import scopeFollowsPlayer from '../scopeFollowsPlayer'
@@ -26,7 +26,7 @@ const INDEX_COLOR_MAPPING = R.mergeAll(
 )
 
 const findColor = name => R.find(
-  R.propEq('name', name),
+  R.propEq(name, 'name'),
   Colors,
 )
 

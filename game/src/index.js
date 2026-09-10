@@ -1,8 +1,8 @@
 import './game'
-import { prettyVersionTime } from '../../common'
+import { prettyVersionTime } from 'common'
 
-const { VERSION } = process.env
+const version = process.env.VERSION
 
-if (VERSION) {
-  console.log(`Version: ${VERSION} | Time: ${prettyVersionTime(VERSION)}`)
+if (version) {
+  console.log(`Version: ${version} | Time: ${prettyVersionTime(version)}`)
 }

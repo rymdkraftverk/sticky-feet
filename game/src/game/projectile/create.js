@@ -71,7 +71,7 @@ export default (id, { angle }) => {
   projectileSprite.animationSpeed = 0.1
   projectileSprite.play()
   projectileSprite.rotation = angle
-  projectileSprite.position = { x: originX, y: originY }
+  projectileSprite.position.set(originX, originY)
 
   const projectileBody = Matter.Bodies.circle(originX, originY, 10, {
     isSensor: true,

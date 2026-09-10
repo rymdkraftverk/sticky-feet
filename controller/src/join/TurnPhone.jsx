@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import Div100vh from 'react-div-100vh'
 import turnPhoneGifPath from './turnPhone.gif'
 import turnPhoneSoundPath from './key.mp3'

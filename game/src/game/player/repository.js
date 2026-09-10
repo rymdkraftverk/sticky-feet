@@ -22,7 +22,7 @@ const count = players => () => R.length(players)
 
 // [Player] -> Player id -> Player
 const find = players => id => R.find(
-  R.propEq('id', id),
+  R.propEq(id, 'id'),
   players,
 )
 
@@ -46,7 +46,7 @@ const add = players => R.pipe(
 
 // [Player] -> String -> [Player]
 const remove = R.curry((players, id) => R.pipe(
-  R.reject(R.propEq('id', id)),
+  R.reject(R.propEq(id, 'id')),
   R.tap(write),
 )(players))
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { notify } from 'react-notify-toast'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
 import Div100vh from 'react-div-100vh'
 import ScrollLock from '../util/ScrollLock'

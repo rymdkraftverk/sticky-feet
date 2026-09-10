@@ -18,7 +18,7 @@ const placeCrownOnSprite = (playerSprite) => {
 
 const clearCrownFromSprite = playerSprite => playerSprite
   .children
-  .filter(R.propEq('name', CROWN_NAME))
+  .filter(R.propEq(CROWN_NAME, 'name'))
   .forEach(sprite => playerSprite.removeChild(sprite))
 
 const assignCrown = () => {

@@ -1,6 +1,6 @@
 import * as R from 'ramda'
+import { Colors } from 'common'
 import getUrlParams from '../getUrlParams'
-import { Colors } from '../../../common'
 import { DEFAULT_LAP_TIME } from './constant'
 
 const namesInReversedOrder = R.pipe(

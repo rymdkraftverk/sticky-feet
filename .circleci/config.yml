@@ -36,14 +36,12 @@ commands:
 jobs:
   setup:
     docker:
-      - image: node:11.11
+      - image: node:22
     steps:
       - checkout
       - run:
           name: Combine timestamp and sha of last commit to create version
           command: git show -s --format="%ct-%h" > version
-      - npm_install:
-          dir: "."
       - npm_install:
           dir: "game"
       - npm_install:
@@ -53,7 +51,7 @@ jobs:
           root: .
   assure_quality:
     docker:
-      - image: node:11.11
+      - image: node:22
     steps:
       - attach_workspace:
           at: .
@@ -62,7 +60,7 @@ jobs:
       - run: npm run typecheck
   build_game:
     docker:
-      - image: node:11.11
+      - image: node:22
     steps:
       - attach_workspace:
           at: .
@@ -88,7 +86,7 @@ jobs:
           command: butler push game/dist rymdkraftverk/sticky-feet:web
   build_controller:
     docker:
-      - image: node:11.11
+      - image: node:22
     steps:
       - attach_workspace:
           at: .
@@ -101,7 +99,7 @@ jobs:
           working_directory: controller
       - persist_to_workspace:
           paths:
-            - controller/build
+            - controller/dist
           root: .
   deploy_controller:
     docker:
@@ -111,7 +109,7 @@ jobs:
           at: .
       - upload_website:
           bucket: rkv-fight-controller
-          dir: controller/build
+          dir: controller/dist
 workflows:
   default:
     jobs:

@@ -19,7 +19,7 @@ const write = (x) => {
 
 // [Projectile] -> Projectile id -> Projectile
 const find = projectiles => id => R.find(
-  R.propEq('id', id),
+  R.propEq(id, 'id'),
   projectiles,
 )
 
@@ -40,7 +40,7 @@ const add = projectiles => R.pipe(
 
 // [Projectile] -> Projectile id -> [Projectile]
 const remove = R.curry((projectiles, id) => R.pipe(
-  R.reject(R.propEq('id', id)),
+  R.reject(R.propEq(id, 'id')),
   R.tap(write),
 )(projectiles))
 

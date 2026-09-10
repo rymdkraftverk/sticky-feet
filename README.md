@@ -14,15 +14,15 @@ Validate config at `.circleci/config.yml`
 
 ### Typescript
 
-`npm run checkjs`
+`npm run typecheck`
 
 Will check the code with the typescript compiler.
 
 _To ignore a line, add `@ts-ignore` on the line above_
 
-### Static folder
+### Public folder
 
-Content in the `static` folder will be copied over to `dist` without being bundled.
+Content in the `public` folder will be copied over to `dist` without being bundled.
 
 ### Add new sprites
 

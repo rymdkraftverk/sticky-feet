@@ -2,10 +2,11 @@ import * as PIXI from 'pixi.js'
 import * as l1 from 'l1'
 import * as ex from 'pixi-ex'
 import * as Matter from 'matter-js'
+import decomp from 'poly-decomp'
 import * as R from 'ramda'
 import signaling from 'rkv-signaling'
 
-import { Event, Colors, Channel } from '../../../common'
+import { Event, Colors, Channel } from 'common'
 import Sound from './sound'
 import leaderboard from './leaderboard'
 import updateScoreIndicators from './updateScoreIndicators'
@@ -35,7 +36,7 @@ import setLapTime from './setLapTime'
 import * as Color from './constant/color'
 
 // Hack to make Matter.Bodies.fromVertices work
-window['decomp'] = require('poly-decomp')
+window['decomp'] = decomp
 
 const DEBUG_MATTER = false
 

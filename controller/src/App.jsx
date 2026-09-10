@@ -21,7 +21,7 @@ navigator.vibrate =
   navigator.msVibrate ||
   noop
 
-const { REACT_APP_WS_ADDRESS: WS_ADDRESS } = process.env
+const WS_ADDRESS = process.env.REACT_APP_WS_ADDRESS
 const TIMEOUT_SECONDS = 20
 
 const AppState = {
