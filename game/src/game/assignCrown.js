@@ -1,6 +1,6 @@
-import * as ex from 'pixi-ex'
 import * as PIXI from 'pixi.js'
 import * as R from 'ramda'
+import * as ex from '../pixiEx'
 
 import state from './state'
 

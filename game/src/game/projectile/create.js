@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
-import * as l1 from 'l1'
-import * as ex from 'pixi-ex'
 import * as Matter from 'matter-js'
+import * as l1 from '../../l1'
+import * as ex from '../../pixiEx'
 
 import Sound from '../sound'
 import * as entity from '../entity'

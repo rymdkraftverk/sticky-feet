@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import * as ex from 'pixi-ex'
+import * as ex from '../pixiEx'
 
 import * as Color from './constant/color'
 import textStyle from './textStyle'

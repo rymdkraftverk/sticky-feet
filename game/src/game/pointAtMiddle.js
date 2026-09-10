@@ -1,4 +1,4 @@
-import * as l1 from 'l1'
+import * as l1 from '../l1'
 
 import playerRepository from './player/repository'
 import { DOME_X, DOME_Y } from './constant'

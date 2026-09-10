@@ -1,4 +1,4 @@
-import * as l1 from 'l1'
+import * as l1 from '../l1'
 import scope from './scope'
 import playerRepository from './player/repository'
 

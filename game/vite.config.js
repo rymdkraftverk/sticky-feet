@@ -7,23 +7,8 @@ const inlined = [
   'WS_ADDRESS',
 ]
 
-// l1 and pixi-ex ship Parcel bundles that assign `parcelRequire` as an implicit global,
-// which throws in the strict-mode ES output
-const PARCEL_BUNDLED_DEPS = /node_modules\/(l1|pixi-ex)\/dist\/index\.js$/
-
-const parcelGlobal = {
-  name:    'parcel-bundled-deps',
-  enforce: 'pre',
-  transform(code, id) {
-    return PARCEL_BUNDLED_DEPS.test(id)
-      ? code.replace(/(?<![.\w$])parcelRequire\s*=/g, 'globalThis.parcelRequire =')
-      : null
-  },
-}
-
 export default defineConfig({
-  base:    './',
-  plugins: [parcelGlobal],
+  base: './',
   define: Object.fromEntries(
     inlined.map(key => [
       `process.env.${key}`,

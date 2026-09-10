@@ -1,5 +1,5 @@
-import * as l1 from 'l1'
 import * as Matter from 'matter-js'
+import * as l1 from '../l1'
 
 import playerRepository from './player/repository'
 import { DOME_Y, DOME_CENTER } from './constant'
