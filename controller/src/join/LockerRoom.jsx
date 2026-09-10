@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { notify } from 'react-notify-toast'
 import styled from 'styled-components'
-import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
 import Div100vh from 'react-div-100vh'
+import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
 import ScrollLock from '../util/ScrollLock'
 import Button from './Button'
 
@@ -54,7 +54,7 @@ const onBlur = e => {
   e.target.placeholder = PLACEHOLDER
 }
 
-const LockerRoom = props => {
+function LockerRoom(props) {
   const isSubmit = pressed => gameCodeFilled() && pressed === 'Enter'
   const gameCodeFilled = () => props.gameCode.length === 4
   const onKeyPress = e => {
@@ -94,14 +94,12 @@ const LockerRoom = props => {
             />
           </ContainerColumn>
           <ContainerColumn>
-            {
-              <GameJoinButton
-                disabled={!gameCodeFilled()}
-                onClick={props.onJoinClick}
-              >
-                Join
-              </GameJoinButton>
-            }
+            <GameJoinButton
+              disabled={!gameCodeFilled()}
+              onClick={props.onJoinClick}
+            >
+              Join
+            </GameJoinButton>
           </ContainerColumn>
         </Container>
       </Div100vh>

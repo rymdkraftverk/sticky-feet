@@ -39,7 +39,7 @@ const VerticalSeparator = styled.div`
 `
 
 const distance = ({ x: x1, y: y1 }, { x: x2, y: y2 }) =>
-  Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+  Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 const angle = ({ x: x1, y: y1 }, { x: x2, y: y2 }) =>
   Math.atan2(y2 - y1, x2 - x1)
@@ -51,7 +51,7 @@ const touchEventPosition = ({
   y,
 })
 
-const GamePlaying = ({ send, playerColor }) => {
+function GamePlaying({ send, playerColor }) {
   const [originPosition, setOriginPosition] = useState(null)
   const [position, setPosition] = useState(null)
   const [braking, setBraking] = useState(false)
@@ -124,7 +124,7 @@ const GamePlaying = ({ send, playerColor }) => {
 }
 
 GamePlaying.propTypes = {
-  send: PropTypes.func,
+  send: PropTypes.func.isRequired,
   playerColor: PropTypes.string.isRequired,
 }
 

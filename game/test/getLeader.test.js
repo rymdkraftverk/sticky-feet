@@ -53,7 +53,7 @@ test('Pi radians', () => {
 })
 
 test('3 Pi / 4 radians', () => {
-  const { leader, behind } = generateNearbyPair(3 * Math.PI / 4)
+  const { leader, behind } = generateNearbyPair((3 * Math.PI) / 4)
 
   expect(getLeader(leader, behind))
     .toEqual(leader)

@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { createGlobalStyle } from 'styled-components'
 import { prettyVersionTime } from 'common'
+import Shake from 'shake.js'
 import Boundary from './Boundary'
 import App from './App'
-import Shake from 'shake.js'
 
 const version = process.env.REACT_APP_VERSION
 
@@ -12,7 +12,6 @@ if (version) {
   console.log(`Version: ${version} | Time: ${prettyVersionTime(version)}`)
 }
 
-/* eslint-disable-next-line no-unused-expressions */
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'patchy-robots';

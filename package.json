@@ -1,8 +1,17 @@
 {
+  "type": "module",
   "scripts": {
     "qa": "npm test && npm run lint && npm run typecheck",
     "test": "npm test --prefix game",
-    "lint": "npm run lint --prefix game && npm run lint --prefix controller",
+    "lint": "eslint . && npm run lint --prefix controller",
     "typecheck": "npm run typecheck --prefix game"
+  },
+  "devDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.8.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^9.39.0",
+    "eslint-config-airbnb-extended": "^3.2.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0"
   }
 }

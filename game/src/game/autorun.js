@@ -26,8 +26,7 @@ const enforceRunning = (domeCenter, lapTime, position, velocity) => {
 
   // speed scales with distance from center to offset angular velocity benefit
   // of jumping
-  const desiredSpeed = length(relativePosition)
-    * (2 * Math.PI)
+  const desiredSpeed = (length(relativePosition) * (2 * Math.PI))
     / lapTime
     / TICKS_PER_SEC
 

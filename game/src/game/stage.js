@@ -51,12 +51,14 @@ const createJoinInstructions = (gameCode) => {
     .drawRect(0, 0, SIDEBAR_WIDTH, GAME_HEIGHT)
   state.pixiStage.addChild(background)
 
-  const grabYourPhone = new PIXI.Text('Grab your phone',
+  const grabYourPhone = new PIXI.Text(
+    'Grab your phone',
     {
       ...textStyle,
       fill: Color.WHITE,
       fontSize: 20,
-    })
+    },
+  )
   grabYourPhone.position.set(SIDEBAR_WIDTH / 2, PHONE_Y)
   grabYourPhone.anchor.set(0.5)
   ex.makeResizable(grabYourPhone)

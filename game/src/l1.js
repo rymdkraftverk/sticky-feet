@@ -8,7 +8,6 @@ const BehaviorType = {
 }
 
 const log = (text) => {
-  // eslint-disable-next-line no-console
   console.warn(text)
 }
 

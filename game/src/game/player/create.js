@@ -46,13 +46,11 @@ const createAnimation = (colorName, texture1, texture2) => {
   )
 }
 
-export const createFrontAnimation = colorName => createAnimation(
-  colorName, FRONT_COLLAPSED, FRONT_STRETCHED,
+export const createFrontAnimation = colorName => (
+  createAnimation(colorName, FRONT_COLLAPSED, FRONT_STRETCHED)
 )
 
-export const createSideAnimation = colorName => createAnimation(
-  colorName, SIDE_1, SIDE_2,
-)
+export const createSideAnimation = colorName => createAnimation(colorName, SIDE_1, SIDE_2)
 
 const createBody = () => {
   const { x, y } = spawnPosition()

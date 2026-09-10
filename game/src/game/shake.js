@@ -20,7 +20,7 @@ const spin = (id) => {
   const player = playerRepository.find(id)
 
   const spinBehavior = l1.repeat(() => {
-    player.sprite.rotation -= Math.PI * 2 / DURATION
+    player.sprite.rotation -= (Math.PI * 2) / DURATION
   })
   spinBehavior.id = `spin_${player.id}`
 

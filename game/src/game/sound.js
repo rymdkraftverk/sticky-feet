@@ -26,7 +26,8 @@ const sound = ({ src, ...rest }) => {
   return soundFile
 }
 
-export default R.map(sound,
+export default R.map(
+  sound,
   {
     UI_04: { src: ui04, volume: 0.8 },
     PROJECTILE_SHOOT: { src: projectileShoot, volume: 0.6 },
@@ -34,7 +35,8 @@ export default R.map(sound,
     KILL: { src: kill, volume: 0.6 },
     JUMP: { src: jump, volume: 0.6 },
     MUSIC: { src: music, volume: 0.6, loop: true },
-  })
+  },
+)
 
 // How to use
 // Sound.SWORD_01.play()

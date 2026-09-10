@@ -13,60 +13,60 @@ export const Event = {
     DRAG: 'drag',
     DRAG_END: 'drag.end',
     SHAKE: 'shake',
-  }
+  },
 }
 
 export const Colors = [
   {
     name: 'red',
-    hex: '#BE0000'
+    hex: '#BE0000',
   },
   {
     name: 'orange',
-    hex: '#FF8D00'
+    hex: '#FF8D00',
   },
   {
     name: 'yellow',
-    hex: '#FFE700'
+    hex: '#FFE700',
   },
   {
     name: 'light_green',
-    hex: '#90FF00'
+    hex: '#90FF00',
   },
   {
     name: 'turquoise',
-    hex: '#0FE'
+    hex: '#0FE',
   },
   {
     name: 'blue',
-    hex: '#005CFF'
+    hex: '#005CFF',
   },
   {
     name: 'dark_blue',
-    hex: '#0018FF'
+    hex: '#0018FF',
   },
   {
     name: 'purple',
-    hex: '#8500FF'
+    hex: '#8500FF',
   },
   {
     name: 'pink',
-    hex: '#F600FF'
+    hex: '#F600FF',
   },
   {
     name: 'white',
-    hex: '#D9D9D9'
+    hex: '#D9D9D9',
   },
   {
     name: 'black',
-    hex: '#292929'
+    hex: '#292929',
   },
   {
     name: 'brown',
-    hex: '#5D3E2F'
-  }
+    hex: '#5D3E2F',
+  },
 ]
 
 export const prettyVersionTime = version => (
-  new Date(parseInt(version.split('-')[0]) * 1000).toISOString()
+  new Date(parseInt(version.split('-')[0], 10) * 1000).toISOString()
 )

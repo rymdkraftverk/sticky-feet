@@ -5,11 +5,10 @@ export default () => {
     return {}
   }
 
-  return (/^[?#]/.test(query) ? query.slice(1) : query)
-    .split('&')
-    .reduce((params, param) => {
+  return Object.fromEntries(
+    (/^[?#]/.test(query) ? query.slice(1) : query).split('&').map(param => {
       const [key, value] = param.split('=')
-      params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : ''
-      return params
-    }, {})
+      return [key, value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '']
+    }),
+  )
 }

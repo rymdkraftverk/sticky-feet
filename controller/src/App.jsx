@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Notifications from 'react-notify-toast'
 import MediaQuery from 'react-responsive'
 import { Event, Channel } from 'common'
-import getUrlParams from './join/getUrlParams'
 import signaling from 'rkv-signaling'
+import getUrlParams from './join/getUrlParams'
 
 import channelConfigs from './config/channels'
 import LockerRoom from './join/LockerRoom'
@@ -35,7 +35,7 @@ const writeGameCodeToUrl = gameCode => {
   window.history.pushState({ gameCode }, '', `?code=${gameCode}`)
 }
 
-const App = props => {
+function App() {
   const [appState, setAppState] = useState(AppState.LOCKER_ROOM)
   const [gameCode, setGameCode] = useState('')
   const [error, setError] = useState('')
@@ -67,7 +67,6 @@ const App = props => {
         break
       default:
         console.error(`Unexpected event: ${event}`)
-        return null
     }
   }
 
@@ -120,7 +119,7 @@ const App = props => {
       .runInitiator({
         channelConfigs,
         onClose,
-        onData: onData,
+        onData,
         receiverId: code,
         wsAddress: WS_ADDRESS,
       })
@@ -129,10 +128,10 @@ const App = props => {
           f: send(Channel.RELIABLE),
         })
       })
-      .catch(error => {
+      .catch(joinError => {
         const message = {
           NOT_FOUND: `Game with code ${code} not found`,
-        }[error.cause]
+        }[joinError.cause]
 
         if (message) {
           displayError(message)
