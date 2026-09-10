@@ -4,7 +4,7 @@
     "qa": "npm test && npm run lint && npm run typecheck",
     "test": "npm test --prefix game",
     "lint": "eslint . && npm run lint --prefix controller",
-    "typecheck": "npm run typecheck --prefix game"
+    "typecheck": "npm run typecheck --prefix game && npm run typecheck --prefix controller"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.8.0",

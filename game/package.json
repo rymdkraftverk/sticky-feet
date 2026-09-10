@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview --port 8081",
     "test": "vitest run",
-    "typecheck": "tsc --allowJs --checkJs --noEmit --target es2020 --module esnext --moduleResolution bundler src/*.js",
+    "typecheck": "tsc -p tsconfig.json",
     "munch": "muncher --input src/asset --output public/spritesheet/main"
   },
   "dependencies": {

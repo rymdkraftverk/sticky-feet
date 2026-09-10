@@ -12,7 +12,7 @@ import GamePlaying from './playing/Main'
 import { getLastGameCode, setLastGameCode } from './join/sessionStorage'
 import TurnPhone from './join/TurnPhone'
 
-const noop = () => {}
+const noop = () => false
 
 navigator.vibrate =
   navigator.vibrate ||
@@ -141,16 +141,11 @@ function App() {
       })
   }
 
-  const clearError = () => {
-    setError('')
-  }
-
   const appStateComponent = () => {
     switch (appState) {
       case AppState.LOCKER_ROOM:
         return (
           <LockerRoom
-            clearError={clearError}
             error={error}
             gameCodeChange={gameCodeChange}
             gameCode={gameCode}

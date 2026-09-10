@@ -96,5 +96,5 @@ test('outside boundary, outward speed', () => {
         x: 0,
         y: 1,
       },
-    }, 5)
+    })
 })
