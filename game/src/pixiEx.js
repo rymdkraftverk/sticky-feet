@@ -29,6 +29,10 @@ export const getTexture = (filename) => {
       .flatMap(resource => Object.entries(resource.textures))
       .find(([key]) => key === `${filename}.png`)
 
+    if (!texture) {
+      throw new Error('no matching texture in the loaded resources')
+    }
+
     return texture[1]
   } catch (error) {
     throw new Error(`pixi-ex: Texture "${filename}" could not be retrieved: ${error}`)

@@ -52,8 +52,12 @@ const touchEventPosition = ({
 })
 
 function GamePlaying({ send, playerColor }) {
-  const [originPosition, setOriginPosition] = useState(null)
-  const [position, setPosition] = useState(null)
+  const [originPosition, setOriginPosition] = useState(
+    /** @type {{ x: number, y: number } | null} */ (null),
+  )
+  const [position, setPosition] = useState(
+    /** @type {{ x: number, y: number } | null} */ (null),
+  )
   const [braking, setBraking] = useState(false)
 
   useShake(() => {
@@ -61,6 +65,8 @@ function GamePlaying({ send, playerColor }) {
   })
 
   const sendDrag = pos => {
+    if (!originPosition) return
+
     setPosition(pos)
     send({
       event: Event.ToGame.DRAG,

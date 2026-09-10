@@ -38,7 +38,9 @@ const writeGameCodeToUrl = gameCode => {
 function App() {
   const [appState, setAppState] = useState(AppState.LOCKER_ROOM)
   const [gameCode, setGameCode] = useState('')
-  const [notice, setNotice] = useState(null)
+  const [notice, setNotice] = useState(
+    /** @type {{ text: string, type: string } | null} */ (null),
+  )
   const [playerColor, setPlayerColor] = useState('')
   const [sendReliable, setSendReliable] = useState({
     f: () => {}, // Hack to be able to put a function in state

@@ -22,7 +22,7 @@ const display = (controllerHost, gameCode) => {
 
       document
         .getElementById('game')
-        .appendChild(qrElement)
+        ?.appendChild(qrElement)
     },
   )
 }

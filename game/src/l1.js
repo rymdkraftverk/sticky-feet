@@ -12,7 +12,9 @@ const log = (text) => {
 }
 
 const commonBehaviorProperties = {
+  /** @type {string | null} */
   id: null,
+  /** @type {string[]} */
   labels: [],
   counter: 0,
 }

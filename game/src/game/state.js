@@ -9,9 +9,10 @@ const namesInReversedOrder = R.pipe(
 )
 
 const state = {
-  matterWorld: null,
-  pixiStage: null,
+  matterWorld: /** @type {import('matter-js').World} */ (/** @type {*} */ (null)),
+  pixiStage: /** @type {import('pixi.js').Container} */ (/** @type {*} */ (null)),
   // [Player]
+  /** @type {{ id: string, color: string, body?: * , sprite?: * }[]} */
   players: [],
   // [Projectile]
   projectiles: [],

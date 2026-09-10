@@ -64,9 +64,13 @@ const app = new PIXI.Application({
 app.stage.sortableChildren = true
 state.pixiStage = app.stage
 
-document
-  .getElementById('game')
-  .appendChild(app.view)
+const gameElement = document.getElementById('game')
+
+if (!gameElement) {
+  throw new Error('Found no #game element to mount the canvas into')
+}
+
+gameElement.appendChild(app.view)
 
 ex.init(app)
 
