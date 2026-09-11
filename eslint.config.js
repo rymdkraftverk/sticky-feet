@@ -2,8 +2,9 @@ import globals from 'globals'
 import prettier from 'eslint-config-prettier/flat'
 import comments from '@eslint-community/eslint-plugin-eslint-comments/configs'
 import { configs, plugins } from 'eslint-config-airbnb-extended'
+import tseslint from 'typescript-eslint'
 
-const CONTROLLER = ['controller/**/*.{js,jsx}']
+const CONTROLLER = ['controller/**/*.{js,jsx,ts,tsx}']
 
 const houseStyle = {
   name: 'sticky-feet/house-style',
@@ -22,7 +23,8 @@ export default [
   { ignores: ['**/dist/', '**/*.d.ts', 'game/public/', 'controller/public/'] },
   plugins.stylistic,
   plugins.importX,
-  ...configs.base.recommended,
+  ...configs.base.typescript,
+  ...tseslint.configs.recommended,
   comments.recommended,
   {
     name: 'sticky-feet/language',
@@ -46,7 +48,7 @@ export default [
   },
   {
     name: 'sticky-feet/common',
-    files: ['common/**/*.js'],
+    files: ['common/**/*.ts'],
     rules: { 'func-style': ['error', 'expression', { allowArrowFunctions: true }] },
   },
   plugins.react,
@@ -66,8 +68,12 @@ export default [
       'react-hooks/set-state-in-effect': 'warn',
       'react/destructuring-assignment': 'off',
       'react/jsx-uses-react': 'off',
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      '@typescript-eslint/no-use-before-define': 'off',
+      'import-x/extensions': ['error', 'never', { json: 'always' }],
+      'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
       'react/react-in-jsx-scope': 'off',
-      'react/require-default-props': ['error', { functions: 'defaultArguments' }],
+      'react/require-default-props': 'off',
       'react/sort-comp': 'off',
       'react/state-in-constructor': 'off',
     },
@@ -92,5 +98,11 @@ export default [
     files: ['**/vite.config.js', 'eslint.config.js'],
     languageOptions: { globals: globals.node },
     rules: { 'import-x/no-extraneous-dependencies': 'off' },
+  },
+  {
+    // The game is still javascript; its ts-ignores go when it is converted
+    name: 'sticky-feet/game-javascript',
+    files: ['game/**/*.js'],
+    rules: { '@typescript-eslint/ban-ts-comment': 'off' },
   },
 ]

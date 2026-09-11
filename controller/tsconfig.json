@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true,
     "noEmit": true,
     "target": "es2020",
     "module": "esnext",
@@ -11,11 +9,8 @@
     "types": [
       "vite/client"
     ],
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "noImplicitThis": true,
-    "useUnknownInCatchVariables": true,
-    "strictNullChecks": true
+    "strict": true,
+    "allowImportingTsExtensions": true
   },
   "include": [
     "src",

@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import * as R from 'ramda'
-import PropTypes from 'prop-types'
 import { Event } from 'common'
 import styled, { css } from 'styled-components'
 import FullHeight from '../FullHeight'
@@ -38,33 +36,37 @@ const VerticalSeparator = styled.div`
   background: black;
 `
 
-const distance = ({ x: x1, y: y1 }, { x: x2, y: y2 }) =>
+type Position = { x: number; y: number }
+
+const distance = ({ x: x1, y: y1 }: Position, { x: x2, y: y2 }: Position) =>
   Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
-const angle = ({ x: x1, y: y1 }, { x: x2, y: y2 }) =>
+const angle = ({ x: x1, y: y1 }: Position, { x: x2, y: y2 }: Position) =>
   Math.atan2(y2 - y1, x2 - x1)
 
 const touchEventPosition = ({
-  targetTouches: [{ clientX: x, clientY: y }],
-}) => ({
-  x,
-  y,
+  targetTouches,
+}: React.TouchEvent<HTMLDivElement>): Position => ({
+  x: targetTouches[0].clientX,
+  y: targetTouches[0].clientY,
 })
 
-function GamePlaying({ send, playerColor }) {
-  const [originPosition, setOriginPosition] = useState(
-    /** @type {{ x: number, y: number } | null} */ (null),
-  )
-  const [position, setPosition] = useState(
-    /** @type {{ x: number, y: number } | null} */ (null),
-  )
+function GamePlaying({
+  send,
+  playerColor,
+}: {
+  send: (message: object) => void
+  playerColor: string
+}) {
+  const [originPosition, setOriginPosition] = useState<Position | null>(null)
+  const [position, setPosition] = useState<Position | null>(null)
   const [braking, setBraking] = useState(false)
 
   useShake(() => {
     send({ event: Event.ToGame.SHAKE })
   })
 
-  const sendDrag = pos => {
+  const sendDrag = (pos: Position) => {
     if (!originPosition) return
 
     setPosition(pos)
@@ -110,8 +112,8 @@ function GamePlaying({ send, playerColor }) {
         </JumpPanel>
         <VerticalSeparator />
         <ShootPanel
-          onTouchStart={R.pipe(touchEventPosition, setOriginPosition)}
-          onTouchMove={R.pipe(touchEventPosition, sendDrag)}
+          onTouchStart={event => setOriginPosition(touchEventPosition(event))}
+          onTouchMove={event => sendDrag(touchEventPosition(event))}
           onTouchEnd={() => {
             sendDragEnd()
           }}
@@ -121,11 +123,6 @@ function GamePlaying({ send, playerColor }) {
       </Container>
     </IOSDisableDoubleTap>
   )
-}
-
-GamePlaying.propTypes = {
-  send: PropTypes.func.isRequired,
-  playerColor: PropTypes.string.isRequired,
 }
 
 export default GamePlaying

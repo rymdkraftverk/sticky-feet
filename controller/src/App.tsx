@@ -31,18 +31,21 @@ const AppState = {
 }
 
 const getGameCodeFromUrl = () => getUrlParams().code
-const writeGameCodeToUrl = gameCode => {
+const writeGameCodeToUrl = (gameCode: string) => {
   window.history.pushState({ gameCode }, '', `?code=${gameCode}`)
 }
 
 function App() {
   const [appState, setAppState] = useState(AppState.LOCKER_ROOM)
   const [gameCode, setGameCode] = useState('')
-  const [notice, setNotice] = useState(
-    /** @type {{ text: string, type: string } | null} */ (null),
-  )
+  const [notice, setNotice] = useState<{
+    text: string
+    type: 'error' | 'warning'
+  } | null>(null)
   const [playerColor, setPlayerColor] = useState('')
-  const [sendReliable, setSendReliable] = useState({
+  const [sendReliable, setSendReliable] = useState<{
+    f: (message: object) => void
+  }>({
     f: () => {}, // Hack to be able to put a function in state
   })
 
@@ -58,7 +61,13 @@ function App() {
     }
   }, [])
 
-  const onData = ({ event, payload }) => {
+  const onData = ({
+    event,
+    payload,
+  }: {
+    event: string
+    payload: { color: string }
+  }) => {
     switch (event) {
       case Event.FromGame.YOU_JOINED:
         setAppState(AppState.GAME)
@@ -77,7 +86,7 @@ function App() {
     join(gameCode)
   }
 
-  const join = code => {
+  const join = (code: string) => {
     setAppState(AppState.GAME_CONNECTING)
     setNotice(null)
     setLastGameCode(code)
@@ -86,7 +95,7 @@ function App() {
     connectToGame(code)
   }
 
-  const displayError = message => {
+  const displayError = (message: string) => {
     setAppState(AppState.LOCKER_ROOM)
     setNotice({ text: message, type: 'error' })
   }
@@ -116,7 +125,9 @@ function App() {
     }
   }
 
-  const gameCodeChange = ({ target: { value } }) => {
+  const gameCodeChange = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
     setGameCode(value.substr(0, 4).toUpperCase())
   }
 
@@ -126,7 +137,7 @@ function App() {
     }
   }
 
-  const connectToGame = code => {
+  const connectToGame = (code: string) => {
     const onClose = () => {
       displayError('Connection failed')
     }
@@ -137,17 +148,18 @@ function App() {
         onClose,
         onData,
         receiverId: code,
-        wsAddress: WS_ADDRESS,
+        wsAddress: WS_ADDRESS as string,
       })
       .then(send => {
         setSendReliable({
           f: send(Channel.RELIABLE),
         })
       })
-      .catch(joinError => {
-        const message = {
-          NOT_FOUND: `Game with code ${code} not found`,
-        }[joinError.cause]
+      .catch((joinError: { cause?: string }) => {
+        const message =
+          joinError.cause === 'NOT_FOUND'
+            ? `Game with code ${code} not found`
+            : undefined
 
         if (message) {
           displayError(message)

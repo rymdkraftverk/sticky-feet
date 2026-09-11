@@ -49,7 +49,7 @@ myShakeEvent.start()
 
 // Prevent displaying "undo text" dialog on iOS when device is accidentally shaken
 // This probably does not work though
-window.addEventListener('devicemotion', e => {
+window.addEventListener('devicemotion', (e: Event) => {
   e.preventDefault()
 })
 

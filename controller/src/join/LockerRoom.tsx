@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import FullHeight from '../FullHeight'
 import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
@@ -38,19 +37,25 @@ const GameJoinButton = styled(Button)`
 `
 
 // * This does not seem to work on iOS
-const onFocus = e => {
+const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
   e.target.placeholder = ''
   e.target.select()
 }
 
-const onBlur = e => {
+const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
   e.target.placeholder = PLACEHOLDER
 }
 
-function LockerRoom(props) {
-  const isSubmit = pressed => gameCodeFilled() && pressed === 'Enter'
+type LockerRoomProps = {
+  gameCode: string
+  onJoinClick: () => void
+  gameCodeChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+function LockerRoom(props: LockerRoomProps) {
+  const isSubmit = (pressed: string) => gameCodeFilled() && pressed === 'Enter'
   const gameCodeFilled = () => props.gameCode.length === 4
-  const onKeyPress = e => {
+  const onKeyPress = (e: React.KeyboardEvent) => {
     if (isSubmit(e.key)) props.onJoinClick()
   }
 
@@ -86,12 +91,6 @@ function LockerRoom(props) {
       </FullHeight>
     </IOSDisableDoubleTap>
   )
-}
-
-LockerRoom.propTypes = {
-  gameCode: PropTypes.string.isRequired,
-  onJoinClick: PropTypes.func.isRequired,
-  gameCodeChange: PropTypes.func.isRequired,
 }
 
 export default LockerRoom

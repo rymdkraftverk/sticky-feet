@@ -1,4 +1,4 @@
-export default () => {
+export default (): Record<string, string> => {
   const query = window.location.search
 
   if (!query) {

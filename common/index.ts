@@ -1,6 +1,6 @@
 export const Channel = {
   RELIABLE: 'reliable',
-}
+} as const
 
 export const Event = {
   FromGame: {
@@ -14,7 +14,7 @@ export const Event = {
     DRAG_END: 'drag.end',
     SHAKE: 'shake',
   },
-}
+} as const
 
 export const Colors = [
   {
@@ -67,6 +67,6 @@ export const Colors = [
   },
 ]
 
-export const prettyVersionTime = version => (
+export const prettyVersionTime = (version: string) => (
   new Date(parseInt(version.split('-')[0], 10) * 1000).toISOString()
 )
