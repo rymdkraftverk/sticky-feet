@@ -18,10 +18,12 @@
     "pixi.js": "^5.1.5",
     "poly-decomp": "^0.3.0",
     "qrcode": "^1.4.1",
-    "ramda": "^0.31.3",
     "rkv-signaling": "0.0.5"
   },
   "devDependencies": {
+    "@types/howler": "^2.2.13",
+    "@types/matter-js": "^0.20.2",
+    "@types/qrcode": "^1.5.6",
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.0",

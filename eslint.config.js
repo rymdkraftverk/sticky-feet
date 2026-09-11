@@ -11,7 +11,12 @@ const houseStyle = {
   rules: {
     '@eslint-community/eslint-comments/no-unused-disable': 'error',
     '@stylistic/arrow-parens': ['error', 'as-needed', { requireForBlockBody: true }],
+    '@stylistic/member-delimiter-style': ['error', {
+      multiline: { delimiter: 'none' },
+      singleline: { delimiter: 'comma' },
+    }],
     '@stylistic/semi': ['error', 'never'],
+    '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     'import-x/no-cycle': 'off',
     'import-x/no-rename-default': 'off',
     'no-console': 'off',
@@ -37,12 +42,13 @@ export default [
   houseStyle,
   {
     name: 'sticky-feet/game',
-    files: ['game/**/*.js'],
+    files: ['game/**/*.{js,ts}'],
     languageOptions: { globals: { ...globals.browser, process: 'readonly' } },
     rules: {
       // the expando pattern the typescript check relies on
       'dot-notation': 'off',
       'func-style': ['error', 'expression', { allowArrowFunctions: true }],
+      'import-x/extensions': ['error', 'never', { json: 'always' }],
       'import-x/prefer-default-export': 'off',
     },
   },
@@ -81,7 +87,7 @@ export default [
   { name: 'sticky-feet/controller-formatting', files: CONTROLLER, ...prettier },
   {
     name: 'sticky-feet/tests',
-    files: ['**/test/**/*.js', '**/*.test.{js,jsx}'],
+    files: ['**/test/**/*.{js,ts}', '**/*.test.{js,jsx,ts,tsx}'],
     languageOptions: { globals: globals.vitest },
     rules: {
       '@stylistic/max-len': 'off',
@@ -98,11 +104,5 @@ export default [
     files: ['**/vite.config.js', 'eslint.config.js'],
     languageOptions: { globals: globals.node },
     rules: { 'import-x/no-extraneous-dependencies': 'off' },
-  },
-  {
-    // The game is still javascript; its ts-ignores go when it is converted
-    name: 'sticky-feet/game-javascript',
-    files: ['game/**/*.js'],
-    rules: { '@typescript-eslint/ban-ts-comment': 'off' },
   },
 ]

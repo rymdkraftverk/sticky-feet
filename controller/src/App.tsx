@@ -120,7 +120,6 @@ function App() {
         'Unfortunately the game cannot be played in this browser.' +
         'See list of supported browsers here: https://caniuse.com/#search=webrtc'
 
-      // eslint-disable-next-line no-alert
       alert(message)
     }
   }
