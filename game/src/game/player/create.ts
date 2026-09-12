@@ -62,13 +62,16 @@ const createBody = () => {
 }
 
 const createSprite = (colorName: string) => {
-  const sprite = new PIXI.AnimatedSprite(
+  const animation = new PIXI.AnimatedSprite(
     createSideAnimation(colorName),
   )
+  animation.anchor.set(0.5)
+  animation.animationSpeed = 0.08
+  animation.play()
+
+  const sprite = new PIXI.Container()
   sprite.scale.set(DEFAULT_PLAYER_SPRITE_SCALE)
-  sprite.anchor.set(0.5)
-  sprite.animationSpeed = 0.08
-  sprite.play()
+  sprite.addChild(animation)
 
   return sprite
 }

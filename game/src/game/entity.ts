@@ -19,7 +19,7 @@ export const remove = ({
     .forEach(l1.remove)
 
   l1.once(() => {
-    sprite.destroy()
+    sprite.destroy({ children: true })
     Matter.World.remove(state.matterWorld, body)
   })
 }

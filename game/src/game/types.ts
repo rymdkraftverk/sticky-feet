@@ -17,7 +17,7 @@ export type Player = {
   scope: Scope
   score: number
   slows: number
-  sprite: PIXI.AnimatedSprite
+  sprite: PIXI.Container
 }
 
 export type Projectile = {
@@ -32,5 +32,5 @@ export type Entity = {
   behaviors: Record<string, string>
   body: Matter.Body
   id: string
-  sprite: PIXI.Container & { destroy: () => void }
+  sprite: PIXI.Container
 }

@@ -5,7 +5,7 @@ import state from './state'
 
 const CROWN_NAME = 'leader crown'
 
-const placeCrownOnSprite = (playerSprite: PIXI.AnimatedSprite) => {
+const placeCrownOnSprite = (playerSprite: PIXI.Container) => {
   const crown = new PIXI.Sprite(ex.getTexture('crown'))
   crown.scale.set(1 / 5)
   crown.x -= crown.width / 1
@@ -15,7 +15,7 @@ const placeCrownOnSprite = (playerSprite: PIXI.AnimatedSprite) => {
   playerSprite.addChild(crown)
 }
 
-const clearCrownFromSprite = (playerSprite: PIXI.AnimatedSprite) => playerSprite
+const clearCrownFromSprite = (playerSprite: PIXI.Container) => playerSprite
   .children
   .filter(sprite => sprite.label === CROWN_NAME)
   .forEach(sprite => playerSprite.removeChild(sprite))
