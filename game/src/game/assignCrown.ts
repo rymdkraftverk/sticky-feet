@@ -21,18 +21,20 @@ const clearCrownFromSprite = (playerSprite: PIXI.AnimatedSprite) => playerSprite
   .forEach(sprite => playerSprite.removeChild(sprite))
 
 const assignCrown = () => {
-  const [leader, ...nonLeaders] = state
+  const sprites = state
     .players
     .slice()
     .sort((a, b) => b.score - a.score)
     .map(({ sprite }) => sprite)
 
+  const [leader] = sprites
+
   if (!leader) {
     return
   }
 
+  sprites.forEach(clearCrownFromSprite)
   placeCrownOnSprite(leader)
-  nonLeaders.forEach(clearCrownFromSprite)
 }
 
 export default assignCrown
