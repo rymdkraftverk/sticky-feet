@@ -47,41 +47,11 @@ PIXI.TextureStyle.defaultOptions.scaleMode = 'nearest'
 
 const app = new PIXI.Application()
 
-await app.init({
-  width:     GAME_WIDTH,
-  height:    GAME_HEIGHT,
-  antialias: true,
-  // TODO: Enable when possible (background image exists)
-  // clearBeforeRender: false,
-  background: Color.LIGHT_GRAY,
-})
-// Enables setting zIndex on the children of stage
-app.stage.sortableChildren = true
-state.pixiStage = app.stage
-
-const gameElement = document.getElementById('game')
-
-if (!gameElement) {
-  throw new Error('Found no #game element to mount the canvas into')
-}
-
-gameElement.appendChild(app.canvas)
-
-ex.init(app)
-
-app.ticker.add((ticker) => {
-  l1.update(ticker.deltaTime)
-})
-
 const engine = Matter.Engine.create()
 state.matterWorld = engine.world
 
 // Remove default gravity
 state.matterWorld.gravity.y = 0
-
-app.ticker.add(() => {
-  Matter.Engine.update(engine)
-})
 
 Matter.Events.on(engine, 'collisionStart', collider)
 
@@ -213,8 +183,6 @@ const resizeGame = () => {
   const screenHeight = window.innerHeight
   ex.resize(screenWidth, screenHeight)
 }
-resizeGame()
-window.addEventListener('resize', resizeGame)
 
 window.debug = {
   ...window.debug,
@@ -228,26 +196,63 @@ window.debug = {
   setLapTime,
 }
 
-await document.fonts.load('10pt "patchy-robots"')
+const boot = async () => {
+  await app.init({
+    width:     GAME_WIDTH,
+    height:    GAME_HEIGHT,
+    antialias: true,
+    // TODO: Enable when possible (background image exists)
+    // clearBeforeRender: false,
+    background: Color.LIGHT_GRAY,
+  })
+  // Enables setting zIndex on the children of stage
+  app.stage.sortableChildren = true
+  state.pixiStage = app.stage
 
-ex.useSpritesheets(await Promise.all([
-  PIXI.Assets.load('spritesheet/main.json'),
-  PIXI.Assets.load('spritesheet/spritesheet.json'),
-]))
+  app.ticker.add((ticker) => {
+    l1.update(ticker.deltaTime)
+  })
 
-const { gameCode } = await http.createGame()
+  app.ticker.add(() => {
+    Matter.Engine.update(engine)
+  })
 
-console.log(`[Game created] ${gameCode}`)
+  const gameElement = document.getElementById('game')
 
-signaling.runReceiver({
-  wsAddress:        WS_ADDRESS,
-  receiverId:       gameCode,
-  onInitiatorJoin:  onPlayerJoin,
-  onInitiatorLeave: onPlayerLeave,
-})
+  if (!gameElement) {
+    throw new Error('Found no #game element to mount the canvas into')
+  }
 
-qrCode.display(CONTROLLER_HOST, gameCode)
+  gameElement.appendChild(app.canvas)
 
-stage(gameCode)
-leaderboard.renderFrame()
-createBot('DEFAULT')
+  ex.init(app)
+
+  resizeGame()
+  window.addEventListener('resize', resizeGame)
+
+  await document.fonts.load('10pt "patchy-robots"')
+
+  ex.useSpritesheets(await Promise.all([
+    PIXI.Assets.load('spritesheet/main.json'),
+    PIXI.Assets.load('spritesheet/spritesheet.json'),
+  ]))
+
+  const { gameCode } = await http.createGame()
+
+  console.log(`[Game created] ${gameCode}`)
+
+  signaling.runReceiver({
+    wsAddress:        WS_ADDRESS,
+    receiverId:       gameCode,
+    onInitiatorJoin:  onPlayerJoin,
+    onInitiatorLeave: onPlayerLeave,
+  })
+
+  qrCode.display(CONTROLLER_HOST, gameCode)
+
+  stage(gameCode)
+  leaderboard.renderFrame()
+  createBot('DEFAULT')
+}
+
+boot()
