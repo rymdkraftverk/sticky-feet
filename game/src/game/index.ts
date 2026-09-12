@@ -43,15 +43,17 @@ const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
 const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
 
 // Enable pixel perfect rendering
-PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
+PIXI.TextureStyle.defaultOptions.scaleMode = 'nearest'
 
-const app = new PIXI.Application({
-  width: GAME_WIDTH,
-  height: GAME_HEIGHT,
+const app = new PIXI.Application()
+
+await app.init({
+  width:     GAME_WIDTH,
+  height:    GAME_HEIGHT,
   antialias: true,
   // TODO: Enable when possible (background image exists)
   // clearBeforeRender: false,
-  backgroundColor: ex.fromHex(Color.LIGHT_GRAY),
+  background: Color.LIGHT_GRAY,
 })
 // Enables setting zIndex on the children of stage
 app.stage.sortableChildren = true
@@ -63,11 +65,13 @@ if (!gameElement) {
   throw new Error('Found no #game element to mount the canvas into')
 }
 
-gameElement.appendChild(app.view)
+gameElement.appendChild(app.canvas)
 
 ex.init(app)
 
-app.ticker.add(l1.update)
+app.ticker.add((ticker) => {
+  l1.update(ticker.deltaTime)
+})
 
 const engine = Matter.Engine.create()
 state.matterWorld = engine.world
@@ -80,9 +84,6 @@ app.ticker.add(() => {
 })
 
 Matter.Events.on(engine, 'collisionStart', collider)
-
-app.loader.add('spritesheet/main.json')
-app.loader.add('spritesheet/spritesheet.json')
 
 Sound.MUSIC.play()
 
@@ -185,32 +186,6 @@ const createBot = (idSuffix = Date.now().toString()) => {
   })
 }
 
-document.fonts.load('10pt "patchy-robots"')
-  .then(() => {
-    app.loader.load(() => {
-      http.createGame()
-        .then(({ gameCode }) => {
-          console.log(`[Game created] ${gameCode}`)
-
-          signaling.runReceiver({
-            wsAddress: WS_ADDRESS,
-            receiverId: gameCode,
-            onInitiatorJoin: onPlayerJoin,
-            onInitiatorLeave: onPlayerLeave,
-          })
-
-          qrCode.display(CONTROLLER_HOST, gameCode)
-
-          stage(gameCode)
-          leaderboard.renderFrame()
-          createBot('DEFAULT')
-        })
-    })
-  })
-  .catch(() => {
-    console.error('Unable to load font')
-  })
-
 if (DEBUG_MATTER) {
   const gfx = new PIXI.Graphics()
   gfx.zIndex = 10000
@@ -220,7 +195,7 @@ if (DEBUG_MATTER) {
     debugMatter(
       Matter.Composite.allBodies(engine.world),
       gfx,
-      { color: ex.fromHex(Color.GREEN) },
+      { color: Color.GREEN },
     )
   })
 }
@@ -252,3 +227,27 @@ window.debug = {
   behaviors: () => l1.getAll().map(b => b.id),
   setLapTime,
 }
+
+await document.fonts.load('10pt "patchy-robots"')
+
+ex.useSpritesheets(await Promise.all([
+  PIXI.Assets.load('spritesheet/main.json'),
+  PIXI.Assets.load('spritesheet/spritesheet.json'),
+]))
+
+const { gameCode } = await http.createGame()
+
+console.log(`[Game created] ${gameCode}`)
+
+signaling.runReceiver({
+  wsAddress:        WS_ADDRESS,
+  receiverId:       gameCode,
+  onInitiatorJoin:  onPlayerJoin,
+  onInitiatorLeave: onPlayerLeave,
+})
+
+qrCode.display(CONTROLLER_HOST, gameCode)
+
+stage(gameCode)
+leaderboard.renderFrame()
+createBot('DEFAULT')

@@ -35,7 +35,7 @@ const drawInstructionArrow = ({
   instructionArrow.anchor.set(0.5)
   instructionArrow.angle = angle
 
-  instructionArrow.cacheAsBitmap = true
+  instructionArrow.cacheAsTexture(true)
 
   return instructionArrow
 }
@@ -47,18 +47,18 @@ const CODE_Y = 370
 const createJoinInstructions = (gameCode: string) => {
   const background = new PIXI.Graphics()
   background
-    .beginFill(ex.fromHex(Color.DARK_GRAY))
-    .drawRect(0, 0, SIDEBAR_WIDTH, GAME_HEIGHT)
+    .rect(0, 0, SIDEBAR_WIDTH, GAME_HEIGHT)
+    .fill(Color.DARK_GRAY)
   state.pixiStage.addChild(background)
 
-  const grabYourPhone = new PIXI.Text(
-    'Grab your phone',
-    {
+  const grabYourPhone = new PIXI.Text({
+    text:  'Grab your phone',
+    style: {
       ...textStyle,
-      fill: Color.WHITE,
+      fill:     Color.WHITE,
       fontSize: 20,
     },
-  )
+  })
   grabYourPhone.position.set(SIDEBAR_WIDTH / 2, PHONE_Y)
   grabYourPhone.anchor.set(0.5)
   ex.makeResizable(grabYourPhone)
@@ -71,16 +71,16 @@ const createJoinInstructions = (gameCode: string) => {
   })
   state.pixiStage.addChild(arrow1)
 
-  const urlLabel = new PIXI.Text('Go to', { ...textStyle, fill: Color.LIGHT_GRAY })
+  const urlLabel = new PIXI.Text({ text: 'Go to', style: { ...textStyle, fill: Color.LIGHT_GRAY } })
   urlLabel.position.set(SIDEBAR_WIDTH / 2, URL_Y)
   urlLabel.anchor.set(0.5)
   ex.makeResizable(urlLabel)
   state.pixiStage.addChild(urlLabel)
 
-  const url = new PIXI.Text(
-    CONTROLLER_HOST,
-    { ...textStyle, fontFamily: 'Arial' },
-  )
+  const url = new PIXI.Text({
+    text:  CONTROLLER_HOST,
+    style: { ...textStyle, fontFamily: 'Arial' },
+  })
   url.position.set(SIDEBAR_WIDTH / 2, URL_Y + 40)
   url.anchor.set(0.5)
   ex.makeResizable(url)
@@ -93,14 +93,17 @@ const createJoinInstructions = (gameCode: string) => {
   })
   state.pixiStage.addChild(arrow2)
 
-  const codeLabel = new PIXI.Text('Code', { ...textStyle, fill: Color.LIGHT_GRAY })
+  const codeLabel = new PIXI.Text({ text: 'Code', style: { ...textStyle, fill: Color.LIGHT_GRAY } })
   codeLabel.position.set(SIDEBAR_WIDTH / 2, CODE_Y)
   codeLabel.anchor.set(0.5)
   ex.makeResizable(codeLabel)
   state.pixiStage.addChild(codeLabel)
 
-  const code = new PIXI.Text(gameCode, {
-    ...textStyle, fontFamily: 'Arial', fontSize: 72, fill: Color.RED,
+  const code = new PIXI.Text({
+    text:  gameCode,
+    style: {
+      ...textStyle, fontFamily: 'Arial', fontSize: 72, fill: Color.RED,
+    },
   })
   code.position.set(SIDEBAR_WIDTH / 2, CODE_Y + 60)
   code.anchor.set(0.5)

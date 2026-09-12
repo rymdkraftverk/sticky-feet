@@ -9,7 +9,7 @@ lineStyle = { width, color }
 export default (
   bodies: Matter.Body[],
   gfx: PIXI.Graphics,
-  lineStyle: { color?: number, width?: number },
+  lineStyle: { color?: PIXI.ColorSource, width?: number },
 ) => {
   const {
     color = 0x00ff00,
@@ -17,7 +17,7 @@ export default (
   } = lineStyle
 
   gfx.clear()
-  gfx.lineStyle(width, color)
+  gfx.setStrokeStyle({ width, color })
 
   bodies.forEach(({ vertices }) => {
     vertices.forEach(({ x, y }, index) => {
@@ -28,6 +28,6 @@ export default (
       }
     })
     gfx.lineTo(vertices[0].x, vertices[0].y)
-    gfx.endFill()
+    gfx.stroke()
   })
 }

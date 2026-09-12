@@ -32,4 +32,4 @@ You need [`texture-packer`](https://www.codeandweb.com/texturepacker/download) a
 
 2. Run `npm run munch`
 
-3. Texture is available using `.png`: `l1.getTexture('new-image')` or `.piskel`: `l1.getTexture('new-image-0')`
+3. Texture is available using `.png`: `ex.getTexture('new-image')` or `.piskel`: `ex.getTexture('new-image-0')`

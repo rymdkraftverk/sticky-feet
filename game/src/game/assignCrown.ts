@@ -10,14 +10,14 @@ const placeCrownOnSprite = (playerSprite: PIXI.AnimatedSprite) => {
   crown.scale.set(1 / 5)
   crown.x -= crown.width / 1
   crown.y -= crown.height * 2
-  crown.name = CROWN_NAME
+  crown.label = CROWN_NAME
 
   playerSprite.addChild(crown)
 }
 
 const clearCrownFromSprite = (playerSprite: PIXI.AnimatedSprite) => playerSprite
   .children
-  .filter(sprite => sprite.name === CROWN_NAME)
+  .filter(sprite => sprite.label === CROWN_NAME)
   .forEach(sprite => playerSprite.removeChild(sprite))
 
 const assignCrown = () => {

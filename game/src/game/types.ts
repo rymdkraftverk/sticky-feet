@@ -32,5 +32,5 @@ export type Entity = {
   behaviors: Record<string, string>
   body: Matter.Body
   id: string
-  sprite: PIXI.DisplayObject & { destroy: () => void }
+  sprite: PIXI.Container & { destroy: () => void }
 }

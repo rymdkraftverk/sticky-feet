@@ -6,6 +6,7 @@ import type * as PIXI from 'pixi.js'
 type ResizableText = PIXI.Text & { originalFontSize?: number }
 
 let application: PIXI.Application | undefined
+let spritesheets: PIXI.Spritesheet[] = []
 let ratio = 1
 let gameWidth = 0
 let gameHeight = 0
@@ -24,34 +25,30 @@ const initialized = () => {
   return application
 }
 
-export const getTexture = (filename: string) => {
-  const app = initialized()
-
-  try {
-    const texture = Object
-      .values(app.loader.resources)
-      .filter(resource => resource.textures)
-      .flatMap(resource => Object.entries(resource.textures ?? {}))
-      .find(([key]) => key === `${filename}.png`)
-
-    if (!texture) {
-      throw new Error('no matching texture in the loaded resources')
-    }
-
-    return texture[1]
-  } catch (error) {
-    throw new Error(`pixi-ex: Texture "${filename}" could not be retrieved: ${error}`)
-  }
+export const useSpritesheets = (sheets: PIXI.Spritesheet[]) => {
+  spritesheets = sheets
 }
 
-const getAllChildren = (displayObject: PIXI.DisplayObject): PIXI.DisplayObject[] => {
-  const { children } = displayObject as PIXI.Container
+export const getTexture = (filename: string) => {
+  const texture = spritesheets
+    .map(sheet => sheet.textures[`${filename}.png`])
+    .find(Boolean)
+
+  if (!texture) {
+    throw new Error(`pixi-ex: Texture "${filename}" could not be retrieved`)
+  }
+
+  return texture
+}
+
+const getAllChildren = (container: PIXI.Container): PIXI.Container[] => {
+  const { children } = container
   if (children?.length) {
     return children
       .flatMap(getAllChildren)
-      .concat(displayObject)
+      .concat(container)
   }
-  return [displayObject]
+  return [container]
 }
 
 export const resize = (width: number, height: number) => {
@@ -91,15 +88,8 @@ export const resize = (width: number, height: number) => {
 
 export const makeResizable = (textObject: ResizableText) => {
   const fontSize = Number(textObject.style.fontSize)
-   
+
   textObject.originalFontSize = fontSize
-   
-  textObject.style = {
-    ...textObject.style,
-    fontSize: fontSize * ratio,
-  } as PIXI.TextStyle
+  textObject.style.fontSize = fontSize * ratio
   textObject.scale.set(1 / ratio)
 }
-
-// Convert #ff00ff to 0xff00ff
-export const fromHex = (color: string) => Number(`0x${color.substring(1, color.length)}`)
