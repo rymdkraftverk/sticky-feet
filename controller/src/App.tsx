@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useEffectEvent, useRef, useState } from 'react'
 import MediaQuery from 'react-responsive'
 import { Event, Channel } from 'common'
 import signaling from 'rkv-signaling'
@@ -35,13 +35,44 @@ const writeGameCodeToUrl = (gameCode: string) => {
   window.history.pushState({ gameCode }, '', `?code=${gameCode}`)
 }
 
+type Notice = {
+  text: string
+  type: 'error' | 'warning'
+}
+
+const cellularNotice = (): Notice | null => {
+  const connection =
+    navigator.connection ||
+    navigator.mozConnection ||
+    navigator.webkitConnection
+
+  return connection && connection.type === 'cellular'
+    ? { text: 'Connect to WiFi for best experience', type: 'warning' }
+    : null
+}
+
+const alertIfNoRtc = () => {
+  if (typeof RTCPeerConnection === 'undefined') {
+    const message =
+      'Unfortunately the game cannot be played in this browser.' +
+      'See list of supported browsers here: https://caniuse.com/#search=webrtc'
+
+    alert(message)
+  }
+}
+
 function App() {
-  const [appState, setAppState] = useState(AppState.LOCKER_ROOM)
-  const [gameCode, setGameCode] = useState('')
-  const [notice, setNotice] = useState<{
-    text: string
-    type: 'error' | 'warning'
-  } | null>(null)
+  const [codeFromUrl] = useState(getGameCodeFromUrl)
+  const [appState, setAppState] = useState(
+    codeFromUrl ? AppState.GAME_CONNECTING : AppState.LOCKER_ROOM,
+  )
+  const appStateRef = useRef(appState)
+  const [gameCode, setGameCode] = useState(
+    () => codeFromUrl || getLastGameCode(),
+  )
+  const [notice, setNotice] = useState<Notice | null>(() =>
+    codeFromUrl ? null : cellularNotice(),
+  )
   const [playerColor, setPlayerColor] = useState('')
   const [sendReliable, setSendReliable] = useState<{
     f: (message: object) => void
@@ -50,16 +81,8 @@ function App() {
   })
 
   useEffect(() => {
-    alertIfNoRtc()
-    warnIfCellular()
-    const codeFromUrl = getGameCodeFromUrl()
-    const code = codeFromUrl || getLastGameCode()
-    setGameCode(code)
-
-    if (codeFromUrl) {
-      join(code)
-    }
-  }, [])
+    appStateRef.current = appState
+  }, [appState])
 
   const onData = ({
     event,
@@ -81,47 +104,9 @@ function App() {
     }
   }
 
-  const onJoinClick = () => {
-    navigator.vibrate(1) // To trigger accept dialog in firefox
-    join(gameCode)
-  }
-
-  const join = (code: string) => {
-    setAppState(AppState.GAME_CONNECTING)
-    setNotice(null)
-    setLastGameCode(code)
-    setTimeout(checkConnectionTimeout, TIMEOUT_SECONDS * 1000)
-    writeGameCodeToUrl(code)
-    connectToGame(code)
-  }
-
   const displayError = (message: string) => {
     setAppState(AppState.LOCKER_ROOM)
     setNotice({ text: message, type: 'error' })
-  }
-
-  const warnIfCellular = () => {
-    const connection =
-      navigator.connection ||
-      navigator.mozConnection ||
-      navigator.webkitConnection
-
-    if (connection && connection.type === 'cellular') {
-      setNotice({
-        text: 'Connect to WiFi for best experience',
-        type: 'warning',
-      })
-    }
-  }
-
-  const alertIfNoRtc = () => {
-    if (typeof RTCPeerConnection === 'undefined') {
-      const message =
-        'Unfortunately the game cannot be played in this browser.' +
-        'See list of supported browsers here: https://caniuse.com/#search=webrtc'
-
-      alert(message)
-    }
   }
 
   const gameCodeChange = ({
@@ -131,7 +116,7 @@ function App() {
   }
 
   const checkConnectionTimeout = () => {
-    if (appState === AppState.GAME_CONNECTING) {
+    if (appStateRef.current === AppState.GAME_CONNECTING) {
       displayError('Connection failed, joining Wi-Fi may help')
     }
   }
@@ -167,6 +152,35 @@ function App() {
         }
       })
   }
+
+  const connect = (code: string) => {
+    setLastGameCode(code)
+    setTimeout(checkConnectionTimeout, TIMEOUT_SECONDS * 1000)
+    writeGameCodeToUrl(code)
+    connectToGame(code)
+  }
+
+  const join = (code: string) => {
+    setAppState(AppState.GAME_CONNECTING)
+    setNotice(null)
+    connect(code)
+  }
+
+  const onJoinClick = () => {
+    navigator.vibrate(1) // To trigger accept dialog in firefox
+    join(gameCode)
+  }
+
+  const connectFromUrl = useEffectEvent(() => {
+    if (codeFromUrl) {
+      connect(codeFromUrl)
+    }
+  })
+
+  useEffect(() => {
+    alertIfNoRtc()
+    connectFromUrl()
+  }, [])
 
   const appStateComponent = () => {
     switch (appState) {
