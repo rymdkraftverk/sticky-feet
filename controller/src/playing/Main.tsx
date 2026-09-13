@@ -1,9 +1,11 @@
+import {
+  FullHeight,
+  IOSDisableDoubleTap,
+  ScrollLock,
+} from 'rkv-signaling/screens'
 import { useState } from 'react'
 import { Event } from 'common'
 import styled, { css } from 'styled-components'
-import FullHeight from '../FullHeight'
-import IOSDisableDoubleTap from '../util/IOSDisableDoubleTap'
-import ScrollLock from '../util/ScrollLock'
 import useShake from '../useShake'
 
 const Container = styled(FullHeight)`

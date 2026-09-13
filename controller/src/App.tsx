@@ -1,14 +1,21 @@
+import {
+  LockerRoom,
+  LockerRoomLoader,
+  Toast,
+  TurnPhone,
+} from 'rkv-signaling/screens'
 import { useState } from 'react'
+import styled from 'styled-components'
 import MediaQuery from 'react-responsive'
 import { Event, Channel } from 'common'
 import { useJoin } from 'rkv-signaling/react'
+import { joinButtonStyle } from 'rkv-signaling/screens'
 
 import channelConfigs from './config/channels'
-import LockerRoom from './join/LockerRoom'
-import LockerRoomLoader from './join/LockerRoomLoader'
+import Button from './join/Button'
+import turnPhoneGif from './join/turnPhone.gif'
+import turnPhoneSound from './join/key.mp3'
 import GamePlaying from './playing/Main'
-import TurnPhone from './join/TurnPhone'
-import Toast from './Toast'
 
 const noop = () => false
 
@@ -20,6 +27,10 @@ navigator.vibrate =
   noop
 
 const WS_ADDRESS = process.env.REACT_APP_WS_ADDRESS
+
+const JoinButton = styled(Button)`
+  ${joinButtonStyle}
+`
 
 function App() {
   const [playerColor, setPlayerColor] = useState<string | null>(null)
@@ -71,6 +82,7 @@ function App() {
           gameCodeChange={gameCodeChange}
           gameCode={gameCode}
           onJoinClick={join}
+          button={JoinButton}
         />
       )
     }
@@ -98,7 +110,7 @@ function App() {
         />
       )}
       <MediaQuery orientation="portrait">
-        <TurnPhone />
+        <TurnPhone gif={turnPhoneGif} sound={turnPhoneSound} />
       </MediaQuery>
       <MediaQuery orientation="landscape">{screen()}</MediaQuery>
     </div>
