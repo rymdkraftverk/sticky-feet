@@ -1,12 +1,12 @@
+import * as l2 from 'l2'
 import * as PIXI from 'pixi.js'
-import * as ex from '../pixiEx'
 
 import state from './state'
 
 const CROWN_NAME = 'leader crown'
 
 const placeCrownOnSprite = (playerSprite: PIXI.Container) => {
-  const crown = new PIXI.Sprite(ex.getTexture('crown'))
+  const crown = new PIXI.Sprite(l2.getTexture('crown'))
   crown.scale.set(1 / 5)
   crown.x -= crown.width / 1
   crown.y -= crown.height * 2

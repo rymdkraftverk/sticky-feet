@@ -1,7 +1,7 @@
+import * as l2 from 'l2'
 import * as PIXI from 'pixi.js'
 import * as Matter from 'matter-js'
 import { Colors } from 'common'
-import * as ex from '../../pixiEx'
 
 import state from '../state'
 import playerRepository from './repository'
@@ -41,7 +41,7 @@ const createAnimation = (colorName: string, texture1: number, texture2: number) 
   return [
     `lizard-${colorIndex + (COLOR_COUNT * texture1)}`,
     `lizard-${colorIndex + (COLOR_COUNT * texture2)}`,
-  ].map(ex.getTexture)
+  ].map(l2.getTexture)
 }
 
 export const createFrontAnimation = (colorName: string) => (

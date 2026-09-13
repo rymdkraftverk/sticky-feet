@@ -1,5 +1,5 @@
+import * as l2 from 'l2'
 import * as PIXI from 'pixi.js'
-import * as ex from '../pixiEx'
 
 import * as Color from './constant/color'
 import state from './state'
@@ -44,12 +44,12 @@ const renderRow = ({
   const nameObject = new PIXI.Text({ text: name, style: { ...textStyle, fontSize: 14 } })
   nameObject.x = 40
   nameObject.y = TEXT_Y_OFFSET
-  ex.makeResizable(nameObject)
+  l2.makeResizable(nameObject)
 
   const scoreText = new PIXI.Text({ text: String(score), style: { ...textStyle, fontSize: 14 } })
   scoreText.x = SIDEBAR_WIDTH - 40
   scoreText.y = TEXT_Y_OFFSET
-  ex.makeResizable(scoreText)
+  l2.makeResizable(scoreText)
 
   container.addChild(sprite)
   container.addChild(nameObject)
@@ -72,7 +72,7 @@ const renderFrame = () => {
   })
   title.position.set(BACKGROUND_X + SIDEBAR_WIDTH / 2, TITLE_Y)
   title.anchor.x = 0.5
-  ex.makeResizable(title)
+  l2.makeResizable(title)
   state.pixiStage.addChild(title)
 }
 

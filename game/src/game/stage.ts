@@ -1,5 +1,5 @@
+import * as l2 from 'l2'
 import * as PIXI from 'pixi.js'
-import * as ex from '../pixiEx'
 
 import * as Color from './constant/color'
 import textStyle from './textStyle'
@@ -16,7 +16,7 @@ import state from './state'
 const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
 
 const createDome = () => {
-  const domeSprite = new PIXI.Sprite(ex.getTexture('bg'))
+  const domeSprite = new PIXI.Sprite(l2.getTexture('bg'))
   domeSprite.scale.set(1)
   domeSprite.anchor.set(0.5)
   domeSprite.x = DOME_X
@@ -27,7 +27,7 @@ const createDome = () => {
 const drawInstructionArrow = ({
   x, y, angle,
 }: { x: number, y: number, angle: number }) => {
-  const instructionArrow = new PIXI.Sprite(ex.getTexture('expand-arrow-one'))
+  const instructionArrow = new PIXI.Sprite(l2.getTexture('expand-arrow-one'))
 
   instructionArrow.alpha = 0.15
   instructionArrow.x = x
@@ -61,7 +61,7 @@ const createJoinInstructions = (gameCode: string) => {
   })
   grabYourPhone.position.set(SIDEBAR_WIDTH / 2, PHONE_Y)
   grabYourPhone.anchor.set(0.5)
-  ex.makeResizable(grabYourPhone)
+  l2.makeResizable(grabYourPhone)
   state.pixiStage.addChild(grabYourPhone)
 
   const arrow1 = drawInstructionArrow({
@@ -74,7 +74,7 @@ const createJoinInstructions = (gameCode: string) => {
   const urlLabel = new PIXI.Text({ text: 'Go to', style: { ...textStyle, fill: Color.LIGHT_GRAY } })
   urlLabel.position.set(SIDEBAR_WIDTH / 2, URL_Y)
   urlLabel.anchor.set(0.5)
-  ex.makeResizable(urlLabel)
+  l2.makeResizable(urlLabel)
   state.pixiStage.addChild(urlLabel)
 
   const url = new PIXI.Text({
@@ -83,7 +83,7 @@ const createJoinInstructions = (gameCode: string) => {
   })
   url.position.set(SIDEBAR_WIDTH / 2, URL_Y + 40)
   url.anchor.set(0.5)
-  ex.makeResizable(url)
+  l2.makeResizable(url)
   state.pixiStage.addChild(url)
 
   const arrow2 = drawInstructionArrow({
@@ -96,7 +96,7 @@ const createJoinInstructions = (gameCode: string) => {
   const codeLabel = new PIXI.Text({ text: 'Code', style: { ...textStyle, fill: Color.LIGHT_GRAY } })
   codeLabel.position.set(SIDEBAR_WIDTH / 2, CODE_Y)
   codeLabel.anchor.set(0.5)
-  ex.makeResizable(codeLabel)
+  l2.makeResizable(codeLabel)
   state.pixiStage.addChild(codeLabel)
 
   const code = new PIXI.Text({
@@ -107,7 +107,7 @@ const createJoinInstructions = (gameCode: string) => {
   })
   code.position.set(SIDEBAR_WIDTH / 2, CODE_Y + 60)
   code.anchor.set(0.5)
-  ex.makeResizable(code)
+  l2.makeResizable(code)
   state.pixiStage.addChild(code)
 }
 

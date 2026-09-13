@@ -4,7 +4,6 @@ import decomp from 'poly-decomp'
 import signaling, { type Initiator } from 'rkv-signaling'
 
 import { Event, Colors, Channel } from 'common'
-import * as ex from '../pixiEx'
 import * as l2 from 'l2'
 import Sound from './sound'
 import leaderboard from './leaderboard'
@@ -44,8 +43,6 @@ const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
 
 // Enable pixel perfect rendering
 PIXI.TextureStyle.defaultOptions.scaleMode = 'nearest'
-
-const app = new PIXI.Application()
 
 const engine = Matter.Engine.create()
 state.matterWorld = engine.world
@@ -156,32 +153,13 @@ const createBot = (idSuffix = Date.now().toString()) => {
   })
 }
 
-if (DEBUG_MATTER) {
-  const gfx = new PIXI.Graphics()
-  gfx.zIndex = 10000
-  app.stage.addChild(gfx)
-
-  l2.repeat(() => {
-    debugMatter(
-      Matter.Composite.allBodies(engine.world),
-      gfx,
-      { color: Color.GREEN },
-    )
-  })
-}
 
 const start = () => {
-  app.ticker.start()
+  l2.getApp().ticker.start()
 }
 
 const stop = () => {
-  app.ticker.stop()
-}
-
-const resizeGame = () => {
-  const screenWidth = window.innerWidth
-  const screenHeight = window.innerHeight
-  ex.resize(screenWidth, screenHeight)
+  l2.getApp().ticker.stop()
 }
 
 window.debug = {
@@ -197,7 +175,14 @@ window.debug = {
 }
 
 const boot = async () => {
-  await app.init({
+  const gameElement = document.getElementById('game')
+
+  if (!gameElement) {
+    throw new Error('Found no #game element to mount the canvas into')
+  }
+
+  const app = await l2.boot({
+    mount:     gameElement,
     width:     GAME_WIDTH,
     height:    GAME_HEIGHT,
     antialias: true,
@@ -209,30 +194,29 @@ const boot = async () => {
   app.stage.sortableChildren = true
   state.pixiStage = app.stage
 
-  app.ticker.add((ticker) => {
-    l2.update(ticker.deltaTime)
-  })
+  if (DEBUG_MATTER) {
+    const gfx = new PIXI.Graphics()
+    gfx.zIndex = 10000
+    app.stage.addChild(gfx)
+
+    l2.repeat(() => {
+      debugMatter(
+        Matter.Composite.allBodies(engine.world),
+        gfx,
+        { color: Color.GREEN },
+      )
+    })
+  }
 
   app.ticker.add(() => {
     Matter.Engine.update(engine)
   })
 
-  const gameElement = document.getElementById('game')
-
-  if (!gameElement) {
-    throw new Error('Found no #game element to mount the canvas into')
-  }
-
-  gameElement.appendChild(app.canvas)
-
-  ex.init(app)
-
-  resizeGame()
-  window.addEventListener('resize', resizeGame)
+  l2.fitToWindow()
 
   await document.fonts.load('10pt "patchy-robots"')
 
-  ex.useSpritesheets(await Promise.all([
+  l2.useSpritesheets(await Promise.all([
     PIXI.Assets.load('spritesheet/main.json'),
     PIXI.Assets.load('spritesheet/spritesheet.json'),
   ]))

@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js'
 import * as Matter from 'matter-js'
 import * as l2 from 'l2'
-import * as ex from '../../pixiEx'
 
 import Sound from '../sound'
 import * as entity from '../entity'
@@ -65,7 +64,7 @@ export default (id: string, { angle }: { angle: number }) => {
   const originX = body.position.x
   const originY = body.position.y
 
-  const projectileSprite = new PIXI.AnimatedSprite(['fireball1', 'fireball2'].map(ex.getTexture))
+  const projectileSprite = new PIXI.AnimatedSprite(['fireball1', 'fireball2'].map(l2.getTexture))
   projectileSprite.scale.set(3)
   projectileSprite.anchor.set(0.5)
   projectileSprite.animationSpeed = 0.1
