@@ -1,5 +1,6 @@
 import * as l1 from '../l1'
 import playerRepository from './player/repository'
+import scaleSprite from './scaleSprite'
 
 import {
   FULL_JUMP_LOAD_TIME,
@@ -28,8 +29,7 @@ const start = (id: string) => {
   const b = l1.repeat(() => {
     if (player.jumpPower < 1) {
       player.jumpPower += JUMP_POWER_INCREMNT
-      const scale = spriteScale(player.jumpPower)
-      player.sprite.scale.set(scale)
+      scaleSprite(player.sprite, spriteScale(player.jumpPower))
     }
   })
   b.id = behaviorId(id)
@@ -44,7 +44,7 @@ const stop = (id: string) => {
   l1.once(() => {
     player.braking = false
     player.jumpPower = 0
-    player.sprite.scale.set(DEFAULT_PLAYER_SPRITE_SCALE)
+    scaleSprite(player.sprite, DEFAULT_PLAYER_SPRITE_SCALE)
   })
   l1.remove(behaviorId(id))
 }

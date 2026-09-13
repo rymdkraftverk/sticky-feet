@@ -1,19 +1,13 @@
 import state from './state'
+import scaleSprite from './scaleSprite'
 
 const setLapTime = (lapTime: number) => {
-  const directionChanged = Math.sign(lapTime) !== Math.sign(state.lapTime)
-
   state.lapTime = lapTime
-
-  if (!directionChanged) {
-    return
-  }
 
   state
     .players
-    .map(({ sprite }) => sprite)
-    .forEach((sprite) => {
-      sprite.scale.x = -sprite.scale.x  
+    .forEach(({ sprite }) => {
+      scaleSprite(sprite, sprite.scale.y)
     })
 }
 

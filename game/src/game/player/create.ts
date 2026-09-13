@@ -14,6 +14,7 @@ import borderPatrol from '../borderPatrol'
 import pointAtMiddle from '../pointAtMiddle'
 import scopeFollowsPlayer from '../scopeFollowsPlayer'
 import { DEFAULT_PLAYER_SPRITE_SCALE } from '../constant'
+import scaleSprite from '../scaleSprite'
 import type { Player } from '../types'
 
 const COLOR_COUNT = Colors.length
@@ -70,7 +71,7 @@ const createSprite = (colorName: string) => {
   animation.play()
 
   const sprite = new PIXI.Container()
-  sprite.scale.set(DEFAULT_PLAYER_SPRITE_SCALE)
+  scaleSprite(sprite, DEFAULT_PLAYER_SPRITE_SCALE)
   sprite.addChild(animation)
 
   return sprite
