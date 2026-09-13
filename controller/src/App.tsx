@@ -136,7 +136,7 @@ function App() {
       })
       .then(send => {
         setSendReliable({
-          f: send(Channel.RELIABLE),
+          f: message => send(Channel.RELIABLE, message),
         })
       })
       .catch((joinError: { cause?: string }) => {
