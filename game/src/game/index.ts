@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js'
 import * as Matter from 'matter-js'
 import decomp from 'poly-decomp'
 import signaling, { type Initiator } from 'rkv-signaling'
+import * as Sentry from '@sentry/browser'
 
 import { Event, Colors, Channel } from 'common'
 import * as l2 from 'l2'
@@ -181,8 +182,13 @@ const boot = async () => {
     throw new Error('Found no #game element to mount the canvas into')
   }
 
+  Sentry.init({ dsn: process.env.SENTRY_DSN })
+
   const app = await l2.boot({
     mount:     gameElement,
+    onError:   (error: Error) => {
+      Sentry.captureException(error)
+    },
     width:     GAME_WIDTH,
     height:    GAME_HEIGHT,
     antialias: true,

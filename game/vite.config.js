@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 const inlined = [
   'CONTROLLER_HOST',
   'HTTP_ADDRESS',
+  'SENTRY_DSN',
   'VERSION',
   'WS_ADDRESS',
 ]
