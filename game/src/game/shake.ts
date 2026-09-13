@@ -1,4 +1,4 @@
-import * as l1 from '../l1'
+import * as l2 from 'l2'
 
 import playerRepository from './player/repository'
 import pointAtMiddle from './pointAtMiddle'
@@ -8,10 +8,10 @@ const DURATION = 30
 const pauseMiddlePointing = (id: string) => {
   const player = playerRepository.find(id)
 
-  l1.remove(player.behaviors.pointAtMiddleId)
+  l2.removeBehavior(player.behaviors.pointAtMiddleId)
   delete player.behaviors.pointAtMiddleId
 
-  l1.once(() => {
+  l2.once(() => {
     player.behaviors.pointAtMiddleId = pointAtMiddle(player.id)
   }, DURATION)
 }
@@ -21,13 +21,12 @@ const spin = (id: string) => {
 
   const behaviorId = `spin_${player.id}`
 
-  const spinBehavior = l1.repeat(() => {
+  l2.repeat(() => {
     player.sprite.rotation -= (Math.PI * 2) / DURATION
-  })
-  spinBehavior.id = behaviorId
+  }, 1, { id: behaviorId })
 
-  l1.once(() => {
-    l1.remove(behaviorId)
+  l2.once(() => {
+    l2.removeBehavior(behaviorId)
   }, DURATION)
 }
 

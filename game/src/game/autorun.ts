@@ -1,5 +1,5 @@
 import * as Matter from 'matter-js'
-import * as l1 from '../l1'
+import * as l2 from 'l2'
 import playerRepository from './player/repository'
 
 import {
@@ -56,15 +56,16 @@ export default (id: string) => {
   const player = playerRepository.find(id)
   const { body } = player
 
-  const b = l1.repeat(() => {
+  const behaviorId = `autorun_${id}`
+
+  l2.repeat(() => {
     Matter.Body.setVelocity(body, enforceRunning(
       DOME_CENTER,
       lapTime(player.slows, player.braking),
       body.position,
       body.velocity,
     ))
-  })
+  }, 1, { id: behaviorId })
 
-  b.id = `autorun_${id}`
-  return b.id
+  return behaviorId
 }

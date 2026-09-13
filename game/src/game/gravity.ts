@@ -1,5 +1,5 @@
 import * as Matter from 'matter-js'
-import * as l1 from '../l1'
+import * as l2 from 'l2'
 import playerRepository from './player/repository'
 import {
   add,
@@ -26,13 +26,11 @@ const attachGravity = (id: string) => {
   const { body } = playerRepository.find(id)
   const behaviorId = `gravity_${id}`
 
-  const b = l1.repeat(() => {
+  l2.repeat(() => {
     const updatedVelocity = updateVelocity(body.position, body.velocity)
 
     Matter.Body.setVelocity(body, updatedVelocity)
-  })
-
-  b.id = behaviorId
+  }, 1, { id: behaviorId })
   return behaviorId
 }
 

@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 import * as Matter from 'matter-js'
-import * as l1 from '../../l1'
+import * as l2 from 'l2'
 import * as ex from '../../pixiEx'
 
 import Sound from '../sound'
@@ -31,13 +31,11 @@ const borderPatrolBehavior = (id: string) => {
 
   const behaviorId = `projectile_border_patrol_${id}`
 
-  const b = l1.repeat(() => {
+  l2.repeat(() => {
     if (exceedsBorder(position)) {
       removeProjectile(id)
     }
-  })
-
-  b.id = behaviorId
+  }, 1, { id: behaviorId })
   return behaviorId
 }
 
@@ -49,13 +47,12 @@ const move = (id: string) => {
 
   const behaviorId = `projectile_move_${id}`
 
-  const b = l1.repeat(() => {
+  l2.repeat(() => {
     Matter.Body.setVelocity(body, {
       x: Math.sqrt(2) * PROJECTILE_SPEED * Math.cos(angle),
       y: Math.sqrt(2) * PROJECTILE_SPEED * Math.sin(angle),
     })
-  })
-  b.id = behaviorId
+  }, 1, { id: behaviorId })
   return behaviorId
 }
 

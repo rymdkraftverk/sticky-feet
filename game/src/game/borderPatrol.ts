@@ -1,5 +1,5 @@
 import * as Matter from 'matter-js'
-import * as l1 from '../l1'
+import * as l2 from 'l2'
 
 import playerRepository from './player/repository'
 import { DOME_Y, DOME_CENTER } from './constant'
@@ -68,7 +68,7 @@ const borderPatrol = (id: string) => {
   const { body } = player
   const behaviorId = `border_patrol_${id}`
 
-  const b = l1.repeat(() => {
+  l2.repeat(() => {
     const {
       position,
       velocity,
@@ -78,9 +78,7 @@ const borderPatrol = (id: string) => {
     Matter.Body.setVelocity(body, velocity)
     Matter.Body.setPosition(body, position)
     player.grounded = grounded
-  })
-
-  b.id = behaviorId
+  }, 1, { id: behaviorId })
   return behaviorId
 }
 

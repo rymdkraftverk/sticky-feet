@@ -14,6 +14,7 @@
   "dependencies": {
     "common": "file:../common",
     "howler": "^2.1.2",
+    "l2": "git+https://github.com/rymdkraftverk/level2.git#49bc249dc00b1473dbf998b88f827ca27770a2f9",
     "matter-js": "^0.14.2",
     "pixi.js": "^8.20.1",
     "poly-decomp": "^0.3.0",

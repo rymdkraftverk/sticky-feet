@@ -5,7 +5,7 @@ import signaling, { type Initiator } from 'rkv-signaling'
 
 import { Event, Colors, Channel } from 'common'
 import * as ex from '../pixiEx'
-import * as l1 from '../l1'
+import * as l2 from 'l2'
 import Sound from './sound'
 import leaderboard from './leaderboard'
 import updateScoreIndicators from './updateScoreIndicators'
@@ -161,7 +161,7 @@ if (DEBUG_MATTER) {
   gfx.zIndex = 10000
   app.stage.addChild(gfx)
 
-  l1.repeat(() => {
+  l2.repeat(() => {
     debugMatter(
       Matter.Composite.allBodies(engine.world),
       gfx,
@@ -192,7 +192,7 @@ window.debug = {
   stop,
   state,
   logging: false,
-  behaviors: () => l1.getAll().map(b => b.id),
+  behaviors: () => l2.getAllBehaviors().map(b => b.id),
   setLapTime,
 }
 
@@ -210,7 +210,7 @@ const boot = async () => {
   state.pixiStage = app.stage
 
   app.ticker.add((ticker) => {
-    l1.update(ticker.deltaTime)
+    l2.update(ticker.deltaTime)
   })
 
   app.ticker.add(() => {

@@ -1,4 +1,4 @@
-import * as l1 from '../l1'
+import * as l2 from 'l2'
 import playerRepository from './player/repository'
 import scaleSprite from './scaleSprite'
 
@@ -26,13 +26,12 @@ const start = (id: string) => {
 
   player.braking = true
 
-  const b = l1.repeat(() => {
+  l2.repeat(() => {
     if (player.jumpPower < 1) {
       player.jumpPower += JUMP_POWER_INCREMNT
       scaleSprite(player.sprite, spriteScale(player.jumpPower))
     }
-  })
-  b.id = behaviorId(id)
+  }, 1, { id: behaviorId(id) })
 }
 
 const stop = (id: string) => {
@@ -41,12 +40,12 @@ const stop = (id: string) => {
   if (player.jumpPower === 0) return
 
   // Run after brake has stopped
-  l1.once(() => {
+  l2.once(() => {
     player.braking = false
     player.jumpPower = 0
     scaleSprite(player.sprite, DEFAULT_PLAYER_SPRITE_SCALE)
   })
-  l1.remove(behaviorId(id))
+  l2.removeBehavior(behaviorId(id))
 }
 
 export default {

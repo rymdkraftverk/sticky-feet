@@ -1,5 +1,5 @@
 import * as Matter from 'matter-js'
-import * as l1 from '../l1'
+import * as l2 from 'l2'
 
 import state from './state'
 import type { Entity } from './types'
@@ -12,13 +12,13 @@ export const remove = ({
   body,
   behaviors,
 }: Entity) => {
-  l1.remove(syncBehaviorId(id))
+  l2.removeBehavior(syncBehaviorId(id))
 
   Object
     .values(behaviors)
-    .forEach(l1.remove)
+    .forEach(l2.removeBehavior)
 
-  l1.once(() => {
+  l2.once(() => {
     sprite.destroy({ children: true })
     Matter.World.remove(state.matterWorld, body)
   })
@@ -29,12 +29,10 @@ export const add = ({ id, sprite, body }: Entity) => {
   Matter.World.add(state.matterWorld, [body])
 
   // Sync the movement of sprite and physical body
-  const behavior = l1.repeat(() => {
+  l2.repeat(() => {
      
     sprite.position.x = body.position.x
     sprite.position.y = body.position.y
      
-  })
-
-  behavior.id = syncBehaviorId(id)
+  }, 1, { id: syncBehaviorId(id) })
 }

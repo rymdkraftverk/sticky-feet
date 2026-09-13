@@ -1,4 +1,4 @@
-import * as l1 from '../l1'
+import * as l2 from 'l2'
 
 import state from './state'
 import debugLog from './debugLog'
@@ -27,7 +27,7 @@ export default (playerId: string, { id, duration, ability }: {
 
   player.cooldowns[id] = true
 
-  l1.once(() => {
+  l2.once(() => {
     player.cooldowns[id] = false
   }, duration)
 }
