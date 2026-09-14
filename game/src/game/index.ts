@@ -192,8 +192,6 @@ const boot = async () => {
     width:     GAME_WIDTH,
     height:    GAME_HEIGHT,
     antialias: true,
-    // TODO: Enable when possible (background image exists)
-    // clearBeforeRender: false,
     background: Color.LIGHT_GRAY,
   })
   // Enables setting zIndex on the children of stage

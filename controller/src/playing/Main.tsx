@@ -53,13 +53,13 @@ const touchEventPosition = ({
   y: targetTouches[0].clientY,
 })
 
-function GamePlaying({
+const GamePlaying = ({
   send,
   playerColor,
 }: {
   send: (message: object) => void
   playerColor: string
-}) {
+}) => {
   const [originPosition, setOriginPosition] = useState<Position | null>(null)
   const [position, setPosition] = useState<Position | null>(null)
   const [braking, setBraking] = useState(false)

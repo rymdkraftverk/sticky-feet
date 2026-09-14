@@ -32,7 +32,7 @@ const JoinButton = styled(Button)`
   ${joinButtonStyle}
 `
 
-function App() {
+const App = () => {
   const [playerColor, setPlayerColor] = useState<string | null>(null)
 
   const onData = ({

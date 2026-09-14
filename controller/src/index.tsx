@@ -1,14 +1,20 @@
 import { createRoot } from 'react-dom/client'
 import { createGlobalStyle } from 'styled-components'
+import * as Sentry from '@sentry/browser'
 import { prettyVersionTime } from 'common'
 import Shake from 'shake.js'
 import Boundary from './Boundary'
 import App from './App'
 
 const version = process.env.REACT_APP_VERSION
+const SENTRY_DSN = process.env.REACT_APP_SENTRY_DSN
 
 if (version) {
   console.log(`Version: ${version} | Time: ${prettyVersionTime(version)}`)
+}
+
+if (SENTRY_DSN) {
+  Sentry.init({ dsn: SENTRY_DSN })
 }
 
 const GlobalStyle = createGlobalStyle`

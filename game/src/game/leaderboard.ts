@@ -21,7 +21,7 @@ const ROW_MARGIN_Y = 50
 
 const TEXT_Y_OFFSET = 7
 
-let rows: PIXI.Container[] = []
+const rows: PIXI.Container[] = []
 
 const renderRow = ({
   index, name, textures, score,
@@ -54,7 +54,7 @@ const renderRow = ({
   container.addChild(sprite)
   container.addChild(nameObject)
   container.addChild(scoreText)
-  rows = rows.concat(container)
+  rows.push(container)
 }
 
 const renderFrame = () => {
@@ -81,10 +81,9 @@ const renderContent = () => {
     return
   }
 
-  rows.forEach((row) => {
+  rows.splice(0).forEach((row) => {
     row.destroy()
   })
-  rows = []
 
   state
     .players
