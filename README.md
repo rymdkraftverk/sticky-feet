@@ -1,14 +1,5 @@
 # Sticky Feet
 
-## Validate circle ci config
-
-Install circle ci cli
-
-`curl -fLSs https://circle.ci/cli | bash`
-
-Validate config at `.circleci/config.yml`
-
-`circleci config validate`
 
 ## Game
 
