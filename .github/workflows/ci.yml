@@ -49,6 +49,7 @@ jobs:
         env:
           REACT_APP_WS_ADDRESS: wss://rkv-signaling.fogpipe.cloud
           REACT_APP_VERSION: ${{ env.VERSION }}
+          REACT_APP_SENTRY_DSN: ${{ vars.SENTRY_DSN_CONTROLLER }}
 
       - uses: fogpipe/cloud-actions/auth@v1
         with:

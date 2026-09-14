@@ -25,7 +25,7 @@ services:
           - ./controller:/controller
           - ./common:/common
         environment:
-            - REACT_APP_ERROR_LOGGING=${REACT_APP_ERROR_LOGGING}
+            - REACT_APP_SENTRY_DSN=${REACT_APP_SENTRY_DSN}
             - REACT_APP_VERSION=${REACT_APP_VERSION}
             - REACT_APP_WS_ADDRESS=${REACT_APP_WS_ADDRESS}
         ports:
