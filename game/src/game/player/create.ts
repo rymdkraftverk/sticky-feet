@@ -18,6 +18,7 @@ import createFigure from './figure'
 import type { Player } from '../types'
 
 const RUN_ANIMATION_SPEED = 0.08
+const FEET_Y = 18
 
 const findColor = (name: string) => {
   const color = Colors.find(c => c.name === name)
@@ -41,11 +42,11 @@ const createBody = () => {
 
 const createSprite = (hex: string) => {
   const figure = createFigure('side', hex, RUN_ANIMATION_SPEED)
-  figure.position.set(-figure.width / 2, -figure.height / 4)
+  figure.position.set(-figure.width / 2, FEET_Y - figure.height)
 
   const splat = new PIXI.Sprite(l2.getTexture('splat'))
-  splat.anchor.set(0.5, 0)
-  splat.y = figure.y - splat.height / 3
+  splat.anchor.set(0.5, 1)
+  splat.y = FEET_Y + 4
   splat.visible = false
 
   const sprite = new PIXI.Container()

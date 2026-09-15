@@ -42,6 +42,8 @@ const DEBUG_MATTER = false
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
 const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
 
+PIXI.TextureStyle.defaultOptions.scaleMode = 'nearest'
+
 const engine = Matter.Engine.create()
 state.matterWorld = engine.world
 

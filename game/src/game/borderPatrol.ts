@@ -13,7 +13,7 @@ import {
   type Vector,
 } from './linearAlgebra'
 
-const RADIUS = DOME_Y * 0.95
+const RADIUS = DOME_Y * 0.92
 
 const enforceVelocity = (relativePosition: Vector, velocity: Vector) => {
   const positionDirection = normalize(relativePosition)

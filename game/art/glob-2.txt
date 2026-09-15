@@ -1,0 +1,14 @@
+....................
+....P.......PPPP....
+..........PPTTTTPP..
+.P.......PTThhTTTTP.
+........PTTTTTTTTTTP
+......PPTTTTTTTTTTTP
+....PPTTTTTTTTTTTTTP
+..PPTTTTTTTTTTTTTTTP
+.PTTTTTTTTTTTTTTTTTP
+.PTTTTTTTTTTTTTTTTTP
+..PPTTPPTTTTTTTTTTP.
+....PP..PPTTTTTTTP..
+..........PPPPPPP...
+....................
