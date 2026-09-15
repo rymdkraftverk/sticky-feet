@@ -140,6 +140,7 @@ const onPlayerJoin = ({
 }
 
 const onPlayerLeave = (id: string) => {
+  if (!playerRepository.has(id)) return
   removePlayer(id)
   updateScoreIndicators()
 }
