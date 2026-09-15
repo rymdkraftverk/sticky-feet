@@ -7,7 +7,7 @@ const setLapTime = (lapTime: number) => {
   state
     .players
     .forEach(({ sprite }) => {
-      scaleSprite(sprite, sprite.scale.y)
+      scaleSprite(sprite, { x: Math.abs(sprite.scale.x), y: sprite.scale.y })
     })
 }
 

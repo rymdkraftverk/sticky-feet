@@ -17,6 +17,7 @@ export type Player = {
   scope: Scope
   score: number
   slows: number
+  splat: PIXI.Sprite
   sprite: PIXI.Container
 }
 

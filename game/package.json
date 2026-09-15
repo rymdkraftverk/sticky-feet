@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json",
-    "munch": "muncher --input src/asset --output public/spritesheet/main"
+    "art": "deno run --allow-read --allow-write --allow-run=magick art/build.ts"
   },
   "dependencies": {
     "@sentry/browser": "^10.74.0",
@@ -31,7 +31,6 @@
     "eslint-plugin-import": "^2.18.0",
     "jest-matcher-deep-close-to": "^1.3.0",
     "jsdom": "^27.4.0",
-    "muncher": "0.0.5",
     "typescript": "^5.9.3",
     "vite": "^7.1.5",
     "vitest": "^3.2.4"

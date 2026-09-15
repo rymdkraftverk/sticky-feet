@@ -16,8 +16,7 @@ import state from './state'
 const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
 
 const createDome = () => {
-  const domeSprite = new PIXI.Sprite(l2.getTexture('bg'))
-  domeSprite.scale.set(1)
+  const domeSprite = new PIXI.Sprite(l2.getTexture('dome'))
   domeSprite.anchor.set(0.5)
   domeSprite.x = DOME_X
   domeSprite.y = DOME_Y
@@ -27,7 +26,7 @@ const createDome = () => {
 const drawInstructionArrow = ({
   x, y, angle,
 }: { x: number, y: number, angle: number }) => {
-  const instructionArrow = new PIXI.Sprite(l2.getTexture('expand-arrow-one'))
+  const instructionArrow = new PIXI.Sprite(l2.getTexture('chevron'))
 
   instructionArrow.alpha = 0.15
   instructionArrow.x = x
@@ -48,7 +47,7 @@ const createJoinInstructions = (gameCode: string) => {
   const background = new PIXI.Graphics()
   background
     .rect(0, 0, SIDEBAR_WIDTH, GAME_HEIGHT)
-    .fill(Color.DARK_GRAY)
+    .fill(Color.PANEL)
   state.pixiStage.addChild(background)
 
   const grabYourPhone = new PIXI.Text({

@@ -1,4 +1,5 @@
-export const DARK_GRAY = '#222222'
+export const SPACE = '#070a14'
+export const PANEL = '#10121c'
 export const LIGHT_GRAY = '#aaaaaa'
 export const RED = '#ff0000'
 export const GREEN = '#00ff00'

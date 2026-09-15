@@ -5,11 +5,13 @@ import state from './state'
 
 const CROWN_NAME = 'leader crown'
 
+const CROWN_Y = 32
+
 const placeCrownOnSprite = (playerSprite: PIXI.Container) => {
   const crown = new PIXI.Sprite(l2.getTexture('crown'))
-  crown.scale.set(1 / 5)
-  crown.x -= crown.width / 1
-  crown.y -= crown.height * 2
+  crown.anchor.set(0.5, 1)
+  crown.rotation = Math.PI
+  crown.y = CROWN_Y
   crown.label = CROWN_NAME
 
   playerSprite.addChild(crown)

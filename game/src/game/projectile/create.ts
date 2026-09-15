@@ -64,8 +64,7 @@ export default (id: string, { angle }: { angle: number }) => {
   const originX = body.position.x
   const originY = body.position.y
 
-  const projectileSprite = new PIXI.AnimatedSprite(['fireball1', 'fireball2'].map(l2.getTexture))
-  projectileSprite.scale.set(3)
+  const projectileSprite = new PIXI.AnimatedSprite(['glob-1', 'glob-2'].map(l2.getTexture))
   projectileSprite.anchor.set(0.5)
   projectileSprite.animationSpeed = 0.1
   projectileSprite.play()

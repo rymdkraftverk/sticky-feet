@@ -13,8 +13,6 @@ export const DOME_CENTER = { x: DOME_X, y: DOME_Y }
 export const DEFAULT_LAP_TIME = 7 // seconds
 export const TICKS_PER_SEC = 60
 
-export const DEFAULT_PLAYER_SPRITE_SCALE = 2
-
 export const GRAVITY_STRENTH = 0.15
 export const MAX_JUMP_STRENGTH = 13 // Just below ceiling
 export const FULL_JUMP_LOAD_TIME = TICKS_PER_SEC * 0.7

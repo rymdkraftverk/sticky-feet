@@ -35,7 +35,7 @@ const aim = (id: string, { angle, distance }: { angle: number, distance: number 
     scope,
   } = player
 
-  const texture = cooldowns.projectile ? 'arrow/arrow-red' : 'arrow/arrow-green'
+  const texture = cooldowns.projectile ? 'aim-cooldown' : 'aim-ready'
   scope.texture = l2.getTexture(texture)
 
   scope.visible = true

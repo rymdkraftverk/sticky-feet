@@ -13,15 +13,11 @@ import scope from '../scope'
 import borderPatrol from '../borderPatrol'
 import pointAtMiddle from '../pointAtMiddle'
 import scopeFollowsPlayer from '../scopeFollowsPlayer'
-import { DEFAULT_PLAYER_SPRITE_SCALE } from '../constant'
-import scaleSprite from '../scaleSprite'
+import scaleSprite, { UPRIGHT } from '../scaleSprite'
+import createFigure from './figure'
 import type { Player } from '../types'
 
-const COLOR_COUNT = Colors.length
-
-const INDEX_COLOR_MAPPING: Record<string, number> = Object.fromEntries(
-  Colors.map(({ name }, index) => [name, index]),
-)
+const RUN_ANIMATION_SPEED = 0.08
 
 const findColor = (name: string) => {
   const color = Colors.find(c => c.name === name)
@@ -30,25 +26,6 @@ const findColor = (name: string) => {
   }
   return color
 }
-
-const SIDE_1 = 0
-const SIDE_2 = 1
-const FRONT_STRETCHED = 2
-const FRONT_COLLAPSED = 3
-
-const createAnimation = (colorName: string, texture1: number, texture2: number) => {
-  const colorIndex = INDEX_COLOR_MAPPING[colorName]
-  return [
-    `lizard-${colorIndex + (COLOR_COUNT * texture1)}`,
-    `lizard-${colorIndex + (COLOR_COUNT * texture2)}`,
-  ].map(l2.getTexture)
-}
-
-export const createFrontAnimation = (colorName: string) => (
-  createAnimation(colorName, FRONT_COLLAPSED, FRONT_STRETCHED)
-)
-
-export const createSideAnimation = (colorName: string) => createAnimation(colorName, SIDE_1, SIDE_2)
 
 const createBody = () => {
   const { x, y } = spawnPosition()
@@ -62,19 +39,20 @@ const createBody = () => {
   return body
 }
 
-const createSprite = (colorName: string) => {
-  const animation = new PIXI.AnimatedSprite(
-    createSideAnimation(colorName),
-  )
-  animation.anchor.set(0.5)
-  animation.animationSpeed = 0.08
-  animation.play()
+const createSprite = (hex: string) => {
+  const figure = createFigure('side', hex, RUN_ANIMATION_SPEED)
+  figure.position.set(-figure.width / 2, -figure.height / 4)
+
+  const splat = new PIXI.Sprite(l2.getTexture('splat'))
+  splat.anchor.set(0.5, 0)
+  splat.y = figure.y - splat.height / 3
+  splat.visible = false
 
   const sprite = new PIXI.Container()
-  scaleSprite(sprite, DEFAULT_PLAYER_SPRITE_SCALE)
-  sprite.addChild(animation)
+  scaleSprite(sprite, UPRIGHT)
+  sprite.addChild(figure, splat)
 
-  return sprite
+  return { sprite, splat }
 }
 
 export default (id: string) => {
@@ -83,7 +61,7 @@ export default (id: string) => {
     throw new Error('No colours left to hand out')
   }
   const color = findColor(colorName)
-  const sprite = createSprite(colorName)
+  const { sprite, splat } = createSprite(color.hex)
   const body = createBody()
 
   const player: Player = {
@@ -92,6 +70,7 @@ export default (id: string) => {
     color,
     scope: scope.create(),
     sprite,
+    splat,
     body,
     slows: 0,
     score: 0,

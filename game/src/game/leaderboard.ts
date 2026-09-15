@@ -10,7 +10,7 @@ import {
   SIDEBAR_WIDTH,
   TUTORIAL_MODE,
 } from './constant'
-import { createFrontAnimation } from './player/create'
+import createFigure from './player/figure'
 
 const BACKGROUND_X = GAME_WIDTH - SIDEBAR_WIDTH
 
@@ -19,16 +19,19 @@ const TITLE_Y = 20
 const ROWS_START_Y = 70
 const ROW_MARGIN_Y = 50
 
-const TEXT_Y_OFFSET = 7
+const TEXT_Y_OFFSET = 12
+const TEXT_X = 46
+
+const IDLE_ANIMATION_SPEED = 0.02
 
 const rows: PIXI.Container[] = []
 
 const renderRow = ({
-  index, name, textures, score,
+  index, name, hex, score,
 }: {
   index: number
   name: string
-  textures: PIXI.Texture[]
+  hex: string
   score: number
 }) => {
   const container = new PIXI.Container()
@@ -36,13 +39,10 @@ const renderRow = ({
   container.x = BACKGROUND_X + 5
   state.pixiStage.addChild(container)
 
-  const sprite = new PIXI.AnimatedSprite(textures)
-  sprite.animationSpeed = 0.02
-  sprite.play()
-  sprite.scale.set(2)
+  const figure = createFigure('front', hex, IDLE_ANIMATION_SPEED)
 
   const nameObject = new PIXI.Text({ text: name, style: { ...textStyle, fontSize: 14 } })
-  nameObject.x = 40
+  nameObject.x = TEXT_X
   nameObject.y = TEXT_Y_OFFSET
   l2.makeResizable(nameObject)
 
@@ -51,7 +51,7 @@ const renderRow = ({
   scoreText.y = TEXT_Y_OFFSET
   l2.makeResizable(scoreText)
 
-  container.addChild(sprite)
+  container.addChild(figure)
   container.addChild(nameObject)
   container.addChild(scoreText)
   rows.push(container)
@@ -61,7 +61,7 @@ const renderFrame = () => {
   const background = new PIXI.Graphics()
   background
     .rect(BACKGROUND_X, 0, SIDEBAR_WIDTH, GAME_HEIGHT)
-    .fill(Color.DARK_GRAY)
+    .fill(Color.PANEL)
   background.cacheAsTexture(true)
 
   state.pixiStage.addChild(background)
@@ -93,8 +93,8 @@ const renderContent = () => {
       renderRow({
         index,
         name: color.name,
+        hex: color.hex,
         score,
-        textures: createFrontAnimation(color.name),
       })
     })
 }

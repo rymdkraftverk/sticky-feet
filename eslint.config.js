@@ -36,7 +36,7 @@ const houseStyle = {
 }
 
 export default [
-  { ignores: ['**/dist/', '**/*.d.ts', 'game/public/', 'controller/public/'] },
+  { ignores: ['**/dist/', '**/*.d.ts', 'game/art/', 'game/public/', 'controller/public/'] },
   plugins.stylistic,
   plugins.importX,
   ...configs.base.typescript,

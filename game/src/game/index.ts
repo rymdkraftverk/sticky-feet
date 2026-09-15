@@ -42,9 +42,6 @@ const DEBUG_MATTER = false
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
 const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
 
-// Enable pixel perfect rendering
-PIXI.TextureStyle.defaultOptions.scaleMode = 'nearest'
-
 const engine = Matter.Engine.create()
 state.matterWorld = engine.world
 
@@ -192,7 +189,7 @@ const boot = async () => {
     width:     GAME_WIDTH,
     height:    GAME_HEIGHT,
     antialias: true,
-    background: Color.LIGHT_GRAY,
+    background: Color.SPACE,
   })
   // Enables setting zIndex on the children of stage
   app.stage.sortableChildren = true
@@ -220,10 +217,7 @@ const boot = async () => {
 
   await document.fonts.load('10pt "patchy-robots"')
 
-  l2.useSpritesheets(await Promise.all([
-    PIXI.Assets.load('spritesheet/main.json'),
-    PIXI.Assets.load('spritesheet/spritesheet.json'),
-  ]))
+  l2.useSpritesheets([await PIXI.Assets.load('spritesheet/main.json')])
 
   const { gameCode } = await http.createGame()
 
