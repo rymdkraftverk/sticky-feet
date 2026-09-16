@@ -1,5 +1,6 @@
 import {
   DOME_CENTER,
+  DEFAULT_LAP_TIME,
 } from '../src/game/constant'
 
 import {
@@ -22,42 +23,24 @@ const generateNearbyPair = (angle: number) => ({
   ),
 })
 
-test('0 radians', () => {
-  const { leader, behind } = generateNearbyPair(0)
+const ANGLES = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 4]
 
-  expect(getLeader(leader, behind))
+test.each(ANGLES)('leader at %f radians', (angle) => {
+  const { leader, behind } = generateNearbyPair(angle)
+
+  expect(getLeader(DEFAULT_LAP_TIME, leader, behind))
     .toEqual(leader)
 
-  expect(getLeader(behind, leader))
-    .toEqual(leader)
-})
-
-test('Pi / 2 radians', () => {
-  const { leader, behind } = generateNearbyPair(Math.PI / 2)
-
-  expect(getLeader(leader, behind))
-    .toEqual(leader)
-
-  expect(getLeader(behind, leader))
+  expect(getLeader(DEFAULT_LAP_TIME, behind, leader))
     .toEqual(leader)
 })
 
-test('Pi radians', () => {
-  const { leader, behind } = generateNearbyPair(Math.PI)
+test.each(ANGLES)('reversed leader at %f radians', (angle) => {
+  const { leader, behind } = generateNearbyPair(angle)
 
-  expect(getLeader(leader, behind))
-    .toEqual(leader)
+  expect(getLeader(-DEFAULT_LAP_TIME, leader, behind))
+    .toEqual(behind)
 
-  expect(getLeader(behind, leader))
-    .toEqual(leader)
-})
-
-test('3 Pi / 4 radians', () => {
-  const { leader, behind } = generateNearbyPair((3 * Math.PI) / 4)
-
-  expect(getLeader(leader, behind))
-    .toEqual(leader)
-
-  expect(getLeader(behind, leader))
-    .toEqual(leader)
+  expect(getLeader(-DEFAULT_LAP_TIME, behind, leader))
+    .toEqual(behind)
 })

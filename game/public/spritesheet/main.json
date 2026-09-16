@@ -40,9 +40,29 @@
         "h": 96
       }
     },
-    "astronaut-front-1-gear.png": {
+    "powerup-reverse.png": {
       "frame": {
         "x": 822,
+        "y": 2,
+        "w": 48,
+        "h": 48
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "sourceSize": {
+        "w": 48,
+        "h": 48
+      }
+    },
+    "astronaut-front-1-gear.png": {
+      "frame": {
+        "x": 872,
         "y": 2,
         "w": 36,
         "h": 40
@@ -62,7 +82,7 @@
     },
     "astronaut-front-1-suit.png": {
       "frame": {
-        "x": 860,
+        "x": 910,
         "y": 2,
         "w": 36,
         "h": 40
@@ -82,7 +102,7 @@
     },
     "astronaut-front-2-gear.png": {
       "frame": {
-        "x": 898,
+        "x": 948,
         "y": 2,
         "w": 36,
         "h": 40
@@ -102,7 +122,7 @@
     },
     "astronaut-front-2-suit.png": {
       "frame": {
-        "x": 936,
+        "x": 986,
         "y": 2,
         "w": 36,
         "h": 40
@@ -122,7 +142,7 @@
     },
     "astronaut-side-1-gear.png": {
       "frame": {
-        "x": 974,
+        "x": 1024,
         "y": 2,
         "w": 36,
         "h": 40
@@ -142,7 +162,7 @@
     },
     "astronaut-side-1-suit.png": {
       "frame": {
-        "x": 1012,
+        "x": 1062,
         "y": 2,
         "w": 36,
         "h": 40
@@ -162,7 +182,7 @@
     },
     "astronaut-side-2-gear.png": {
       "frame": {
-        "x": 1050,
+        "x": 1100,
         "y": 2,
         "w": 36,
         "h": 40
@@ -182,7 +202,7 @@
     },
     "astronaut-side-2-suit.png": {
       "frame": {
-        "x": 1088,
+        "x": 1138,
         "y": 2,
         "w": 36,
         "h": 40
@@ -202,7 +222,7 @@
     },
     "aim-cooldown.png": {
       "frame": {
-        "x": 1126,
+        "x": 1176,
         "y": 2,
         "w": 16,
         "h": 32
@@ -222,7 +242,7 @@
     },
     "aim-ready.png": {
       "frame": {
-        "x": 1144,
+        "x": 1194,
         "y": 2,
         "w": 16,
         "h": 32
@@ -242,7 +262,7 @@
     },
     "glob-1.png": {
       "frame": {
-        "x": 1162,
+        "x": 1212,
         "y": 2,
         "w": 40,
         "h": 28
@@ -262,7 +282,7 @@
     },
     "glob-2.png": {
       "frame": {
-        "x": 1204,
+        "x": 1254,
         "y": 2,
         "w": 40,
         "h": 28
@@ -282,7 +302,7 @@
     },
     "crown.png": {
       "frame": {
-        "x": 1246,
+        "x": 1296,
         "y": 2,
         "w": 22,
         "h": 14
@@ -302,7 +322,7 @@
     },
     "splat.png": {
       "frame": {
-        "x": 1270,
+        "x": 1320,
         "y": 2,
         "w": 32,
         "h": 14
@@ -325,7 +345,7 @@
     "image": "main.png",
     "format": "RGBA8888",
     "size": {
-      "w": 1304,
+      "w": 1354,
       "h": 724
     },
     "scale": "1"

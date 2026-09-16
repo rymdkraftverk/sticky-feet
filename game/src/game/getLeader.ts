@@ -21,14 +21,18 @@ const modulus = (a: number, b: number) => (b + a) % a
  *
  * The lizards run counter clockwise, so a greater angle means you're behind.
  */
-const getLeader = (p1: Vector, p2: Vector) => {
+const getLeader = (lapTime: number, p1: Vector, p2: Vector) => {
   const angleDiff = modulus(
     2 * Math.PI,
     getAngle(p2) - getAngle(p1),
   )
 
   // angle(p1) + anglediff (mod 2PI) = angle(p2) (mod 2PI)
-  return angleDiff < Math.PI
+  const p2IsAhead = lapTime > 0
+    ? angleDiff < Math.PI
+    : angleDiff > Math.PI
+
+  return p2IsAhead
     ? p2
     : p1
 }

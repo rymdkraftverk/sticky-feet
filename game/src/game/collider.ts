@@ -3,6 +3,9 @@ import * as Matter from 'matter-js'
 import Sound from './sound'
 import playerRepository from './player/repository'
 import projectileRepository from './projectile/repository'
+import powerupRepository from './powerup/repository'
+import * as powerup from './powerup'
+import state from './state'
 import spawnPosition from './player/spawnPosition'
 import removeProjectile from './projectile/remove'
 import getLeader from './getLeader'
@@ -32,7 +35,7 @@ const playerPlayerCollision = (idA: number, idB: number) => {
 
   const [positionA, positionB] = players.map(({ body }) => body.position)
 
-  const leaderPosition = getLeader(positionA, positionB)
+  const leaderPosition = getLeader(state.lapTime, positionA, positionB)
 
   const leadingPlayer = players.find(player => isLeader(player, leaderPosition)) as Player
   const trailingPlayer = players.find(player => !isLeader(player, leaderPosition)) as Player
@@ -47,6 +50,12 @@ const playerPlayerCollision = (idA: number, idB: number) => {
   // Distribute score
   trailingPlayer.score += 1
   updateScoreIndicators()
+}
+
+const powerupPlayerCollision = (powerupBodyId: number) => {
+  if (!powerupRepository.hasBody(powerupBodyId)) return
+
+  powerup.activate(powerupRepository.findByBody(powerupBodyId))
 }
 
 export default (event: Matter.IEventCollision<Matter.Engine>) => {
@@ -70,6 +79,15 @@ export default (event: Matter.IEventCollision<Matter.Engine>) => {
 
   if (first.entityType === 'player' && second.entityType === 'projectile') {
     projectilePlayerCollision(first.id, second.id)
+    return
+  }
+
+  if (first.entityType === 'player' && second.entityType === 'powerup') {
+    powerupPlayerCollision(second.id)
+    return
+  }
+
+  if (first.entityType === 'powerup') {
     return
   }
 

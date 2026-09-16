@@ -22,7 +22,7 @@ import {
 
 import state from './state'
 
-const enforceRunning = (
+export const enforceRunning = (
   domeCenter: Vector,
   lapTime: number,
   position: Vector,
@@ -49,7 +49,7 @@ const enforceRunning = (
 const lapTime = (slows: number, braking: boolean) => (
   state.lapTime
   * (SLOW_FACTOR ** slows)
-  + (braking ? BRAKE_STRENGTH : 0)
+  + (braking ? Math.sign(state.lapTime) * BRAKE_STRENGTH : 0)
 )
 
 export default (id: string) => {

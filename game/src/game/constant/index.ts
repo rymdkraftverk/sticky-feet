@@ -23,5 +23,9 @@ export const PROJECTILE_COOLDOWN = TICKS_PER_SEC * 1
 export const PROJECTILE_SPEED = 7
 export const SHAKE_COOLDOWN = TICKS_PER_SEC * 4
 
+export const POWERUPS_PER_SECOND = 1 / 10
+export const POWERUP_ORBIT_RADIUS = 200
+export const MAX_POWERUPS = 2
+
 // Modes
 export const TUTORIAL_MODE = 'tutorial'

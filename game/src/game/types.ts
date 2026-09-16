@@ -29,6 +29,14 @@ export type Projectile = {
   sprite: PIXI.AnimatedSprite
 }
 
+export type Powerup = {
+  behaviors: Record<string, string>
+  body: Matter.Body
+  id: string
+  onPickup: () => void
+  sprite: PIXI.Sprite
+}
+
 export type Entity = {
   behaviors: Record<string, string>
   body: Matter.Body

@@ -32,6 +32,7 @@ import {
 } from './constant'
 import debugMatter from './util/debugMatter'
 import setLapTime from './setLapTime'
+import * as powerup from './powerup'
 import * as Color from './constant/color'
 
 // Hack to make Matter.Bodies.fromVertices work
@@ -173,6 +174,7 @@ window.debug = {
   logging: false,
   behaviors: () => l2.getAllBehaviors().map(b => b.id),
   setLapTime,
+  spawnPowerup: powerup.spawn,
 }
 
 const boot = async () => {
@@ -237,6 +239,7 @@ const boot = async () => {
 
   stage(gameCode)
   leaderboard.renderFrame()
+  powerup.startSpawning()
   createBot('DEFAULT')
 }
 
