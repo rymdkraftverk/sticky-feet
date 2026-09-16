@@ -46,7 +46,7 @@ export const enforceRunning = (
   return add(correctionVelocity, velocity)
 }
 
-const lapTime = (slows: number, braking: boolean) => (
+export const lapTime = (slows: number, braking: boolean) => (
   state.lapTime
   * (SLOW_FACTOR ** slows)
   + (braking ? Math.sign(state.lapTime) * BRAKE_STRENGTH : 0)

@@ -10,7 +10,7 @@ import {
   SIDEBAR_WIDTH,
   TUTORIAL_MODE,
 } from './constant'
-import createFigure from './player/figure'
+import createFigure, { type Figure } from './player/figure'
 
 const BACKGROUND_X = GAME_WIDTH - SIDEBAR_WIDTH
 
@@ -27,9 +27,10 @@ const IDLE_ANIMATION_SPEED = 0.02
 const rows: PIXI.Container[] = []
 
 const renderRow = ({
-  index, name, hex, score,
+  index, figure, name, hex, score,
 }: {
   index: number
+  figure: Figure
   name: string
   hex: string
   score: number
@@ -39,7 +40,7 @@ const renderRow = ({
   container.x = BACKGROUND_X + 5
   state.pixiStage.addChild(container)
 
-  const figure = createFigure('front', hex, IDLE_ANIMATION_SPEED)
+  const figureSprite = createFigure(figure, 'front', hex, IDLE_ANIMATION_SPEED)
 
   const nameObject = new PIXI.Text({ text: name, style: { ...textStyle, fontSize: 14 } })
   nameObject.x = TEXT_X
@@ -51,7 +52,7 @@ const renderRow = ({
   scoreText.y = TEXT_Y_OFFSET
   l2.makeResizable(scoreText)
 
-  container.addChild(figure)
+  container.addChild(figureSprite)
   container.addChild(nameObject)
   container.addChild(scoreText)
   rows.push(container)
@@ -89,9 +90,10 @@ const renderContent = () => {
     .players
     .slice()
     .sort((a, b) => b.score - a.score)
-    .forEach(({ score, color }, index) => {
+    .forEach(({ score, color, figure }, index) => {
       renderRow({
         index,
+        figure,
         name: color.name,
         hex: color.hex,
         score,

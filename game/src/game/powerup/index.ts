@@ -20,7 +20,7 @@ import type { Powerup } from '../types'
 
 const KINDS = [reverse]
 
-const BODY_RADIUS = 22
+export const BODY_RADIUS = 22
 
 const randomElement = <T>(list: T[]) => list[Math.floor(Math.random() * list.length)]
 

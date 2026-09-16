@@ -6,7 +6,10 @@ const MAX_WIDTH = 2048
 const SPRITE_PIXEL = 2
 const PIXEL: Record<string, number> = { chevron: 4 }
 
-const LAYERED = ['astronaut-side-1', 'astronaut-side-2', 'astronaut-front-1', 'astronaut-front-2']
+const LAYERED = [
+  'astronaut-side-1', 'astronaut-side-2', 'astronaut-front-1', 'astronaut-front-2',
+  'robot-side-1', 'robot-side-2', 'robot-front-1', 'robot-front-2',
+]
 
 const SUIT = 'suit'
 const GEAR = 'gear'

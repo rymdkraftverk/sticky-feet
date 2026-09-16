@@ -14,11 +14,13 @@ import borderPatrol from '../borderPatrol'
 import pointAtMiddle from '../pointAtMiddle'
 import scopeFollowsPlayer from '../scopeFollowsPlayer'
 import scaleSprite, { UPRIGHT } from '../scaleSprite'
-import createFigure from './figure'
+import createFigure, { type Figure } from './figure'
 import type { Player } from '../types'
 
 const RUN_ANIMATION_SPEED = 0.08
 const FEET_Y = 18
+
+export const BODY_RADIUS = 15
 
 const findColor = (name: string) => {
   const color = Colors.find(c => c.name === name)
@@ -33,16 +35,16 @@ const createBody = () => {
   const body = Matter.Bodies.circle(
     x,
     y,
-    15,
+    BODY_RADIUS,
     { friction: 0 },
   )
   body.entityType = 'player'
   return body
 }
 
-const createSprite = (hex: string) => {
-  const figure = createFigure('side', hex, RUN_ANIMATION_SPEED)
-  figure.position.set(-figure.width / 2, FEET_Y - figure.height)
+const createSprite = (figure: Figure, hex: string) => {
+  const figureSprite = createFigure(figure, 'side', hex, RUN_ANIMATION_SPEED)
+  figureSprite.position.set(-figureSprite.width / 2, FEET_Y - figureSprite.height)
 
   const splat = new PIXI.Sprite(l2.getTexture('splat'))
   splat.anchor.set(0.5, 1)
@@ -51,18 +53,18 @@ const createSprite = (hex: string) => {
 
   const sprite = new PIXI.Container()
   scaleSprite(sprite, UPRIGHT)
-  sprite.addChild(figure, splat)
+  sprite.addChild(figureSprite, splat)
 
   return { sprite, splat }
 }
 
-export default (id: string) => {
+export default (id: string, figure: Figure) => {
   const colorName = state.availableColors.pop()
   if (!colorName) {
     throw new Error('No colours left to hand out')
   }
   const color = findColor(colorName)
-  const { sprite, splat } = createSprite(color.hex)
+  const { sprite, splat } = createSprite(figure, color.hex)
   const body = createBody()
 
   const player: Player = {
@@ -78,6 +80,7 @@ export default (id: string) => {
     jumpPower: 0,
     braking: false,
     cooldowns: {},
+    figure,
     grounded: false,
   }
 

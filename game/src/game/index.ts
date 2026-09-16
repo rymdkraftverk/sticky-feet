@@ -4,31 +4,23 @@ import decomp from 'poly-decomp'
 import signaling, { type Initiator } from 'rkv-signaling'
 import * as Sentry from '@sentry/browser'
 
-import { Event, Colors, Channel } from 'common'
+import { Event, Channel } from 'common'
 import * as l2 from 'l2'
 import Sound from './sound'
+import input from './input'
+import join, { hasRoom } from './player/join'
+import leave from './player/leave'
+import * as bot from './bot'
+import botButtons from './botButtons'
 import leaderboard from './leaderboard'
-import updateScoreIndicators from './updateScoreIndicators'
 import http from './http'
 import state from './state'
 import stage from './stage'
-import jump from './jump'
-import brake from './brake'
-import shake from './shake'
-import scope from './scope'
-import createPlayer from './player/create'
-import removePlayer from './player/remove'
-import playerRepository from './player/repository'
 import qrCode from './qrCode'
-import createProjectile from './projectile/create'
-import cooldown from './cooldown'
 import collider from './collider'
-import debugLog from './debugLog'
 import {
   GAME_HEIGHT,
   GAME_WIDTH,
-  PROJECTILE_COOLDOWN,
-  SHAKE_COOLDOWN,
 } from './constant'
 import debugMatter from './util/debugMatter'
 import setLapTime from './setLapTime'
@@ -55,81 +47,25 @@ Matter.Events.on(engine, 'collisionStart', collider)
 
 Sound.MUSIC.play()
 
-const onPlayerData = (id: string) => (message: { event: string, payload: never }) => {
-  const { event, payload } = message
-
-  switch (event) {
-    case Event.ToGame.BRAKE:
-      brake.start(id)
-      break
-    case Event.ToGame.JUMP:
-      jump(id)
-      brake.stop(id)
-      break
-    case Event.ToGame.SHAKE:
-      cooldown(
-        id,
-        {
-          id: 'shake',
-          duration: SHAKE_COOLDOWN,
-          ability: () => {
-            shake(id)
-          },
-        },
-      )
-      break
-    case Event.ToGame.DRAG:
-      scope.aim(
-        id,
-        payload,
-      )
-      break
-    case Event.ToGame.DRAG_END:
-      scope.reset(id)
-      cooldown(
-        id,
-        {
-          id: 'projectile',
-          duration: PROJECTILE_COOLDOWN,
-          ability: () => {
-            createProjectile(
-              id,
-              payload,
-            )
-          },
-        },
-      )
-      break
-    default:
-      console.warn(`Unhandled event: ${event}`)
-  }
-}
-
-const morePlayersAllowed = () => playerRepository.count() < Colors.length
-
 const onPlayerJoin = ({
   id,
   setOnData,
   send,
   close,
 }: Initiator) => {
-  if (!morePlayersAllowed()) {
+  if (!hasRoom()) {
     send(Channel.RELIABLE, { event: Event.FromGame.FULL })
     close()
     return
   }
 
-  setOnData(onPlayerData(id))
+  setOnData(input(id))
 
   const {
     color: {
       hex,
     },
-  } = createPlayer(id)
-
-  Sound.UI_04.play()
-
-  updateScoreIndicators()
+  } = join(id, 'astronaut')
 
   send(Channel.RELIABLE, {
     event: Event.FromGame.YOU_JOINED,
@@ -139,22 +75,6 @@ const onPlayerJoin = ({
     },
   })
 }
-
-const onPlayerLeave = (id: string) => {
-  if (!playerRepository.has(id)) return
-  removePlayer(id)
-  updateScoreIndicators()
-}
-
-const createBot = (idSuffix = Date.now().toString()) => {
-  onPlayerJoin({
-    id: `BOT_${idSuffix}`,
-    setOnData: () => {},
-    send: debugLog,
-    close: () => {},
-  })
-}
-
 
 const start = () => {
   l2.getApp().ticker.start()
@@ -167,7 +87,8 @@ const stop = () => {
 window.debug = {
   ...window.debug,
   // Add console commands here
-  createBot,
+  createBot: bot.add,
+  removeBot: bot.remove,
   start,
   stop,
   state,
@@ -232,15 +153,16 @@ const boot = async () => {
     wsAddress:        WS_ADDRESS,
     receiverId:       gameCode,
     onInitiatorJoin:  onPlayerJoin,
-    onInitiatorLeave: onPlayerLeave,
+    onInitiatorLeave: leave,
   })
 
   qrCode.display(CONTROLLER_HOST, gameCode)
 
   stage(gameCode)
   leaderboard.renderFrame()
+  botButtons()
   powerup.startSpawning()
-  createBot('DEFAULT')
+  bot.add('DEFAULT')
 }
 
 boot()

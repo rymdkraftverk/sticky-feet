@@ -1,5 +1,6 @@
 import type * as PIXI from 'pixi.js'
 import type * as Matter from 'matter-js'
+import type { Figure } from './player/figure'
 
 export type Color = { name: string, hex: string }
 
@@ -11,6 +12,7 @@ export type Player = {
   braking: boolean
   color: Color
   cooldowns: Record<string, boolean>
+  figure: Figure
   grounded: boolean
   id: string
   jumpPower: number

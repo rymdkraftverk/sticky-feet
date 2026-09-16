@@ -17,6 +17,8 @@ import {
 import { subtract, type Vector } from '../linearAlgebra'
 import type { Projectile } from '../types'
 
+export const BODY_RADIUS = 10
+
 const exceedsBorder = (position: Vector) => {
   const { x, y } = subtract(position, DOME_CENTER)
 
@@ -71,7 +73,7 @@ export default (id: string, { angle }: { angle: number }) => {
   projectileSprite.rotation = angle
   projectileSprite.position.set(originX, originY)
 
-  const projectileBody = Matter.Bodies.circle(originX, originY, 10, {
+  const projectileBody = Matter.Bodies.circle(originX, originY, BODY_RADIUS, {
     isSensor: true,
   })
   projectileBody.entityType = 'projectile'
