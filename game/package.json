@@ -20,7 +20,7 @@
     "pixi.js": "^8.20.1",
     "poly-decomp": "^0.3.0",
     "qrcode": "^1.4.1",
-    "rkv-signaling": "github:rymdkraftverk/rkv-signaling#f6ef216738fbeb9643351a5d190372c137bd30ac"
+    "rkv-signaling": "github:rymdkraftverk/rkv-signaling#dc64824440c0bc3a635353db7a55fbfaeb718680"
   },
   "devDependencies": {
     "@types/howler": "^2.2.13",
