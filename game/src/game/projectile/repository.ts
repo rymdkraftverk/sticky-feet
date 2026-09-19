@@ -9,6 +9,8 @@ const find = (id: string) => {
   return projectile
 }
 
+const hasBody = (bodyId: number) => state.projectiles.some(p => p.body.id === bodyId)
+
 const findByBody = (bodyId: number) => {
   const projectile = state.projectiles.find(p => p.body.id === bodyId)
   if (!projectile) {
@@ -31,5 +33,6 @@ export default {
   add,
   find,
   findByBody,
+  hasBody,
   remove,
 }

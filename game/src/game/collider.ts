@@ -52,21 +52,17 @@ const playerPlayerCollision = (idA: number, idB: number) => {
   updateScoreIndicators()
 }
 
-const powerupPlayerCollision = (powerupBodyId: number) => {
-  if (!powerupRepository.hasBody(powerupBodyId)) return
-
-  powerup.activate(powerupRepository.findByBody(powerupBodyId))
+const isLive = (body: Matter.Body) => {
+  switch (body.entityType) {
+    case 'player': return playerRepository.hasBody(body.id)
+    case 'projectile': return projectileRepository.hasBody(body.id)
+    case 'powerup': return powerupRepository.hasBody(body.id)
+    default: return true
+  }
 }
 
-export default (event: Matter.IEventCollision<Matter.Engine>) => {
-  const {
-    pairs: [
-      {
-        bodyA,
-        bodyB,
-      },
-    ],
-  } = event
+const collide = ({ bodyA, bodyB }: Matter.Pair) => {
+  if (!isLive(bodyA) || !isLive(bodyB)) return
 
   const [first, second] = [bodyA, bodyB]
     .slice()
@@ -83,7 +79,7 @@ export default (event: Matter.IEventCollision<Matter.Engine>) => {
   }
 
   if (first.entityType === 'player' && second.entityType === 'powerup') {
-    powerupPlayerCollision(second.id)
+    powerup.activate(powerupRepository.findByBody(second.id))
     return
   }
 
@@ -92,4 +88,8 @@ export default (event: Matter.IEventCollision<Matter.Engine>) => {
   }
 
   console.log('UNKNOWN COLLISION', [first.id, second.id])
+}
+
+export default (event: Matter.IEventCollision<Matter.Engine>) => {
+  event.pairs.forEach(collide)
 }

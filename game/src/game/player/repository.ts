@@ -13,6 +13,8 @@ const find = (id: string) => {
 
 const has = (id: string) => state.players.some(p => p.id === id)
 
+const hasBody = (bodyId: number) => state.players.some(p => p.body.id === bodyId)
+
 const findByBody = (bodyId: number) => {
   const player = state.players.find(p => p.body.id === bodyId)
   if (!player) {
@@ -40,5 +42,6 @@ export default {
   find,
   findByBody,
   has,
+  hasBody,
   remove,
 }

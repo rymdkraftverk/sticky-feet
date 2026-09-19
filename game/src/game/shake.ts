@@ -12,6 +12,7 @@ const pauseMiddlePointing = (id: string) => {
   delete player.behaviors.pointAtMiddleId
 
   l2.once(() => {
+    if (!playerRepository.has(player.id)) return
     player.behaviors.pointAtMiddleId = pointAtMiddle(player.id)
   }, DURATION)
 }
