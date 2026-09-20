@@ -26,7 +26,7 @@ const projectilePlayerCollision = (playerId: number, projectileId: number) => {
   if (player.id !== projectile.firedBy) {
     slow(player.id)
     removeProjectile(projectile.id)
-    Sound.PROJECTILE_HIT.play()
+    Sound.PROJECTILE_HIT()
   }
 }
 
@@ -45,7 +45,7 @@ const playerPlayerCollision = (idA: number, idB: number) => {
     leadingPlayer.body,
     spawnPosition(),
   )
-  Sound.KILL.play()
+  Sound.KILL()
 
   // Distribute score
   trailingPlayer.score += 1

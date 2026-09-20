@@ -94,5 +94,5 @@ export default (id: string, { angle }: { angle: number }) => {
     projectileBorderPatrolId: borderPatrolBehavior(projectile.id),
   }
 
-  Sound.PROJECTILE_SHOOT.play()
+  Sound.PROJECTILE_SHOOT()
 }

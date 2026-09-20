@@ -26,5 +26,5 @@ export default (id: string) => {
   const jumpVector = scale(jumpStrength, jumpDirection)
 
   Matter.Body.setVelocity(body, add(jumpVector, body.velocity))
-  Sound.JUMP.play()
+  Sound.JUMP()
 }

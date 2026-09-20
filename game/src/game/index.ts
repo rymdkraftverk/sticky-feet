@@ -6,7 +6,8 @@ import * as Sentry from '@sentry/browser'
 
 import { Event, Channel } from 'common'
 import * as l2 from 'l2'
-import Sound from './sound'
+import { playTrack } from 'l2/sound'
+import { Track } from './sound'
 import input from './input'
 import join, { hasRoom } from './player/join'
 import leave from './player/leave'
@@ -45,7 +46,7 @@ state.matterWorld.gravity.y = 0
 
 Matter.Events.on(engine, 'collisionStart', collider)
 
-Sound.MUSIC.play()
+playTrack(Track.MUSIC)
 
 const onPlayerJoin = ({
   id,

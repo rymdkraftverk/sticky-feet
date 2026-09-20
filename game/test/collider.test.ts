@@ -6,7 +6,7 @@ import state from '../src/game/state'
 import type { Player, Projectile } from '../src/game/types'
 
 vi.mock('../src/game/sound', () => ({
-  default: new Proxy({}, { get: () => ({ play: () => {} }) }),
+  default: new Proxy({}, { get: () => () => {} }),
 }))
 
 const body = (entityType: Matter.Body['entityType'], x: number) => {

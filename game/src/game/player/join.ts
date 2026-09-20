@@ -10,7 +10,7 @@ export const hasRoom = () => playerRepository.count() < Colors.length
 
 export default (id: string, figure: Figure) => {
   const player = createPlayer(id, figure)
-  Sound.UI_04.play()
+  Sound.UI_04()
   updateScoreIndicators()
   return player
 }
