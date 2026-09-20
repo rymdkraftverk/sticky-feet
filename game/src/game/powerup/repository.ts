@@ -1,15 +1,14 @@
+import * as l2 from 'l2'
 import state from '../state'
 import type { Powerup } from '../types'
 
-const count = () => state.powerups.length
-
-const find = (id: string) => {
-  const powerup = state.powerups.find(p => p.id === id)
-  if (!powerup) {
-    throw new Error(`No powerup with id ${id}`)
-  }
-  return powerup
-}
+const powerups = l2.repository<Powerup>({
+  name:  'powerup',
+  read:  () => state.powerups,
+  write: (updated) => {
+    state.powerups = updated
+  },
+})
 
 const hasBody = (bodyId: number) => state.powerups.some(p => p.body.id === bodyId)
 
@@ -21,21 +20,8 @@ const findByBody = (bodyId: number) => {
   return powerup
 }
 
-const add = (powerup: Powerup) => {
-  state.powerups = state.powerups.concat(powerup)
-  return state.powerups
-}
-
-const remove = (id: string) => {
-  state.powerups = state.powerups.filter(p => p.id !== id)
-  return state.powerups
-}
-
 export default {
-  add,
-  count,
-  find,
+  ...powerups,
   findByBody,
   hasBody,
-  remove,
 }

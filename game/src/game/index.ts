@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js'
 import * as Matter from 'matter-js'
 import decomp from 'poly-decomp'
-import signaling, { type Initiator } from 'rkv-signaling'
+import { type Initiator } from 'rkv-signaling'
+import { host, showQrCode } from 'rkv-signaling/game'
 import * as Sentry from '@sentry/browser'
 
 import { Event, Channel } from 'common'
@@ -14,10 +15,8 @@ import leave from './player/leave'
 import * as bot from './bot'
 import botButtons from './botButtons'
 import leaderboard from './leaderboard'
-import http from './http'
 import state from './state'
 import stage from './stage'
-import qrCode from './qrCode'
 import collider from './collider'
 import {
   GAME_HEIGHT,
@@ -34,6 +33,7 @@ window.decomp = decomp
 const DEBUG_MATTER = false
 
 const WS_ADDRESS = process.env.WS_ADDRESS || 'ws://localhost:3000'
+const HTTP_ADDRESS = process.env.HTTP_ADDRESS || 'http://localhost:3000'
 const CONTROLLER_HOST = process.env.CONTROLLER_HOST || 'localhost:4001'
 
 PIXI.TextureStyle.defaultOptions.scaleMode = 'nearest'
@@ -146,18 +146,20 @@ const boot = async () => {
 
   l2.useSpritesheets([await PIXI.Assets.load('spritesheet/main.json')])
 
-  const { gameCode } = await http.createGame()
-
-  console.log(`[Game created] ${gameCode}`)
-
-  signaling.runReceiver({
+  const gameCode = await host({
+    httpAddress:      HTTP_ADDRESS,
     wsAddress:        WS_ADDRESS,
-    receiverId:       gameCode,
     onInitiatorJoin:  onPlayerJoin,
     onInitiatorLeave: leave,
   })
 
-  qrCode.display(CONTROLLER_HOST, gameCode)
+  console.log(`[Game created] ${gameCode}`)
+
+  showQrCode({
+    controllerHost: CONTROLLER_HOST,
+    gameCode,
+    mount:          gameElement,
+  })
 
   stage(gameCode)
   leaderboard.renderFrame()

@@ -15,12 +15,12 @@
     "@sentry/browser": "^10.74.0",
     "common": "file:../common",
     "howler": "^2.1.2",
-    "l2": "github:rymdkraftverk/level2#9d73823b716113393d43b18520c3fcd34bee1c4c",
+    "l2": "github:rymdkraftverk/level2#a5923acab177cc21b43274a1bba66c4dd674abe1",
     "matter-js": "^0.14.2",
     "pixi.js": "^8.20.1",
     "poly-decomp": "^0.3.0",
     "qrcode": "^1.4.1",
-    "rkv-signaling": "github:rymdkraftverk/rkv-signaling#5007a7c199a87989f51c7626a0f612fbbe96d263"
+    "rkv-signaling": "github:rymdkraftverk/rkv-signaling#0baa608f81067712623ba609eaad6e02b610cbbb"
   },
   "devDependencies": {
     "@types/howler": "^2.2.13",

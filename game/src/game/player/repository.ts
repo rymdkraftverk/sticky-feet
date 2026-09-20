@@ -1,17 +1,14 @@
+import * as l2 from 'l2'
 import state from '../state'
 import type { Player } from '../types'
 
-const count = () => state.players.length
-
-const find = (id: string) => {
-  const player = state.players.find(p => p.id === id)
-  if (!player) {
-    throw new Error(`No player with id ${id}`)
-  }
-  return player
-}
-
-const has = (id: string) => state.players.some(p => p.id === id)
+const players = l2.repository<Player>({
+  name:  'player',
+  read:  () => state.players,
+  write: (updated) => {
+    state.players = updated
+  },
+})
 
 const hasBody = (bodyId: number) => state.players.some(p => p.body.id === bodyId)
 
@@ -23,25 +20,8 @@ const findByBody = (bodyId: number) => {
   return player
 }
 
-const all = () => state.players
-
-const add = (player: Player) => {
-  state.players = state.players.concat(player)
-  return state.players
-}
-
-const remove = (id: string) => {
-  state.players = state.players.filter(p => p.id !== id)
-  return state.players
-}
-
 export default {
-  add,
-  all,
-  count,
-  find,
+  ...players,
   findByBody,
-  has,
   hasBody,
-  remove,
 }
