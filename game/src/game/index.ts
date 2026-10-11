@@ -143,6 +143,9 @@ const boot = async () => {
   l2.fitToWindow()
 
   await document.fonts.load('10pt "patchy-robots"')
+    .catch(() => {
+      console.warn('Unable to load font')
+    })
 
   l2.useSpritesheets([await PIXI.Assets.load('spritesheet/main.json')])
 
